@@ -2,9 +2,8 @@
 
 Set of decorated functioins which will be turned into nodes. See examples under **PyFlow/FunctionLibraries**.
 """
+import importlib
 import os
-from inspect import getmembers
-from inspect import isfunction
 
 _libs = {}
 _foos = {}
@@ -16,14 +15,12 @@ def _getFunctions():
         if lib.endswith(".py") and "__init__" not in lib:
             libName = lib.split(".")[0]
             try:
-                exec('from {0} import {0}'.format(libName))
-                exec('lib_class = {0}'.format(libName))
-
-                libInstance = lib_class()
+                fname = "PyFlow.FunctionLibraries.{}".format(libName)
+                module = importlib.import_module(fname)
+                class_ = getattr(module, libName)
+                libInstance = class_()
                 foos = libInstance.getFunctions()
-
                 _libs[libName] = foos
-
                 for f in _libs[libName]:
                     _foos[f[0]] = f[1]
 
@@ -32,6 +29,28 @@ def _getFunctions():
                 print(e, libName)
                 pass
 
+# def _getFunctions():
+#     # append from FunctionLibraries
+#     for lib in os.listdir(os.path.dirname(__file__)):
+#         if lib.endswith(".py") and "__init__" not in lib:
+#             libName = lib.split(".")[0]
+#             try:
+#                 exec('from {0} import {0}'.format(libName))
+#                 exec('lib_class = {0}'.format(libName))
+#
+#                 libInstance = lib_class()
+#                 foos = libInstance.getFunctions()
+#
+#                 _libs[libName] = foos
+#
+#                 for f in _libs[libName]:
+#                     _foos[f[0]] = f[1]
+#
+#             except Exception as e:
+#                 # not load lib if any errors or unknown modules etc.
+#                 print(e, libName)
+#                 pass
+#
 
 ## Get registered function library by name
 # @param[in] libName library name (string)

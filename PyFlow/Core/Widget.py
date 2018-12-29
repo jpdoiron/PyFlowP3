@@ -21,6 +21,11 @@ from PySide2.QtWidgets import QUndoStack
 from PySide2.QtWidgets import QVBoxLayout
 from PySide2.QtWidgets import QWidget
 
+from PyFlow.Commands.ConnectPin import ConnectPin
+from PyFlow.Commands.CreateNode import CreateNode
+from PyFlow.Commands.Move import Move
+from PyFlow.Commands.RemoveEdges import RemoveEdges
+from PyFlow.Commands.RemoveNodes import RemoveNodes
 from .AbstractGraph import *
 from .Edge import Edge
 from .GetVarNode import GetVarNode
@@ -28,7 +33,6 @@ from .Node import Node
 from .Node import NodeName
 from .SetVarNode import SetVarNode
 from .Variable import VariableBase
-from .. import Commands
 from .. import FunctionLibraries
 from .. import Nodes
 
@@ -156,7 +160,7 @@ class SceneClass(QGraphicsScene):
 
     def OnSelectionChanged(self):
         # selectedNodesUids = self.parent().selectedNodes()
-        # cmdSelect = Commands.Select(selectedNodesUids, self.parent())
+        # cmdSelect = Select(selectedNodesUids, self.parent())
         # self.parent().undoStack.push(cmdSelect)
         pass
 
@@ -724,7 +728,7 @@ class GraphWidget(QGraphicsView, Graph):
     def killSelectedNodes(self):
         selectedNodes = self.selectedNodes()
         if self.isShortcutsEnabled() and len(selectedNodes) > 0:
-            cmdRemove = Commands.RemoveNodes(selectedNodes, self)
+            cmdRemove = RemoveNodes(selectedNodes, self)
             self.undoStack.push(cmdRemove)
             clearLayout(self.parent.formLayout)
 
@@ -868,7 +872,7 @@ class GraphWidget(QGraphicsView, Graph):
                 p.setY(y)
                 nodesMoveInfo[n.uid]['to'] = p
 
-        self.undoStack.push(Commands.Move(dict(nodesMoveInfo), self))
+        self.undoStack.push(Move(dict(nodesMoveInfo), self))
 
     def findGoodPlaceForNewNode(self):
         polygon = self.mapToScene(self.viewport().rect())
@@ -1026,7 +1030,7 @@ class GraphWidget(QGraphicsView, Graph):
 
         # pass copy
         if bMoved:
-            cmdMove = Commands.Move(dict(self.nodesMoveInfo), self)
+            cmdMove = Move(dict(self.nodesMoveInfo), self)
             self.undoStack.push(cmdMove)
         self.nodesMoveInfo.clear()
 
@@ -1127,7 +1131,7 @@ class GraphWidget(QGraphicsView, Graph):
 
     def _createNode(self, jsonTemplate):
         nodeInstance = getNodeInstance(Nodes, jsonTemplate['type'], jsonTemplate['name'], self)
-        nodeInstance.setPosition(jsonTemplate["x"], jsonTemplate["y"])
+
 
         # If not found, check variables
         if nodeInstance is None:
@@ -1135,6 +1139,8 @@ class GraphWidget(QGraphicsView, Graph):
                 nodeInstance = self.createVariableGetter(jsonTemplate)
             if jsonTemplate['type'] == 'SetVarNode':
                 nodeInstance = self.createVariableSetter(jsonTemplate)
+
+        nodeInstance.setPosition(jsonTemplate["x"], jsonTemplate["y"])
 
         # set pins data
         for inpJson in jsonTemplate['inputs']:
@@ -1164,7 +1170,7 @@ class GraphWidget(QGraphicsView, Graph):
         return nodeInstance
 
     def createNode(self, jsonTemplate):
-        cmd = Commands.CreateNode(self, jsonTemplate)
+        cmd = CreateNode(self, jsonTemplate)
         self.undoStack.push(cmd)
         return cmd.nodeInstance
 
@@ -1187,11 +1193,11 @@ class GraphWidget(QGraphicsView, Graph):
 
     def addEdge(self, src, dst):
         if self.canConnectPins(src, dst):
-            cmd = Commands.ConnectPin(self, src, dst)
+            cmd = ConnectPin(self, src, dst)
             self.undoStack.push(cmd)
 
     def removeEdgeCmd(self, edges):
-        cmdRemoveEdges = Commands.RemoveEdges(self, [e.serialize() for e in edges])
+        cmdRemoveEdges = RemoveEdges(self, [e.serialize() for e in edges])
         self.undoStack.push(cmdRemoveEdges)
 
     def removeEdge(self, edge):

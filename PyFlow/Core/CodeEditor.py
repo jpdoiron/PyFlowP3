@@ -51,7 +51,6 @@ When save button is pressed, function with code you wrote will be generated and 
 """
 
 import builtins
-import weakref
 from keyword import kwlist
 from types import MethodType
 
@@ -64,7 +63,6 @@ from PySide2.QtWidgets import QWidget
 
 from . import PythonSyntax
 from .AbstractGraph import *
-from ..Core import Node
 from ..UI import CodeEditor_ui
 from ..UI import PinWidget_ui
 
@@ -159,6 +157,7 @@ class WPinWidget(QWidget, PinWidget_ui.Ui_Form):
         for i in self.items:
             self.cbType.addItem(i.name, i.value)
 
+
     @staticmethod
     def construct(name='pinName', hideLabel=False, dataType=DataTypes.Float, editor=None):
         w = WPinWidget(editor)
@@ -169,6 +168,13 @@ class WPinWidget(QWidget, PinWidget_ui.Ui_Form):
         else:
             w.cbHideLabel.setCheckState(QtCore.Qt.Unchecked)
 
+        def findData(self, value):
+            for i in range(self.count()):
+                if self.itemData(i) == value:
+                    return i
+            return -1
+
+        w.cbType.findData = findData
         w.cbType.setCurrentIndex(w.cbType.findData(dataType))
         return w
 
@@ -314,7 +320,7 @@ class WCodeEditor(QWidget, CodeEditor_ui.Ui_CodeEditorWidget):
         code = self.plainTextEdit.toPlainText()
         foo = WCodeEditor.wrapCodeToFunction('compute', code)
         exec(foo)
-        node.compute = MethodType(compute, node, Node)
+        node.compute = MethodType(compute, node)
         node.currentComputeCode = code
 
         for index in range(self.lwOutputs.count()):

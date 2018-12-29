@@ -1,15 +1,12 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from ..Core import Node
-from PySide2 import QtGui
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QGraphicsProxyWidget
-from PySide2.QtWidgets import QMenu
-from ..Core.CodeEditor import WCodeEditor
-import weakref
 import uuid
 from types import MethodType
-from collections import OrderedDict
+
+from PySide2 import QtGui
+from PySide2.QtWidgets import QMenu
+
+from ..Core import Node
+from ..Core.AbstractGraph import *
+from ..Core.CodeEditor import WCodeEditor
 
 
 class pythonNode(Node, NodeBase):
@@ -51,7 +48,7 @@ class pythonNode(Node, NodeBase):
         self.currentComputeCode = jsonTemplate['computeCode']
         foo = WCodeEditor.wrapCodeToFunction('compute', jsonTemplate['computeCode'])
         exec(foo)
-        self.compute = MethodType(compute, self, Node)
+        self.compute = MethodType(compute, self)
 
         # restore pins
         for inpJson in jsonTemplate['inputs']:

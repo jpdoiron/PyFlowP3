@@ -1,11 +1,11 @@
-from .AGraphCommon import *
-import weakref
-import uuid
 import inspect
 import keyword
+import uuid
+import weakref
 from collections import OrderedDict
-import itertools
 from copy import deepcopy
+
+from .AGraphCommon import *
 
 
 class ISerializable(object):
@@ -296,9 +296,10 @@ class PinBase(IPin):
         if not self.hasConnections():
             if self.dataType == DataTypes.Array:
                 return []
-            if self.dirty:
-                self.parent().compute()
-            self.setClean()
+            #no need to check for dirty, it has no connection
+            # if self.dirty:
+            #     self.parent().compute()
+            # self.setClean()
             return self.currentData()
 
         if self.direction == PinDirection.Output:

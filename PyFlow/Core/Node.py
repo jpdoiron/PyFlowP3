@@ -271,7 +271,7 @@ class Node(QGraphicsItem, NodeBase):
             if nodeType == NodeTypes.Callable:
                 outExec.call()
 
-        inst.compute = MethodType(compute, inst, Node)
+        inst.compute = MethodType(compute, inst)
 
         # create execs if callable
         if nodeType == NodeTypes.Callable:

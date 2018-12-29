@@ -16,17 +16,33 @@ def _REGISTER_PIN_TYPE(pinSubclass):
         raise Exception("Error registering pin type {0}\n pin with ID [{1}] already registered".format(pinSubclass.__name__))
 
 
+
 # append from Pins
 for n in os.listdir(os.path.dirname(__file__)):
     if n.endswith(".py") and "__init__" not in n:
         pinName = n.split(".")[0]
         try:
-            exec("from .{0} import {0}".format(pinName))
+            exec("from PyFlow.Pins.{0} import {0}".format(pinName))
             exec("pin_class = {0}".format(pinName))
             _REGISTER_PIN_TYPE(pin_class)
         except Exception as e:
             print((e, pinName))
             pass
+
+
+
+
+# # append from Pins
+# for n in os.listdir(os.path.dirname(__file__)):
+#     if n.endswith(".py") and "__init__" not in n:
+#         pinName = n.split(".")[0]
+#         try:
+#             exec("from .{0} import {0}".format(pinName))
+#             exec("pin_class = {0}".format(pinName))
+#             _REGISTER_PIN_TYPE(pin_class)
+#         except Exception as e:
+#             print((e, pinName))
+#             pass
 
 
 def findPinClassByType(dataType):

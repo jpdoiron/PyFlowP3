@@ -1,31 +1,25 @@
+import imp
 import os
-import sys
 import subprocess
-from PySide2 import QtGui
+import sys
+from time import clock
+
 from PySide2 import QtCore
-from PySide2.QtWidgets import QMainWindow
+from PySide2 import QtGui
 from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QStyleFactory
-from PySide2.QtWidgets import QTextEdit
-from PySide2.QtWidgets import QMessageBox
-from PySide2.QtWidgets import QAction
 from PySide2.QtWidgets import QInputDialog
-from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMessageBox
 from PySide2.QtWidgets import QUndoView
-from .Core.Widget import GraphWidget
-from .Core.Widget import Direction
-from .Core.Widget import NodesBox
-from .Core.VariablesWidget import VariablesWidget
-from . import Nodes
+
 from . import Commands
 from . import FunctionLibraries
+from . import Nodes
 from . import Pins
-import SubGraphs
+from .Core.VariablesWidget import VariablesWidget
+from .Core.Widget import Direction
+from .Core.Widget import GraphWidget
 from .UI import GraphEditor_ui
-import json
-from time import clock
-import imp
-
 
 FILE_DIR = os.path.abspath(os.path.dirname(__file__))
 SETTINGS_PATH = os.path.join(FILE_DIR, "appConfig.ini")
@@ -172,7 +166,7 @@ class {0}(PinWidgetBase):
 
     @staticmethod
     def pinDataTypeHint():
-        return DataTypes.Bool, False
+        return DataTypes.Bool, Falsen
 
     def setData(self, data):
         try:

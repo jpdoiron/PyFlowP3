@@ -4,31 +4,28 @@
 
 this file is imported in almost all others files of the program
 """
-import math
-import time
-from .Settings import *
 import inspect
-from threading import Thread
+import math
+from enum import IntEnum
 from functools import wraps
 from queue import Queue
-import uuid
-import sys
-from enum import IntEnum
-from . import Enums
+from threading import Thread
 
+from . import Enums
 
 ## determines step for all floating point input widgets
 FLOAT_SINGLE_STEP = 0.01
 ## determines floating precision
 FLOAT_DECIMALS = 10
 ## determines floating minimum value
-FLOAT_RANGE_MIN = 0.1 + (-sys.maxsize - 1.0)
+FLOAT_RANGE_MIN = -1000000
 ## determines floating maximum value
-FLOAT_RANGE_MAX = sys.maxsize + 0.1
+FLOAT_RANGE_MAX = 1000000
 ## determines int minimum value
-INT_RANGE_MIN = -sys.maxsize + 0
+INT_RANGE_MIN = -1000000
 ## determines int maximum value
-INT_RANGE_MAX = sys.maxsize + 0
+INT_RANGE_MAX = 1000000
+
 
 
 ## Performs a linear interpolation
@@ -154,7 +151,7 @@ class DataTypes(IntEnum):
     Matrix44 = 10
     Quaternion = 11
     Enum = 12
-
+    Layer = 13
 
 ## Returns string representation of the data type identifier
 # See [DataTypes](@ref PyFlow.Core.AGraphCommon.DataTypes)

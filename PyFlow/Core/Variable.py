@@ -2,21 +2,20 @@
 
 Variable related classes.
 """
+from uuid import uuid4
+
 from PySide2 import QtCore
 from PySide2 import QtGui
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QLineEdit
 from PySide2.QtWidgets import QComboBox
 from PySide2.QtWidgets import QHBoxLayout
 from PySide2.QtWidgets import QLabel
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QSpacerItem
+from PySide2.QtWidgets import QLineEdit
 from PySide2.QtWidgets import QSizePolicy
-from uuid import uuid4
-import inspect
-from .AbstractGraph import *
+from PySide2.QtWidgets import QSpacerItem
+from PySide2.QtWidgets import QWidget
+
 from . import InputWidgets
+from .AbstractGraph import *
 from .. import Pins
 
 
@@ -44,6 +43,15 @@ class TypeWidget(QWidget):
 
 ## Changes type of variable
 class VarTypeComboBox(QComboBox):
+
+    def findData(self, value):
+        for i in range(self.count()):
+            if self.itemData(i) == value:
+                return i
+        return -1
+
+    QComboBox.findData = findData
+
     def __init__(self, var, parent=None):
         super(VarTypeComboBox, self).__init__(parent)
         self._bJustSpawned = True

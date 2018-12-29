@@ -3,7 +3,6 @@
 Some common variables related to appearance.
 """
 from PySide2 import QtGui
-from PySide2 import QtCore
 
 
 class Spacings:
@@ -13,6 +12,7 @@ class Spacings:
 
 
 class Colors:
+    Layer = QtGui.QColor(255, 8, 127)
     NodeBackgrounds = QtGui.QColor(30, 30, 30, 200)
     NodeSelectedPenColor = QtGui.QColor(200, 200, 200, 150)
     White = QtGui.QColor(255, 255, 255, 200)

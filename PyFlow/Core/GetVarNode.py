@@ -2,14 +2,14 @@
 
 Builtin node to acess variable value.
 """
-from .AbstractGraph import *
-from .Settings import *
-from . import Node
-from PySide2.QtWidgets import QStyle
-from PySide2.QtWidgets import QGraphicsItem
 from PySide2 import QtCore
 from PySide2 import QtGui
-from ..Commands import RemoveNodes
+from PySide2.QtWidgets import QStyle
+
+from PyFlow.Commands.RemoveNodes import RemoveNodes
+from . import Node
+from .AbstractGraph import *
+from .Settings import *
 
 
 ## Variable getter node
