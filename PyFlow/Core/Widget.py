@@ -1,50 +1,36 @@
-from PySide2 import QtCore
-from PySide2 import QtGui
-from PySide2.QtWidgets import QGraphicsScene
+import json
+import random
+from os import listdir, path
+from time import ctime
+
 from PySide2.QtWidgets import QAbstractItemView
-from PySide2.QtWidgets import QGraphicsProxyWidget
+from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QFileDialog
-from PySide2.QtWidgets import QListWidget
 from PySide2.QtWidgets import QFrame
+from PySide2.QtWidgets import QGraphicsItem
+from PySide2.QtWidgets import QGraphicsPathItem
+from PySide2.QtWidgets import QGraphicsScene
+from PySide2.QtWidgets import QGraphicsTextItem
+from PySide2.QtWidgets import QGraphicsView
+from PySide2.QtWidgets import QInputDialog
 from PySide2.QtWidgets import QLineEdit
-from PySide2.QtWidgets import QStyle
-from PySide2.QtWidgets import QScrollArea
-from PySide2.QtWidgets import QRubberBand
 from PySide2.QtWidgets import QMenu
 from PySide2.QtWidgets import QSizePolicy
-from PySide2.QtWidgets import QAction
 from PySide2.QtWidgets import QTreeWidget, QTreeWidgetItem
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QLabel
-from PySide2.QtWidgets import QMainWindow
-from PySide2.QtWidgets import QVBoxLayout
-from PySide2.QtWidgets import QGraphicsItem
-from PySide2.QtWidgets import QGraphicsRectItem
-from PySide2.QtWidgets import QGraphicsTextItem
-from PySide2.QtWidgets import QGraphicsPathItem
-from PySide2.QtWidgets import QGraphicsView
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QInputDialog
 from PySide2.QtWidgets import QUndoStack
-import math
-import platform
-import random
-from .Settings import Colors
+from PySide2.QtWidgets import QVBoxLayout
+from PySide2.QtWidgets import QWidget
+
 from .AbstractGraph import *
 from .Edge import Edge
+from .GetVarNode import GetVarNode
 from .Node import Node
 from .Node import NodeName
-from .GetVarNode import GetVarNode
 from .SetVarNode import SetVarNode
+from .Variable import VariableBase
 from .. import Commands
 from .. import FunctionLibraries
 from .. import Nodes
-from .. import Pins
-from os import listdir, path
-from .Variable import VariableBase
-from time import ctime
-import json
-import re
 
 
 def clearLayout(layout):
@@ -320,7 +306,7 @@ class NodeBoxTreeWidget(QTreeWidget):
         for libName in FunctionLibraries.libs():
             foos = FunctionLibraries.getLib(libName)
             for name, foo in foos:
-                fooArgNames = inspect.getargspec(foo).args
+                fooArgNames = inspect.getfullargspec(foo).args
                 fooInpTypes = []
                 fooOutTypes = []
                 if foo.__annotations__['nodeType'] == NodeTypes.Callable:

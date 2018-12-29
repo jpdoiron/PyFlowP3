@@ -5,28 +5,25 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
-from .Settings import *
-from PySide2 import QtCore
-from PySide2 import QtGui
-from PySide2.QtWidgets import QGraphicsTextItem
-from PySide2.QtWidgets import QGraphicsItem
-from PySide2.QtWidgets import QLabel
-from PySide2.QtWidgets import QTextBrowser
-from PySide2.QtWidgets import QGraphicsWidget
-from PySide2.QtWidgets import QGraphicsProxyWidget
-from PySide2.QtWidgets import QGraphicsLinearLayout
-from PySide2.QtWidgets import QSizePolicy
-from PySide2.QtWidgets import QStyle
-from PySide2.QtWidgets import QLineEdit
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QTreeWidgetItem
-from .AbstractGraph import *
-from ..Pins import CreatePin
+from inspect import getfullargspec
 from types import MethodType
-from .InputWidgets import getInputWidget
-from inspect import getargspec
-from .NodePainter import NodePainter
+
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QGraphicsItem
+from PySide2.QtWidgets import QGraphicsLinearLayout
+from PySide2.QtWidgets import QGraphicsProxyWidget
+from PySide2.QtWidgets import QGraphicsTextItem
+from PySide2.QtWidgets import QGraphicsWidget
+from PySide2.QtWidgets import QLabel
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtWidgets import QSizePolicy
+from PySide2.QtWidgets import QTextBrowser
+
+from .AbstractGraph import *
 from .Enums import ENone
+from .InputWidgets import getInputWidget
+from .NodePainter import NodePainter
+from ..Pins import CreatePin, pinName
 
 
 class NodeName(QGraphicsTextItem):
@@ -202,7 +199,7 @@ class Node(QGraphicsItem, NodeBase):
         if foo.__annotations__['return'] is not None:
             returnType, returnDefaultValue = foo.__annotations__['return']
         nodeType = foo.__annotations__['nodeType']
-        fooArgNames = getargspec(foo).args
+        fooArgNames = getfullargspec(foo).args
 
         @staticmethod
         def description():

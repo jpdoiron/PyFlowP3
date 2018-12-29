@@ -6,7 +6,8 @@ The main idea is to describe argument types and default values.
 
 Using this information it becomes possible to create pins according to arguments types.
 """
-from inspect import getargspec
+from inspect import getfullargspec
+
 from .AGraphCommon import *
 
 empty = {}
@@ -31,7 +32,7 @@ def IMPLEMENT_NODE(func=None, returns=empty, meta={'Category': 'Default', 'Keywo
 
         defaults = func.__defaults__
         if defaults:
-            spec = getargspec(func)
+            spec = getfullargspec(func)
 
             nanno = len(defaults)
             for (i, name) in enumerate(spec.args[-nanno:]):

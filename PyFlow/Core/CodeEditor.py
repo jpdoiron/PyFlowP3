@@ -50,30 +50,25 @@ When save button is pressed, function with code you wrote will be generated and 
 
 """
 
-from PySide2 import QtGui
-from PySide2 import QtCore
-#from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QInputDialog
-from PySide2.QtWidgets import QLineEdit
-from PySide2.QtWidgets import QListWidget
-from PySide2.QtWidgets import QListWidgetItem
-from PySide2.QtWidgets import QSizePolicy
-from PySide2.QtWidgets import QCompleter
-from PySide2.QtWidgets import QPlainTextEdit
-from ..UI import CodeEditor_ui
-from . import PythonSyntax
-from ..UI import PinWidget_ui
-from .AbstractGraph import *
-import inspect
-from types import MethodType
-from ..Core import Node
+import builtins
 import weakref
 from keyword import kwlist
-import builtins
+from types import MethodType
 
+from PySide2.QtWidgets import QCompleter
+from PySide2.QtWidgets import QListWidgetItem
+from PySide2.QtWidgets import QPlainTextEdit
+from PySide2.QtWidgets import QSizePolicy
+# from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QWidget
 
-_defaultWordList = kwlist + ['setData(', 'getData()', 'currentData()', 'dataType', 'setClean()', 'setDirty()', 'setDirty()'] + dir(__builtin__)
+from . import PythonSyntax
+from .AbstractGraph import *
+from ..Core import Node
+from ..UI import CodeEditor_ui
+from ..UI import PinWidget_ui
+
+_defaultWordList = kwlist + ['setData(', 'getData()', 'currentData()', 'dataType', 'setClean()', 'setDirty()', 'setDirty()'] + dir(builtins)
 
 
 class WCompletionTextEdit(QPlainTextEdit):
