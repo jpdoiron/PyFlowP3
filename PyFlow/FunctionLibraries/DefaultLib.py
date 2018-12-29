@@ -1,10 +1,10 @@
 import os
 from datetime import time
 
-from ..Core.AGraphCommon import *
 from ..Core.FunctionLibrary import *
 
 
+#TODO jpd rempve duplicate function
 class DefaultLib(FunctionLibraryBase):
     '''
     Default library builting stuff, variable types and conversions
