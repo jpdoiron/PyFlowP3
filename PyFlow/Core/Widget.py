@@ -3,6 +3,7 @@ import random
 from os import listdir, path
 from time import ctime
 
+from PySide2 import QtCore, QtGui
 from PySide2.QtWidgets import QAbstractItemView
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QFileDialog
@@ -26,6 +27,7 @@ from PyFlow.Commands.CreateNode import CreateNode
 from PyFlow.Commands.Move import Move
 from PyFlow.Commands.RemoveEdges import RemoveEdges
 from PyFlow.Commands.RemoveNodes import RemoveNodes
+from PyFlow.Core.Settings import Colors
 from .AbstractGraph import *
 from .Edge import Edge
 from .GetVarNode import GetVarNode

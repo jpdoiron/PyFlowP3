@@ -1,7 +1,7 @@
-from ..Core.Pin import PinWidgetBase
+from PyFlow.Core.Settings import Colors
 from ..Core.AGraphCommon import *
 from ..Core.Enums import ENone
-from ..Core.Enums import findByName
+from ..Core.Pin import PinWidgetBase
 
 
 class EnumPin(PinWidgetBase):

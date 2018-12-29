@@ -1,6 +1,8 @@
-from ..Core.Pin import PinWidgetBase
-from ..Core.AGraphCommon import *
 from pyrr import Vector3
+
+from PyFlow.Core.Settings import Colors
+from ..Core.AGraphCommon import *
+from ..Core.Pin import PinWidgetBase
 
 
 class FloatVector3Pin(PinWidgetBase):

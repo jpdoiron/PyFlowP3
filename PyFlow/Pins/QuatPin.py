@@ -1,6 +1,8 @@
-from ..Core.Pin import PinWidgetBase
-from ..Core.AGraphCommon import *
 from pyrr import Quaternion
+
+from PyFlow.Core.Settings import Colors
+from ..Core.AGraphCommon import *
+from ..Core.Pin import PinWidgetBase
 
 
 class QuatPin(PinWidgetBase):

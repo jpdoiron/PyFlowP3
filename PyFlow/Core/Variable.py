@@ -13,7 +13,9 @@ from PySide2.QtWidgets import QLineEdit
 from PySide2.QtWidgets import QSizePolicy
 from PySide2.QtWidgets import QSpacerItem
 from PySide2.QtWidgets import QWidget
+from tensorflow import Tensor
 
+from PyFlow.Core.Settings import Colors
 from . import InputWidgets
 from .AbstractGraph import *
 from .. import Pins
@@ -151,6 +153,10 @@ class VariableBase(QWidget):
         template['name'] = self.name
         template['uuid'] = str(self.uid)
         template['value'] = self.value
+
+        if isinstance(self.value, Tensor):
+            template['value'] = None
+
         template['type'] = self.dataType
         template['accessLevel'] = self.accessLevel
         return template

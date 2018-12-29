@@ -1,6 +1,8 @@
-from ..Core.Pin import PinWidgetBase
-from ..Core.AGraphCommon import *
 from pyrr import Matrix44
+
+from PyFlow.Core.Settings import Colors
+from ..Core.AGraphCommon import *
+from ..Core.Pin import PinWidgetBase
 
 
 class Matrix44Pin(PinWidgetBase):

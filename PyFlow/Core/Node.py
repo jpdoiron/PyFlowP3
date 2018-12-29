@@ -8,6 +8,7 @@ Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFro
 from inspect import getfullargspec
 from types import MethodType
 
+from PySide2 import QtCore
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QGraphicsItem
 from PySide2.QtWidgets import QGraphicsLinearLayout
@@ -19,6 +20,7 @@ from PySide2.QtWidgets import QLineEdit
 from PySide2.QtWidgets import QSizePolicy
 from PySide2.QtWidgets import QTextBrowser
 
+from PyFlow.Core.Settings import *
 from .AbstractGraph import *
 from .Enums import ENone
 from .InputWidgets import getInputWidget

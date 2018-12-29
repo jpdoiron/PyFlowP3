@@ -1,5 +1,6 @@
-from ..Core.Pin import PinWidgetBase
+from PyFlow.Core.Settings import Colors
 from ..Core.AGraphCommon import *
+from ..Core.Pin import PinWidgetBase
 
 
 class StringPin(PinWidgetBase):
