@@ -1,4 +1,3 @@
-import inspect
 import keyword
 import uuid
 import weakref
@@ -681,7 +680,7 @@ class Graph(object):
             return False
         if src.direction == dst.direction:
             if debug:
-                print('same types can not be connected')
+                print('same direction can not be connected')
             return False
         if src.parent == dst.parent:
             if debug:
@@ -691,6 +690,20 @@ class Graph(object):
             if debug:
                 print('cycles are not allowed')
             return False
+
+        if dst.constraint != None:
+            if dst.dataType != DataTypes.Any:
+                from ..Pins import CreatePin
+                from ..Pins.AnyPin import AnyPin
+                if isinstance(dst,AnyPin):
+                    free = dst.checkFree([],False)
+                    if not free:
+                        a = CreatePin("", None, dst.dataType, 0)
+                        if src.dataType not in a.supportedDataTypes():
+                            print(("[{0}] is not conmpatible with [{1}]".format(getDataTypeName(src.dataType), getDataTypeName(dst.dataType))))
+                            return False
+                        del a
+
         return True
 
     def addEdge(self, src, dst):

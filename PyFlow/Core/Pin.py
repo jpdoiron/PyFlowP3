@@ -1,10 +1,10 @@
 """@file Pin.py
 """
 from PySide2 import QtCore
-from PySide2 import QtGui
+from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QGraphicsWidget
 from PySide2.QtWidgets import QMenu
-from PySide2.QtWidgets import QApplication
+
 from .AbstractGraph import *
 from .Settings import *
 
@@ -25,6 +25,10 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
     ## Event called when setUserStruct called
     # used by enums
     userStructChanged = QtCore.Signal(object)
+    ## Event called when pin is deleted
+    OnPinDeleted = QtCore.Signal(object)
+    ## Event called when pin is deleted
+    OnPinChanged = QtCore.Signal(object)
 
     def __init__(self, name, parent, dataType, direction, **kwargs):
         QGraphicsWidget.__init__(self)
@@ -61,6 +65,14 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
         self.bLabelHidden = False
         self.bAnimate = False
         self._val = 0
+        self.constraint = None
+
+    def updateConstraint(self,constraint):
+        self.constraint = constraint
+        if constraint in self.parent()._Constraints:
+            self.parent()._Constraints[constraint].append(self)
+        else:
+            self.parent()._Constraints[constraint] = [self]
 
     def setUserStruct(self, inStruct):
         PinBase.setUserStruct(self, inStruct)

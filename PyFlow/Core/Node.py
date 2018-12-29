@@ -54,6 +54,7 @@ class NodeName(QGraphicsTextItem):
         self.bg = QtGui.QImage(':/icons/resources/white.png')
         self.icon = None
 
+
     def onDocContentsChanged(self):
         self.width = QtGui.QFontMetricsF(self.font()).width(self.toPlainText()) + 5.0
 
@@ -159,6 +160,8 @@ class Node(QGraphicsItem, NodeBase):
 
         self.tweakPosition()
         self.icon = None
+        self._Constraints = {}
+
 
     @staticmethod
     def recreate(node):
@@ -436,13 +439,15 @@ class Node(QGraphicsItem, NodeBase):
         self.update()
         QGraphicsItem.mouseReleaseEvent(self, event)
 
-    def addInputPin(self, pinName, dataType, foo=None, hideLabel=False, bCreateInputWidget=True, index=-1, userStructClass=ENone, defaultValue=None):
-        p = self._addPin(PinDirection.Input, dataType, foo, hideLabel, bCreateInputWidget, pinName, index=index, userStructClass=userStructClass, defaultValue=defaultValue)
+    def addInputPin(self, pinName, dataType, foo=None, hideLabel=False, bCreateInputWidget=True, index=-1, userStructClass=ENone, defaultValue=None,constraint=None,allowedPins=None,editable=False):
+        p = self._addPin(PinDirection.Input, dataType, foo, hideLabel, bCreateInputWidget, pinName, index=index, userStructClass=userStructClass, defaultValue=defaultValue,constraint=constraint,allowedPins=allowedPins,editable=editable)
         return p
 
-    def addOutputPin(self, pinName, dataType, foo=None, hideLabel=False, bCreateInputWidget=True, index=-1, userStructClass=ENone, defaultValue=None):
-        p = self._addPin(PinDirection.Output, dataType, foo, hideLabel, bCreateInputWidget, pinName, index=index, userStructClass=userStructClass, defaultValue=defaultValue)
+    def addOutputPin(self, pinName, dataType, foo=None, hideLabel=False, bCreateInputWidget=True, index=-1, userStructClass=ENone, defaultValue=None,constraint=None,allowedPins=None,editable=False):
+        p = self._addPin(PinDirection.Output, dataType, foo, hideLabel, bCreateInputWidget, pinName, index=index, userStructClass=userStructClass, defaultValue=defaultValue,constraint=constraint,allowedPins=allowedPins,editable=editable)
         return p
+
+
 
     @staticmethod
     def category():
@@ -563,11 +568,33 @@ class Node(QGraphicsItem, NodeBase):
         if pin:
             pin.kill()
 
-    def _addPin(self, pinDirection, dataType, foo, hideLabel=False, bCreateInputWidget=True, name='', index=-1, userStructClass=ENone, defaultValue=None):
+    def updateConstraints(self):
+        self._Constraints = {}
+        for pin in list(self.inputs.values()) + list(self.outputs.values()):
+            if pin.constraint != None:
+                if pin.constraint in self._Constraints:
+                    self._Constraints[pin.constraint].append(pin)
+                else:
+                    self._Constraints[pin.constraint] = [pin]
+
+    def _addPin(self, pinDirection, dataType, foo, hideLabel=False, bCreateInputWidget=True, name='', index=-1, userStructClass=ENone,
+                defaultValue=None,constraint=None,allowedPins=None, editable=False):
         # check if pins with this name already exists and get uniq name
         name = self.getUniqPinName(name)
 
         p = CreatePin(name, self, dataType, pinDirection, userStructClass=userStructClass)
+
+        if p:
+            p.constraint = constraint
+        if dataType == DataTypes.Any and allowedPins != None:
+            p.supportedDataTypesList = allowedPins
+        if constraint != None:
+            if constraint in self._Constraints:
+                self._Constraints[constraint].append(p)
+            else:
+                self._Constraints[constraint] = [p]
+
+
         if defaultValue is not None:
             p.setDefaultValue(defaultValue)
 
@@ -585,6 +612,8 @@ class Node(QGraphicsItem, NodeBase):
             lblName = ''
             p.bLabelHidden = True
 
+
+
         lbl = QLabel(lblName)
         p.nameChanged.connect(lbl.setText)
         lbl.setContentsMargins(0, 0, 0, 0)
@@ -600,6 +629,8 @@ class Node(QGraphicsItem, NodeBase):
             color.alpha())
         lbl.setStyleSheet(style)
         connector_name.setWidget(lbl)
+
+
         if pinDirection == PinDirection.Input:
             container = self.addContainer(pinDirection)
             if hideLabel:

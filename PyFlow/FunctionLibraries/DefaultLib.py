@@ -1,6 +1,8 @@
-from ..Core.FunctionLibrary import *
-from ..Core.AGraphCommon import *
 import os
+from datetime import time
+
+from ..Core.AGraphCommon import *
+from ..Core.FunctionLibrary import *
 
 
 class DefaultLib(FunctionLibraryBase):
@@ -27,6 +29,12 @@ class DefaultLib(FunctionLibraryBase):
         os.system('cls')
 
     @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Bool, False), meta={'Category': 'Math|Bool', 'Keywords': []})
+    ## make boolean
+    def makeBool(b=(DataTypes.Bool, False)):
+        return b
+
+    @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'GenericTypes', 'Keywords': []})
     ## make integer
     def makeInt(i=(DataTypes.Int, 0)):
@@ -46,6 +54,11 @@ class DefaultLib(FunctionLibraryBase):
     def makeString(s=(DataTypes.String, '')):
         '''make string'''
         return s
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Any, 0,{"constraint":"1"}), meta={'Category': 'Conversion', 'Keywords': []})
+    def passtrhough(input=(DataTypes.Any, 0,{"constraint":"1"})):
+        return input
 
     # Conversions
     @staticmethod
@@ -79,3 +92,26 @@ class DefaultLib(FunctionLibraryBase):
     @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Conversion', 'Keywords': []})
     def floatToString(f=(DataTypes.Float, 0.0)):
         return str(f)
+
+
+    # Conversions
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Bool, False), meta={'Category': 'Conversion', 'Keywords': ["Bool"]})
+    def toBool(i=(DataTypes.Any, 0,{"supportedDataTypes":[DataTypes.Bool,DataTypes.Float,DataTypes.Int]})):
+        return bool(i)
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'Conversion', 'Keywords': []})
+    def toInt(i=(DataTypes.Any, 0,{"supportedDataTypes":[DataTypes.Bool,DataTypes.Float,DataTypes.Int]})):
+        return int(i)
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Float, False), meta={'Category': 'Conversion', 'Keywords': []})
+    def toFloat(i=(DataTypes.Any, 0,{"supportedDataTypes":[DataTypes.Bool,DataTypes.Float,DataTypes.Int]})):
+        return float(i)
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Conversion', 'Keywords': []})
+    def toString(i=(DataTypes.Any, 0)):
+        return str(i)
+
