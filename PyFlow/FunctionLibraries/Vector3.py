@@ -1,6 +1,7 @@
-from ..Core.FunctionLibrary import *
-from ..Core.AGraphCommon import *
 import pyrr
+
+from ..Core.AGraphCommon import *
+from ..Core.FunctionLibrary import *
 
 
 class Vector3(FunctionLibraryBase):
@@ -41,10 +42,10 @@ class Vector3(FunctionLibraryBase):
         W(_w)
         return pyrr.Vector3(arrV3)
 
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.String, str(pyrr.Vector3())), meta={'Category': 'Math|Vector3', 'Keywords': ['vector3']})
-    def v3ToString(v=(DataTypes.FloatVector3, pyrr.Vector3())):
-        return str(v)
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.String, str(pyrr.Vector3())), meta={'Category': 'Math|Vector3', 'Keywords': ['vector3']})
+    # def v3ToString(v=(DataTypes.FloatVector3, pyrr.Vector3())):
+    #     return str(v)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Bool, True), nodeType=NodeTypes.Pure, meta={'Category': 'Math|Vector3', 'Keywords': ['lerp']})

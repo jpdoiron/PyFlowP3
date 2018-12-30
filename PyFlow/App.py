@@ -185,7 +185,7 @@ class {0}(PinWidgetBase):
             return
 
         # write to file. delete older if needed
-        with open(file_path, "wb") as f:
+        with open(file_path, "w") as f:
             f.write(NodeTemplate)
         print(("[INFO] Node {0} been created.\nIn order to appear in node box, restart application.".format(name)))
         open_file(file_path)
@@ -197,7 +197,7 @@ class {0}(PinWidgetBase):
             print(("[ERROR] Command {0} already exists! Chose another name".format(name)))
             return
         # write to file. delete older if needed
-        with open(file_path, "wb") as f:
+        with open(file_path, "w") as f:
             f.write(CommandTemplate)
         print(("[INFO] Command {0} been created.\n Restart application.".format(name)))
         open_file(file_path)
@@ -209,7 +209,7 @@ class {0}(PinWidgetBase):
             print(("[ERROR] Function library {0} already exists! Chose another name".format(name)))
             return
         # write to file. delete older if needed
-        with open(filePath, "wb") as f:
+        with open(filePath, "w") as f:
             f.write(LibraryTemplate)
         print(("[INFO] Function lib {0} been created.\n Restart application.".format(name)))
         open_file(filePath)
@@ -221,7 +221,7 @@ class {0}(PinWidgetBase):
             print(("[ERROR] Pin {0} already exists! Chose another name".format(name)))
             return
         # write to file. delete older if needed
-        with open(filePath, "wb") as f:
+        with open(filePath, "w") as f:
             f.write(PinTemplate)
         print(("[INFO] Pin {0} been created.\n Restart application.".format(name)))
         open_file(filePath)

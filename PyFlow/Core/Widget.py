@@ -1,3 +1,4 @@
+import ast
 import json
 import random
 from os import listdir, path
@@ -802,8 +803,7 @@ class GraphWidget(QGraphicsView, Graph):
         if all([event.key() == QtCore.Qt.Key_F, modifiers == QtCore.Qt.ControlModifier]):
             self.frame()
         if all([event.key() == QtCore.Qt.Key_N, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.ShiftModifier]):
-            if self.parent:
-                self.parent.toggle_node_box()
+            self.showNodeBox()
         if all([event.key() == QtCore.Qt.Key_M, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.AltModifier]):
             self.parent.toggle_multithreaded()
         if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.AltModifier]):
@@ -812,8 +812,17 @@ class GraphWidget(QGraphicsView, Graph):
             self.parent.toggle_property_view()
         if event.key() == QtCore.Qt.Key_Delete:
             self.killSelectedNodes()
-        if all([event.key() == QtCore.Qt.Key_W, modifiers == QtCore.Qt.ControlModifier]):
+        if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier]):
             self.duplicateNodes()
+
+        if all([event.key() == QtCore.Qt.Key_C, modifiers == QtCore.Qt.ControlModifier]):
+            self.copyNodes()
+        if all([event.key() == QtCore.Qt.Key_V, modifiers == QtCore.Qt.ControlModifier]):
+            self.pasteNodes()
+
+        if all([event.key() == QtCore.Qt.Key_E, modifiers == QtCore.Qt.ControlModifier]):
+            self.evalOutputsNode()
+
         QGraphicsView.keyPressEvent(self, event)
 
     def duplicateNodes(self):
@@ -827,6 +836,71 @@ class GraphWidget(QGraphicsView, Graph):
                 n.setSelected(False)
                 new_node.setSelected(True)
                 new_node.setPos(new_node.scenePos() + diff)
+
+    def copyNodes(self):
+        QApplication.clipboard().clear()
+        nodes = []
+        oldNodes = []
+        selectedNodes = [i for i in self.getNodes() if i.isSelected()]
+        edges = []
+        for n in selectedNodes:
+            oldNodes.append(n)
+            nodes.append(n.serialize())
+            for i in list(n.inputs.values()) + list(n.outputs.values()):
+                edges += i.edge_list
+        fullEdges = []
+        for e in edges:
+            if e.source().parent() in oldNodes and e.destination().parent() in oldNodes:
+                fullEdges.append({"full": True, "sourcenode": e.source().parent().name, "sourcePin": e.source().name,
+                                  "destinationNode": e.destination().parent().name,
+                                  "destinationPin": e.destination().name})
+            elif e.source().parent() not in oldNodes and e.source().dataType != DataTypes.Exec:
+                fullEdges.append({"full": False, "sourcenode": e.source().parent().name, "sourcePin": e.source().name,
+                                  "destinationNode": e.destination().parent().name,
+                                  "destinationPin": e.destination().name})
+        ret = {"nodes": nodes, "edges": fullEdges}
+        QApplication.clipboard().setText(str(ret))
+
+    def pasteNodes(self, move=True):
+
+        try:
+            nodes = ast.literal_eval(QApplication.clipboard().text())
+            if "nodes" not in nodes or "edges" not in nodes:
+                return
+        except:
+
+            return
+        diff = QtCore.QPointF(self.mapToScene(self.mousePos)) - QtCore.QPointF(nodes["nodes"][0]["x"],
+                                                                               nodes["nodes"][0]["y"])
+        self.clearSelection()
+        newNodes = {}
+
+        for node in nodes["nodes"]:
+            oldName = node["name"]
+            node["name"] = self.getUniqNodeName(node["name"])
+            node['uuid'] = str(uuid.uuid4())
+            for inp in node['inputs']:
+                inp['uuid'] = str(uuid.uuid4())
+            for out in node['outputs']:
+                out['uuid'] = str(uuid.uuid4())
+            n = self.createNode(node)
+            newNodes[oldName] = n
+            n.setSelected(True)
+            if move:
+                n.setPos(n.scenePos() + diff)
+        for edge in nodes["edges"]:
+            if edge["full"]:
+                nsrc = newNodes[edge["sourcenode"]].getPinByName(edge["sourcePin"])
+                ndst = newNodes[edge["destinationNode"]].getPinByName(edge["destinationPin"])
+                self.addEdge(nsrc, ndst)
+            # else:
+            #     nsrc = self.getNodeByName(edge["sourcenode"])
+            #     if nsrc != None:
+            #         nsrc = nsrc.getPinByName(edge["sourcePin"])
+            #         if nsrc != None:
+            #             ndst = newNodes[edge["destinationNode"]].getPinByName(edge["destinationPin"])
+            #             self.addEdge(nsrc, ndst)
+
 
     def alignSelectedNodes(self, direction):
         ls = [n for n in self.getNodes() if n.isSelected()]
@@ -964,6 +1038,10 @@ class GraphWidget(QGraphicsView, Graph):
 
     def removeItemByName(self, name):
         [self.scene().removeItem(i) for i in list(self.scene().items()) if hasattr(i, 'name') and i.name == name]
+
+    def clearSelection(self):
+        for node in self.selectedNodes():
+            node.setSelected(False)
 
     def mouseReleaseEvent(self, event):
         super(GraphWidget, self).mouseReleaseEvent(event)

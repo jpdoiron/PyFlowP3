@@ -315,6 +315,9 @@ class Node(QGraphicsItem, NodeBase):
         self.setX(roundup(value.x() - self.graph().grid_size, self.graph().grid_size))
         self.setY(roundup(value.y() - self.graph().grid_size, self.graph().grid_size))
 
+    def translate(self, x, y):
+        super(Node, self).moveBy(x, y)
+
     def boundingRect(self):
         return self.childrenBoundingRect()
 

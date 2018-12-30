@@ -60,16 +60,16 @@ class DefaultLib(FunctionLibraryBase):
     def passtrhough(input=(DataTypes.Any, 0,{"constraint":"1"})):
         return input
 
-    # Conversions
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.Bool, False), meta={'Category': 'Conversion', 'Keywords': []})
-    def intToBool(i=(DataTypes.Int, 0)):
-        return bool(i)
-
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'Conversion', 'Keywords': []})
-    def floatToInt(f=(DataTypes.Float, 0.0)):
-        return int(f)
+    # # Conversions
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.Bool, False), meta={'Category': 'Conversion', 'Keywords': []})
+    # def intToBool(i=(DataTypes.Int, 0)):
+    #     return bool(i)
+    #
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'Conversion', 'Keywords': []})
+    # def floatToInt(f=(DataTypes.Float, 0.0)):
+    #     return int(f)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Float, 0.0), meta={'Category': 'Utils', 'Keywords': []})
@@ -77,21 +77,21 @@ class DefaultLib(FunctionLibraryBase):
     def clock():
         '''Returns the CPU time or real time since the start of the process or since the first call of clock().'''
         return time.clock()
+    #
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.Float, False), meta={'Category': 'Conversion', 'Keywords': []})
+    # def intToFloat(i=(DataTypes.Int, 0)):
+    #     return float(i)
 
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.Float, False), meta={'Category': 'Conversion', 'Keywords': []})
-    def intToFloat(i=(DataTypes.Int, 0)):
-        return float(i)
-
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Conversion', 'Keywords': []})
-    def intToString(i=(DataTypes.Int, 0)):
-        return str(i)
-
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Conversion', 'Keywords': []})
-    def floatToString(f=(DataTypes.Float, 0.0)):
-        return str(f)
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Conversion', 'Keywords': []})
+    # def intToString(i=(DataTypes.Int, 0)):
+    #     return str(i)
+    #
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Conversion', 'Keywords': []})
+    # def floatToString(f=(DataTypes.Float, 0.0)):
+    #     return str(f)
 
 
     # Conversions

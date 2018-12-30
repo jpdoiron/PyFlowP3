@@ -1,11 +1,7 @@
 from PySide2 import QtCore
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QDoubleSpinBox
-from PySide2.QtWidgets import QCheckBox
-from PySide2.QtWidgets import QGraphicsProxyWidget
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
+
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 ## Timer node
@@ -16,7 +12,7 @@ class timer(Node, NodeBase):
         self.beginPin = self.addInputPin("Begin", DataTypes.Exec, self.start)
         self.stopPin = self.addInputPin("Stop", DataTypes.Exec, self.stop)
         self.resetPin = self.addInputPin("Reset", DataTypes.Exec, self.reset)
-        self.interval = self.addInputPin("Delta(ms)", DataTypes.Float)
+        self.interval = self.addInputPin("Delta(sec)", DataTypes.Float)
         self.interval.setDefaultValue(0.2)
         self._timer = QtCore.QTimer()
         self._timer.timeout.connect(self.compute)

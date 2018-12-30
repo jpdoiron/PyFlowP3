@@ -1,6 +1,7 @@
-from ..Core.FunctionLibrary import *
-from ..Core.AGraphCommon import *
 import pyrr
+
+from ..Core.AGraphCommon import *
+from ..Core.FunctionLibrary import *
 
 
 class ArrayLib(FunctionLibraryBase):
@@ -8,10 +9,10 @@ class ArrayLib(FunctionLibraryBase):
     def __init__(self):
         super(ArrayLib, self).__init__()
 
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Array', 'Keywords': []})
-    def arrayToString(arr=(DataTypes.Array, [])):
-        return str(arr)
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Array', 'Keywords': []})
+    # def arrayToString(arr=(DataTypes.Array, [])):
+    #     return str(arr)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Array', 'Keywords': []})

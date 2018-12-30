@@ -1,6 +1,7 @@
-from ..Core.FunctionLibrary import *
-from ..Core.AGraphCommon import *
 import pyrr
+
+from ..Core.AGraphCommon import *
+from ..Core.FunctionLibrary import *
 
 
 class QuatLib(FunctionLibraryBase):
@@ -14,11 +15,11 @@ class QuatLib(FunctionLibraryBase):
         '''Returns zero quaternion.'''
         return pyrr.Quaternion()
 
-    @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Math|Quaternion', 'Keywords': []})
-    def quatToString(q=(DataTypes.Quaternion, pyrr.Quaternion())):
-        '''Convert to quat to str'''
-        return str(q)
+    # @staticmethod
+    # @IMPLEMENT_NODE(returns=(DataTypes.String, ''), meta={'Category': 'Math|Quaternion', 'Keywords': []})
+    # def quatToString(q=(DataTypes.Quaternion, pyrr.Quaternion())):
+    #     '''Convert to quat to str'''
+    #     return str(q)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Quaternion, pyrr.Quaternion.from_x_rotation(0.0)), nodeType=NodeTypes.Pure, meta={'Category': 'Math|Quaternion', 'Keywords': []})

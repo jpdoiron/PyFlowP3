@@ -54,6 +54,7 @@ import builtins
 from keyword import kwlist
 from types import MethodType
 
+from PySide2 import QtGui, QtCore
 from PySide2.QtWidgets import QCompleter
 from PySide2.QtWidgets import QListWidgetItem
 from PySide2.QtWidgets import QPlainTextEdit
@@ -175,7 +176,7 @@ class WPinWidget(QWidget, PinWidget_ui.Ui_Form):
             return -1
 
         w.cbType.findData = findData
-        w.cbType.setCurrentIndex(w.cbType.findData(dataType))
+        w.cbType.setCurrentIndex(w.cbType.findData(w.cbType,dataType))
         return w
 
     def shouldHideLabel(self):
@@ -320,7 +321,7 @@ class WCodeEditor(QWidget, CodeEditor_ui.Ui_CodeEditorWidget):
         code = self.plainTextEdit.toPlainText()
         foo = WCodeEditor.wrapCodeToFunction('compute', code)
         exec(foo)
-        node.compute = MethodType(compute, node)
+        node.compute = MethodType(node.compute, node)
         node.currentComputeCode = code
 
         for index in range(self.lwOutputs.count()):
