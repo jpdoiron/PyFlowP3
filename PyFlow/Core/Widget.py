@@ -820,9 +820,6 @@ class GraphWidget(QGraphicsView, Graph):
         if all([event.key() == QtCore.Qt.Key_V, modifiers == QtCore.Qt.ControlModifier]):
             self.pasteNodes()
 
-        if all([event.key() == QtCore.Qt.Key_E, modifiers == QtCore.Qt.ControlModifier]):
-            self.evalOutputsNode()
-
         QGraphicsView.keyPressEvent(self, event)
 
     def duplicateNodes(self):
