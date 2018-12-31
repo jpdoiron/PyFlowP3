@@ -1,5 +1,7 @@
-from ..Core.FunctionLibrary import *
+import random
+
 from ..Core.AGraphCommon import *
+from ..Core.FunctionLibrary import *
 
 
 class RandomLib(FunctionLibraryBase):

@@ -153,6 +153,8 @@ class DataTypes(IntEnum):
     Quaternion = 12
     Enum = 13
     Layer = 14
+    Files = 15
+
 
 ## Returns string representation of the data type identifier
 # See [DataTypes](@ref PyFlow.Core.AGraphCommon.DataTypes)

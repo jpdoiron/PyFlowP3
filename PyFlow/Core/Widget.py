@@ -819,6 +819,10 @@ class GraphWidget(QGraphicsView, Graph):
             self.copyNodes()
         if all([event.key() == QtCore.Qt.Key_V, modifiers == QtCore.Qt.ControlModifier]):
             self.pasteNodes()
+        if event.key() == QtCore.Qt.Key_L:
+            self.TryLinkNodes()
+        if event.key() == QtCore.Qt.Key_U:
+            self.unLinkNodes()
 
         QGraphicsView.keyPressEvent(self, event)
 
@@ -857,6 +861,39 @@ class GraphWidget(QGraphicsView, Graph):
                                   "destinationPin": e.destination().name})
         ret = {"nodes": nodes, "edges": fullEdges}
         QApplication.clipboard().setText(str(ret))
+
+    def TryLinkNodes(self):
+        selectedNodes = [i for i in self.getNodes() if i.isSelected()]
+
+        selectedNodes = sorted(selectedNodes, key=lambda k: [k.pos().y(), k.pos().x()])
+
+        for idx,node in enumerate(selectedNodes):
+            print(node.name, node.pos().x())
+            if(idx < len(selectedNodes)-1):
+                for pin in list(node.outputs.values()):
+                    if(pin.dataType == DataTypes.Exec):
+                        node2 = selectedNodes[idx+1]
+                        for pin2 in list(node2.inputs.values()):
+                            if(pin2.dataType == DataTypes.Exec):
+                                self.addEdge(pin,pin2)
+                    if(pin.dataType == DataTypes.Layer):
+                        node2 = selectedNodes[idx+1]
+                        for pin2 in list(node2.inputs.values()):
+                            if(pin2.dataType == DataTypes.Layer):
+                                self.addEdge(pin,pin2)
+
+    def unLinkNodes(self):
+
+        selectedNodes = [i for i in self.getNodes() if i.isSelected()]
+
+        edges = []
+        for n in selectedNodes:
+            for i in list(n.inputs.values()) + list(n.outputs.values()):
+                edges += i.edge_list
+
+        for e in edges:
+            self.removeEdge(e)
+
 
     def pasteNodes(self, move=True):
 
@@ -981,6 +1018,8 @@ class GraphWidget(QGraphicsView, Graph):
             else:
                 self.pressed_item.setSelected(True)
 
+
+
         if not self.pressed_item:
             if event.button() == QtCore.Qt.LeftButton:
                 self._is_rubber_band_selection = True
@@ -993,6 +1032,7 @@ class GraphWidget(QGraphicsView, Graph):
             self.nodesMoveInfo.clear()
             for n in self.getNodes():
                 self.nodesMoveInfo[n.uid] = {'from': n.scenePos(), 'to': None}
+
 
     def pan(self, delta):
         delta *= self._scale * -1
@@ -1281,7 +1321,8 @@ class GraphWidget(QGraphicsView, Graph):
         Graph.removeEdge(self, edge)
         edge.source().update()
         edge.destination().update()
-        self.edges.pop(edge.uid)
+        if edge.uid in self.edges:
+            self.edges.pop(edge.uid)
         edge.prepareGeometryChange()
         self.scene().removeItem(edge)
 

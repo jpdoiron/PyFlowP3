@@ -22,6 +22,9 @@ class Matrix33Pin(PinWidgetBase):
     def pinDataTypeHint():
         return DataTypes.Matrix33, Matrix33()
 
+    def OnPinChanged(self):
+        print("changed")
+
     def serialize(self):
         data = PinWidgetBase.serialize(self)
         m = self.currentData()

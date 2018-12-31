@@ -731,10 +731,15 @@ class Graph(object):
         return True
 
     def removeEdge(self, edge):
-        edge.source().affects.remove(edge.destination())
-        edge.source().edge_list.remove(edge)
-        edge.destination().affected_by.remove(edge.source())
-        edge.destination().edge_list.remove(edge)
+        if edge.destination() in edge.source().affects:
+            edge.source().affects.remove(edge.destination())
+        if edge in edge.source().edge_list:
+            edge.source().edge_list.remove(edge)
+        if edge.source() in edge.destination().affected_by:
+            edge.destination().affected_by.remove(edge.source())
+        if edge in edge.destination().edge_list:
+            edge.destination().edge_list.remove(edge)
+
         edge.destination().pinDisconnected(edge.source())
         edge.source().pinDisconnected(edge.destination())
         push(edge.destination())

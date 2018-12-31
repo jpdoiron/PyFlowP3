@@ -1,25 +1,23 @@
-import weakref
+import pyrr
 from PySide2 import QtCore
 from PySide2 import QtGui
-from PySide2.QtWidgets import QDoubleSpinBox
-from PySide2.QtWidgets import QSpinBox
-from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QSpacerItem
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtWidgets import QComboBox
-from PySide2.QtWidgets import QLineEdit
 from PySide2.QtWidgets import QCheckBox
-from PySide2.QtWidgets import QGraphicsProxyWidget
+from PySide2.QtWidgets import QComboBox
+from PySide2.QtWidgets import QDoubleSpinBox, QFileDialog
 from PySide2.QtWidgets import QGridLayout
 from PySide2.QtWidgets import QHBoxLayout
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtWidgets import QPushButton
 from PySide2.QtWidgets import QSizePolicy
+from PySide2.QtWidgets import QSpacerItem
+from PySide2.QtWidgets import QSpinBox
+from PySide2.QtWidgets import QWidget
+
 from .AGraphCommon import *
-from .AbstractGraph import PinBase
 from ..UI import FloatVector3InputWidget_ui
 from ..UI import FloatVector4InputWidget_ui
 from ..UI import Matrix33InputWidget_ui
 from ..UI import Matrix44InputWidget_ui
-import pyrr
 
 
 def _configDoubleSpinBox(sb):
@@ -147,6 +145,37 @@ class IntInputWidget(InputWidgetSingle):
     def setWidgetValue(self, val):
         self.sb.setValue(int(val))
 
+
+class FilesInputWidget(InputWidgetSingle):
+    """
+    String data input widget
+    """
+    def LoadFile(self):
+        name_filter = "Annotations files (*.txt)"
+        fpath = QFileDialog.getOpenFileName(filter=name_filter, dir="./annotations")
+        if not fpath[0] == '':
+            print(fpath[0])
+            self.dataSetCallback(fpath[0])
+
+            # with open(fpath[0], 'r') as f:
+            #     data = f.read()
+
+    def __init__(self, parent=None, **kwds):
+        super(FilesInputWidget, self).__init__(parent=parent, **kwds)
+        self.bt = QPushButton(self)
+        self.bt.setText("load")
+        self.le = QLineEdit(self)
+        self.le.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
+        self.setWidget(self.le)
+        self.setWidget(self.bt)
+        self.le.textChanged.connect(lambda val: self.dataSetCallback(val))
+
+        self.bt.clicked.connect(lambda val:self.LoadFile())
+
+    #
+    #
+    def setWidgetValue(self, val):
+        self.le.setText(str(val))
 
 class StringInputWidget(InputWidgetSingle):
     """
@@ -562,4 +591,7 @@ def getInputWidget(dataType, dataSetter, defaultValue, userStructClass):
         return ExecInputWidget(dataSetCallback=dataSetter, defaultValue=None)
     if dataType == DataTypes.Enum:
         return EnumInputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue, userStructClass=userStructClass)
+    if dataType == DataTypes.Files:
+        return FilesInputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue)
+
     return None

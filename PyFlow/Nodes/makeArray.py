@@ -26,6 +26,19 @@ class makeArray(Node):
     def contextMenuEvent(self, event):
         self.menu.exec_(event.screenPos())
 
+
+
+
+    def serialize(self):
+        template = Node.serialize(self)
+        # if hasattr(template["value"], '__class__'):
+        #     template['value'] = None
+        for i in list(template["outputs"])+template["inputs"]:
+            i["value"] = None
+
+        return template
+
+
     @staticmethod
     def pinTypeHints():
         return {'inputs': supportedDataTypesList, 'outputs': [DataTypes.Array]}

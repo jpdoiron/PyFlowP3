@@ -1,6 +1,5 @@
 import pyrr
 
-from ..Core.AGraphCommon import *
 from ..Core.FunctionLibrary import *
 
 
@@ -28,6 +27,11 @@ class ArrayLib(FunctionLibraryBase):
     @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'Array', 'Keywords': []})
     def arrayLen(arr=(DataTypes.Array, [])):
         return len(arr)
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Array, 0), meta={'Category': 'Array', 'Keywords': ['resize']})
+    def Resize(arr=(DataTypes.Array, []),length=(DataTypes.Int, 0)):
+        return arr[:length]
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Bool, False), meta={'Category': 'Array', 'Keywords': []})

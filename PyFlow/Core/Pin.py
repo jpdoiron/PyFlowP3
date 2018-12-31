@@ -78,6 +78,12 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
         PinBase.setUserStruct(self, inStruct)
         self.userStructChanged.emit(inStruct)
 
+    def setDeletable(self):
+        self.deletable = True
+        self.actionRemove = self.menu.addAction('remove')
+        self.actionRemove.triggered.connect(self.kill)
+
+
     def setName(self, newName):
         super(PinWidgetBase, self).setName(newName)
         self.nameChanged.emit(newName)
@@ -133,6 +139,11 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
         bLabelHidden = jsonData['bLabelHidden']
         bDirty = jsonData['bDirty']
 
+        if 'deletable' in jsonData:
+            deletable = jsonData['deletable']
+        else:
+            deletable = False
+
         p = None
         if direction == PinDirection.Input:
             p = owningNode.addInputPin(name, dataType, hideLabel=bLabelHidden)
@@ -141,12 +152,25 @@ class PinWidgetBase(QGraphicsWidget, PinBase):
             p = owningNode.addOutputPin(name, dataType, hideLabel=bLabelHidden)
             p.uid = uid
 
+        if deletable:
+            p.setDeletable()
+
+        if "curr_dataType" in jsonData and jsonData["curr_dataType"] != dataType:
+            print("JPD CHECK THIS OUT")
+            from ..Pins import CreatePin
+            a = CreatePin("", None, jsonData["curr_dataType"], 0)
+            p.setType(a)
+            del a
+
         p.setData(value)
         return p
 
     def serialize(self):
         data = PinBase.serialize(self)
         data['bLabelHidden'] = self.bLabelHidden
+        if hasattr(self, 'deletable'):
+            data['deletable'] = self.deletable
+
         return data
 
     def ungrabMouseEvent(self, event):

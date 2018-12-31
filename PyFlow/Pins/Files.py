@@ -3,26 +3,30 @@ from ..Core.AGraphCommon import *
 from ..Core.Pin import PinWidgetBase
 
 
-class FloatPin(PinWidgetBase):
-    """doc string for FloatPin"""
+class Files(PinWidgetBase):
+    '''doc string for Files'''
     def __init__(self, name, parent, dataType, direction, **kwargs):
-        super(FloatPin, self).__init__(name, parent, dataType, direction, **kwargs)
-        self.setDefaultValue(0.0)
+        super(Files, self).__init__(name, parent, dataType, direction, **kwargs)
+        self.setDefaultValue("")
 
     def supportedDataTypes(self):
-        return (DataTypes.Float, DataTypes.Int)
+        return (DataTypes.Files,)
 
     @staticmethod
     def color():
-        return Colors.Float
+        return Colors.Bool
+
 
     @staticmethod
     def pinDataTypeHint():
-        return DataTypes.Float, 0.0
+        return DataTypes.Files, ""
 
     def setData(self, data):
+        print("setdata files")
         try:
-            self._data = float(data)
+            self._data = str(data)
         except:
             self._data = self.defaultValue()
+
+        self.parent().ReloadData()
         PinWidgetBase.setData(self, self._data)

@@ -166,7 +166,7 @@ class {0}(PinWidgetBase):
 
     @staticmethod
     def pinDataTypeHint():
-        return DataTypes.Bool, Falsen
+        return DataTypes.Bool, False
 
     def setData(self, data):
         try:
@@ -328,6 +328,10 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         data += "Ctrl+Shift+S - save as\n"
         data += "Ctrl+O - open file\n"
         data += "Ctrl+F - frame\n"
+        data += "Ctrl+C - copy\n"
+        data += "Ctrl+P - paste\n"
+        data += "Ctrl+D - duplicate\n"
+        data += "L - Link\n"
         data += "C - comment selected nodes\n"
         data += "Delete - kill selected nodes\n"
         data += "Ctrl+Shift+ArrowLeft - Align left\n"

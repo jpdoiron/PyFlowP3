@@ -1,3 +1,7 @@
+from collections import Generator
+
+from tensorflow.python.keras.engine.training import Model
+
 from PyFlow.Core.Settings import Colors
 from ..Core.AGraphCommon import *
 from ..Core.Pin import PinWidgetBase
@@ -112,8 +116,19 @@ class AnyPin(PinWidgetBase):
         # highlight wire
         for e in self.edge_list:
             e.highlight()
-            
-       
+
+    def serialize(self):
+        data = PinWidgetBase.serialize(self)
+
+        if isinstance(data["value"], Model) or isinstance(data["value"], Generator) or hasattr(data["value"], '__class__'):
+            data['value'] = None
+
+        if isinstance(data["value"], type([])):
+            data['value'] = []
+
+        return data
+
+
     def setDefault(self):
         self.dataType = DataTypes.Any
         self.color = self.defcolor
