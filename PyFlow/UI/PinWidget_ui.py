@@ -7,7 +7,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from Qt import QtCompat, QtCore, QtGui, QtWidgets
+from PySide2 import QtWidgets, QtCore
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -56,9 +57,8 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtCompat.translate("Form", "Form", None, -1))
-        self.lePinName.setText(QtCompat.translate("Form", "pinName", None, -1))
-        self.cbHideLabel.setToolTip(QtCompat.translate("Form", "should hide label", None, -1))
-        self.cbHideLabel.setText(QtCompat.translate("Form", "hide label", None, -1))
+        Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
+        self.lePinName.setText(QtWidgets.QApplication.translate("Form", "pinName", None, -1))
+        self.cbHideLabel.setToolTip(QtWidgets.QApplication.translate("Form", "should hide label", None, -1))
+        self.cbHideLabel.setText(QtWidgets.QApplication.translate("Form", "hide label", None, -1))
 
-from . import nodes_res_rc

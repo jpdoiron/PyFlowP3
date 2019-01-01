@@ -7,7 +7,9 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from Qt import QtCompat, QtCore, QtGui, QtWidgets
+#from Qt import QtCompat, QtCore, QtGui, QtWidgets
+from PySide2 import QtWidgets, QtCore, QtGui
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -84,10 +86,9 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtCompat.translate("Form", "Form", None, -1))
-        self.label.setText(QtCompat.translate("Form", "x", None, -1))
-        self.label_2.setText(QtCompat.translate("Form", "y", None, -1))
-        self.label_3.setText(QtCompat.translate("Form", "z", None, -1))
-        self.pbReset.setToolTip(QtCompat.translate("Form", "Reset to defaults", None, -1))
+        Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
+        self.label.setText(QtWidgets.QApplication.translate("Form", "x", None, -1))
+        self.label_2.setText(QtWidgets.QApplication.translate("Form", "y", None, -1))
+        self.label_3.setText(QtWidgets.QApplication.translate("Form", "z", None, -1))
+        self.pbReset.setToolTip(QtWidgets.QApplication.translate("Form", "Reset to defaults", None, -1))
 
-from . import nodes_res_rc

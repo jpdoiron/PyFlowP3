@@ -1,8 +1,8 @@
 import os
 from multiprocessing.dummy import Pool as ThreadPool
 
+import cv2
 import numpy as np
-from cv2 import cv2
 from tensorflow.python.keras.applications.imagenet_utils import preprocess_input
 from tensorflow.python.keras.backend import set_session, get_session
 from tensorflow.python.keras.callbacks import LambdaCallback
