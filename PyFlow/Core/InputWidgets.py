@@ -129,7 +129,8 @@ class FloatInputWidget(InputWidgetSingle):
 
     #todo crash on nodes arrayLen and Dividef when copy paste
     def setWidgetValue(self, val):
-        self.sb.setValue(float(val))
+        if (val != None):
+            self.sb.setValue(float(val))
 
 
 class IntInputWidget(InputWidgetSingle):
@@ -144,7 +145,8 @@ class IntInputWidget(InputWidgetSingle):
         self.sb.valueChanged.connect(lambda val: self.dataSetCallback(val))
 
     def setWidgetValue(self, val):
-        self.sb.setValue(int(val))
+        if(val !=None ):
+            self.sb.setValue(int(val))
 
 
 class FilesInputWidget(InputWidgetSingle):

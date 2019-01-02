@@ -20,9 +20,9 @@ def ui_to_py(ui_file):
     with open(py_file_name, 'w') as py_file:
         try:
             pyside2uic.compileUi(ui_file, py_file)
-            print(('{0} converted to {1}.'.format(ui_file.upper(), py_file_name.upper())))
+            print('{0} converted to {1}.'.format(ui_file.upper(), py_file_name.upper()))
         except Exception as e:
-            print(('Error: compilation error.', e))
+            print('Error: compilation error.', e)
 
     bakFileName = py_file_name.replace("ui.py", "ui_backup.py")
 
@@ -31,7 +31,7 @@ def ui_to_py(ui_file):
 
     if(os.path.isfile(bakFileName)):
         os.remove(bakFileName)
-        print(("REMOVING", bakFileName))
+        print("REMOVING", bakFileName)
 
 
 def compile():

@@ -12,16 +12,6 @@ class KerasLib(FunctionLibraryBase):
     def __init__(self):
         super(KerasLib, self).__init__()
 
-
-        from tensorflow.python.keras.backend import set_session
-        import tensorflow as tf
-        tf.logging.set_verbosity('DEBUG')
-        tfconfig = tf.ConfigProto()
-        tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
-        sess = tf.Session(config=tfconfig)
-        set_session(sess)  # set this TensorFlow session as the default session for Keras
-
-
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|function', 'Keywords': ['build']})
     def Build(Input=(DataTypes.Layer, None), Layers=(DataTypes.Layer, None)):

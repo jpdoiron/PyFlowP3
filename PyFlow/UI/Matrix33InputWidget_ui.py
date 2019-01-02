@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:/GIT/PyFlow/PyFlow/UI/Matrix33InputWidget_ui.ui'
+# Form implementation generated from reading ui file 'D:/Workspace/PyFlowP3/PyFlow/UI/Matrix33InputWidget_ui.ui'
 #
-# Created: Mon Jul 30 21:57:13 2018
+# Created: Wed Jan  2 15:03:21 2019
 #      by: pyside2-uic 2.0.0 running on PySide2 5.6.0~a1
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -88,3 +88,4 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
 
+from PyFlow.UI import nodes_res_rc

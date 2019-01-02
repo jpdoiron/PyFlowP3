@@ -18,6 +18,7 @@ class generator(Node):
         super(generator, self).__init__(name, graph)
 
         self.dataset_pin = self.addInputPin('Annotations', DataTypes.Array, defaultValue=[])
+        self.valDataset_pin = self.addInputPin('Val annotations', DataTypes.Array, defaultValue=[])
         self.dataPath_pin = self.addInputPin('data path', DataTypes.String, defaultValue=None)
 
         self.augmenter_pin = self.addInputPin('Augmenter', DataTypes.Any,defaultValue=None)
@@ -25,6 +26,7 @@ class generator(Node):
         self.logPath_pin = self.addInputPin('log path', DataTypes.String, defaultValue=None)
 
         self.generator_pin = self.addOutputPin('generator', DataTypes.Any)
+        self.valGenerator_pin = self.addOutputPin('val generator', DataTypes.Any)
 
         self.threadpool = ThreadPool(32)
 
@@ -193,13 +195,17 @@ class generator(Node):
         print("fit gen")
         try:
             dataset = self.dataset_pin.getData()
+            valDataset = self.valDataset_pin.getData()
             batchSize = self.batchSize_pin.getData()
             self.augmenter= self.augmenter_pin.getData()
             self.data_path= self.dataPath_pin.getData()
             self.log_path= self.logPath_pin.getData()
 
-            self.generator_pin.setData(self.generatorThread(dataset,batchSize))
+            if (len(dataset) > 0):
+                self.generator_pin.setData(self.generatorThread(dataset,batchSize))
 
+            if (len(valDataset) > 0):
+                self.valGenerator_pin.setData(self.generatorThread(dataset,batchSize))
 
         except Exception as e:
             import traceback

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:/GIT/PyFlow/PyFlow/UI/GraphEditor_ui.ui'
+# Form implementation generated from reading ui file 'D:/Workspace/PyFlowP3/PyFlow/UI/GraphEditor_ui.ui'
 #
-# Created: Mon Jul 30 21:57:13 2018
+# Created: Wed Jan  2 15:03:21 2019
 #      by: pyside2-uic 2.0.0 running on PySide2 5.6.0~a1
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -308,3 +308,4 @@ class Ui_MainWindow(object):
         self.actionNew_pin.setText(QtWidgets.QApplication.translate("MainWindow", "New pin", None, -1))
         self.actionNew.setText(QtWidgets.QApplication.translate("MainWindow", "New", None, -1))
 
+from PyFlow.UI import nodes_res_rc
