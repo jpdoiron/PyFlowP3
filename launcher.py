@@ -39,7 +39,10 @@ try:
         styleString = f.read()
         app.setStyleSheet(styleString)
 except Exception as e:
-    print(e)
+    import traceback
+    import sys
+    traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
 
 instance = PyFlow.instance()
 app.setActiveWindow(instance)
@@ -48,4 +51,7 @@ instance.show()
 try:
     sys.exit(app.exec_())
 except Exception as e:
-    print(e)
+    import traceback
+    import sys
+    traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+

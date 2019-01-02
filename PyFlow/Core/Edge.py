@@ -74,13 +74,18 @@ class Edge(QGraphicsPathItem):
 
     @staticmethod
     def deserialize(data, graph):
-        srcUUID = UUID(data['sourceUUID'])
-        dstUUID = UUID(data['destinationUUID'])
-        # if srcUUID in graph.pins and dstUUID in graph.pins:
-        srcPin = graph.pins[srcUUID]
-        dstPin = graph.pins[dstUUID]
-        edge = graph._addEdge(srcPin, dstPin)
-        edge.uid = uuid.UUID(data['uuid'])
+        try:
+            srcUUID = UUID(data['sourceUUID'])
+            dstUUID = UUID(data['destinationUUID'])
+            # if srcUUID in graph.pins and dstUUID in graph.pins:
+            srcPin = graph.pins[srcUUID]
+            dstPin = graph.pins[dstUUID]
+            edge = graph._addEdge(srcPin, dstPin)
+            edge.uid = uuid.UUID(data['uuid'])
+        except Exception as e:
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=3, file=sys.stdout)
 
     def serialize(self):
         script = {'sourceUUID': str(self.source().uid),

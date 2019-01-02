@@ -43,7 +43,10 @@ class implicitPinCall(Node):
             self.graph().centerOn(pin)
             pin.highlight()
         except Exception as e:
-            print(e)
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
             pass
 
     def compute(self):

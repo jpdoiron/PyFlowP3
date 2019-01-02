@@ -56,7 +56,10 @@ def importByName(module, name):
             mod = getattr(module, name)
             return mod
         except Exception as e:
-            print(e)
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
             return
     else:
         print(("error", name))
@@ -545,7 +548,10 @@ class GraphWidget(QGraphicsView, Graph):
             self.horizontalScrollBar().setValue(horizontal)
             self.verticalScrollBar().setValue(vertical)
         except Exception as e:
-            print(e)
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
 
     def mouseDoubleClickEvent(self, event):
         QGraphicsView.mouseDoubleClickEvent(self, event)
@@ -674,7 +680,10 @@ class GraphWidget(QGraphicsView, Graph):
                         Node.deserialize(nodeJson, self)
                     except Exception as e:
                         print(nodeJson)
-                        print(e)
+                        import traceback
+                        import sys
+                        traceback.print_exception(type(e), e, sys.exc_info()[2],limit=3, file=sys.stdout)
+
                 # edges
                 for edgeJson in data[self.name]['edges']:
                     Edge.deserialize(edgeJson, self)

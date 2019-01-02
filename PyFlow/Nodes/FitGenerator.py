@@ -19,8 +19,12 @@ class FitGenerator(Node):
 
         self.in0 = self.addInputPin('in0', DataTypes.Exec, self.compute)
         self.compiled_model_pin = self.addInputPin('compiled_model', DataTypes.Any, defaultValue=None)
-        self.lbl_train_pin = self.addInputPin('lbl_train', DataTypes.Array,defaultValue=[])
-        self.lbl_valid_pin = self.addInputPin('lbl_valid', DataTypes.Array,defaultValue=[])
+        self.training_pin = self.addInputPin('Training generator', DataTypes.Any, defaultValue=None)
+        self.validation_pin = self.addInputPin('Validation generator', DataTypes.Any, defaultValue=None)
+
+        self.steps_per_epoch_pin = self.addInputPin('Step per epoch', DataTypes.Int, 0)
+        self.validation_steps_pin = self.addInputPin('validation step', DataTypes.Int, 0)
+
         self.callbacks_pin = self.addInputPin('callbacks', DataTypes.Array,defaultValue=[])
         self.batch_size_pin = self.addInputPin('batch size', DataTypes.Int,defaultValue=32)
         self.initial_epoch_pin = self.addInputPin('initial_epoch', DataTypes.Int,defaultValue=0)
@@ -79,118 +83,6 @@ class FitGenerator(Node):
 
         return template
 
-
-    from cachetools import cached, Cache
-
-    cache = Cache(maxsize=30000)
-
-    @cached(cache)
-    def get_image(self, filename, imgsize, center):
-        image = cv2.imread(filename)
-        image, trans = image_resize2(image, imgsize, center=center)
-        return image, trans
-
-
-    def augument_data(self,label, imgsize=(224, 224)):
-
-        self.data_path = "D:/dev/data/MattelCars/2cars"
-        self.log_path  = "/logs"
-        self.debug_Augmentation = 0
-        self.augmentation = False
-
-        """
-        Takes the image file name and the frame (rows corresponding to a single image in the labels.csv)
-        and randomly scales, translates, adjusts SV values in HSV space for the image,
-        
-        and adjusts the coordinates in the 'frame' accordingly, to match bounding boxes in the new image
-        """
-        ori_label, ori_frame = label.split()
-
-        frame = np.array(list(map(int, ori_frame.split(','))))
-
-        x,y,x1,y1 = frame[:4]
-        center = ((x+x1)//2,(y+y1)//2)
-        filename = os.path.join(self.data_path, ori_label)
-        img, trans = self.get_image(filename, imgsize, center)
-
-        frame[:4] = transform_box(frame[:4], trans, imgsize)
-
-        #show_box(img,frame[:4])
-        if(self.augmentation):
-            self.debug_Augmentation = self.debug_Augmentation - 1
-            img, frame_ret= augment_image(img,frame[:4],self.log_path if self.debug_Augmentation>0 else "")
-            frame = np.append(frame_ret[:4], frame[4])
-            #frame[:4] = ClampBox(frame[:4], imgsize)
-
-        #show_box(img, frame[:4])
-        frame_tensor=[]
-        if (len(frame) > 1):
-            frame_tensor = label_to_tensor(frame)
-
-        img = self.ProcessInput(img)
-        return img, frame_tensor
-
-
-
-    def ProcessInput(self, image):
-        '''image channel transformation for training / inferencing'''
-        #b, g, r = cv2.split(image)  # get b,g,r
-        #image = cv2.merge([r, g, b])  # switch it to rgb
-        image = preprocess_input(image, mode='tf')
-        return image
-
-
-    def generatorThread(self,labels, batch_size):
-        """
-        Generator function
-        # Arguments
-        label_keys: image names, that are keys of the label_frames Arguments
-        label_frames: array of frames (rows corresponding to a single image in the labels.csv)
-        batch_size: batch size
-        """
-        n = len(labels)
-        i=0
-
-        while 1:
-
-            if i + batch_size > n:
-                np.random.shuffle(labels)
-                i=0
-
-            output = self.threadpool.starmap(self.augument_data, zip(labels[i:i + batch_size]))
-
-            image_data , box_data = list(zip(*output))
-
-            i = i + batch_size
-
-            X_train = np.array(image_data)
-
-            idx_to_remove = []
-            y_train=[]
-            isinit=False
-            for idx,x in enumerate(box_data):
-                if isinstance(x, list):
-                    x = np.asarray(x)
-                x = x.reshape((1,x.size))
-                if x.size==0:
-                    idx_to_remove.append(idx)
-                    continue
-
-                if (not isinit):
-                    y_train = x
-                    isinit = True
-                else:
-                    y_train = np.vstack((y_train,x))
-
-            if(len(idx_to_remove)>0):
-                X_train = np.delete(X_train, idx_to_remove, axis=0)
-
-            # b = get_boxes(y_train[0],label=True)
-            # (x, y), (x1, y1), _, _ = b[0]
-            # a = np.copy(X_train[0])
-            # show_box(a,[x,y,x1,y1])
-            yield (X_train, y_train)
-
     def UpdateBatch(self,batch, e_logs):
         self.batch_pin.call()
         pass
@@ -204,8 +96,10 @@ class FitGenerator(Node):
         print("fit gen")
         try:
             compiled_model = self.compiled_model_pin.getData()
-            lbl_train = self.lbl_train_pin.getData()
-            lbl_valid = self.lbl_valid_pin.getData()
+            trainingGenerator = self.training_pin.getData()
+            validationGenerator = self.training_pin.getData()
+            steps_per_epoch = self.steps_per_epoch_pin.getData()
+            validation_steps_pin = self.steps_per_epoch_pin.getData()
             callbacks = self.callbacks_pin.getData()
             batch_size = self.batch_size_pin.getData()
             initial_epoch = self.initial_epoch_pin.getData()
@@ -218,11 +112,11 @@ class FitGenerator(Node):
 
 
 
-                    history = compiled_model.fit_generator( generator=self.generatorThread(lbl_train,batch_size),
-                                                            validation_data=self.generatorThread(lbl_valid,batch_size),
-                                                            steps_per_epoch=len(lbl_train) // batch_size,
+                    history = compiled_model.fit_generator( generator=trainingGenerator,
+                                                            validation_data=validationGenerator,
+                                                            steps_per_epoch=steps_per_epoch, #len(trainingGenerator) // batch_size,
                                                             epochs=initial_epoch + num_epoch,
-                                                            validation_steps=len(lbl_valid) // batch_size,
+                                                            validation_steps=validation_steps_pin, #len(validationGenerator) // batch_size,
                                                             initial_epoch=initial_epoch,
                                                             callbacks=callbacks)
 
@@ -231,10 +125,16 @@ class FitGenerator(Node):
                     self.completed_pin.call()
 
                 except Exception as e:
-                    print(e)
+                    import traceback
+                    import sys
+                    traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
 
         except Exception as e:
-            print(e)
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
 
 
 

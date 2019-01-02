@@ -29,6 +29,12 @@ class ArrayLib(FunctionLibraryBase):
         return len(arr)
 
     @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'Array', 'Keywords': []})
+    def splitString(str=(DataTypes.String, ""), delimiter=(DataTypes.String, ",")):
+        return str.split(delimiter)
+
+
+    @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Array, 0), meta={'Category': 'Array', 'Keywords': ['resize']})
     def Resize(arr=(DataTypes.Array, []),length=(DataTypes.Int, 0)):
         return arr[:length]
