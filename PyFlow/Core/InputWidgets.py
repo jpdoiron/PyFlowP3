@@ -127,6 +127,7 @@ class FloatInputWidget(InputWidgetSingle):
         # when spin box updated call setter function
         self.sb.valueChanged.connect(lambda val: self.dataSetCallback(val))
 
+    #todo crash on nodes arrayLen and Dividef when copy paste
     def setWidgetValue(self, val):
         self.sb.setValue(float(val))
 

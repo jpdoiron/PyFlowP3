@@ -21,7 +21,7 @@ class generator(Node):
         self.dataPath_pin = self.addInputPin('data path', DataTypes.String, defaultValue=None)
 
         self.augmenter_pin = self.addInputPin('Augmenter', DataTypes.Any,defaultValue=None)
-        self.batchSize_pin = self.addInputPin('Augmenter', DataTypes.Int,defaultValue=0)
+        self.batchSize_pin = self.addInputPin('batch size', DataTypes.Int,defaultValue=0)
         self.logPath_pin = self.addInputPin('log path', DataTypes.String, defaultValue=None)
 
         self.generator_pin = self.addOutputPin('generator', DataTypes.Any)

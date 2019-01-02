@@ -113,7 +113,10 @@ class {0}(Node):
         try:
             self.out0.setData(str_data.upper())
         except Exception as e:
-            print(e)
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
 """.format(name)
 
     LibraryTemplate = """from ..Core.FunctionLibrary import *
@@ -404,4 +407,7 @@ if __name__ == '__main__':
     try:
         sys.exit(app.exec_())
     except Exception as e:
-        print(e)
+        import traceback
+        import sys
+        traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
