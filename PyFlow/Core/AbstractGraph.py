@@ -250,6 +250,15 @@ class PinBase(IPin):
                 'uuid': str(self.uid),
                 'bDirty': self.dirty
                 }
+        #replace output with default value for serialisation. we don't want to serialize long array of filename or annotations
+        if self.direction == PinDirection.Output:
+            data["value"] = self.defaultValue()
+
+        #if we have edge, it mean the input value will be recalculated, no need to save it
+        if self.direction == PinDirection.Input:
+            if len(self.edge_list) > 0:
+                data["value"] = self.defaultValue()
+
         return data
 
     @staticmethod

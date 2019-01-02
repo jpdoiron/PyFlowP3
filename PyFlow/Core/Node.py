@@ -409,9 +409,6 @@ class Node(QGraphicsItem, NodeBase):
         template['inputs'] = [i.serialize() for i in list(self.inputs.values())]
         template['outputs'] = [o.serialize() for o in list(self.outputs.values())]
 
-        for i in list(template["outputs"]):
-            i["value"] = None
-
         template['meta']['label'] = self.label().toPlainText()
         return template
 
