@@ -192,13 +192,10 @@ class FitGenerator(Node):
             yield (X_train, y_train)
 
     def UpdateBatch(self,batch, e_logs):
-        print("update batch")
         self.batch_pin.call()
         pass
 
     def UpdateEpoch(self,Epoch, e_logs):
-        print("update epoch")
-
         self.epoch_pin.call()
         pass
 
