@@ -524,12 +524,12 @@ class NodeBase(INode):
             self.bCallable = True
 
     def computeCode(self):
-        lines = inspect.getsourcelines(self.compute)[0]
-        offset = lines[0].find("def compute")
-        code = ""
-        for line in lines:
-            code += line[offset:]
-        return code
+        # lines = inspect.getsourcelines(self.compute)[0]
+        # offset = lines[0].find("def compute")
+        # code = ""
+        # for line in lines:
+        #     code += line[offset:]
+        return ""
 
 
 class Graph(object):
