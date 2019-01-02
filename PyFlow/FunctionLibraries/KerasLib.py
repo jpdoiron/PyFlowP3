@@ -3,7 +3,6 @@ from tensorflow.python.keras import optimizers
 from tensorflow.python.keras.engine.training import Model
 from tensorflow.python.layers.base import Layer
 
-from PyFlow.Core import Node
 from PyFlow.Core.AGraphCommon import DataTypes, NodeTypes
 from PyFlow.Core.FunctionLibrary import FunctionLibraryBase, IMPLEMENT_NODE
 
@@ -12,6 +11,15 @@ class KerasLib(FunctionLibraryBase):
     '''doc string for KerasLib'''
     def __init__(self):
         super(KerasLib, self).__init__()
+
+
+        from tensorflow.python.keras.backend import set_session
+        import tensorflow as tf
+        tf.logging.set_verbosity('DEBUG')
+        tfconfig = tf.ConfigProto()
+        tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
+        sess = tf.Session(config=tfconfig)
+        set_session(sess)  # set this TensorFlow session as the default session for Keras
 
 
     @staticmethod
@@ -37,6 +45,7 @@ class KerasLib(FunctionLibraryBase):
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|function', 'Keywords': ['compile']})
     def Compile(model=(DataTypes.Any, None), optimizer=(DataTypes.Any, None), metrics=(DataTypes.Array, []), loss=(DataTypes.Any, None)):
         '''Sum of two ints.'''
+
         model.compile(optimizer=optimizer,loss=loss,metrics=metrics)
         print("compile")
         return model
@@ -74,7 +83,7 @@ class KerasLib(FunctionLibraryBase):
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['AveragePooling2D',"pool"]})
-    def MaxPooling2D(Input=(DataTypes.Layer, Layer(0)),pool_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "same"),LayerName=(DataTypes.String, "")):
+    def MaxPooling2D(Input=(DataTypes.Layer, Layer(0)),pool_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "valid"),LayerName=(DataTypes.String, "")):
         '''Sum of two ints.'''
         # if(LayerName==""):
         #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
@@ -83,7 +92,7 @@ class KerasLib(FunctionLibraryBase):
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['AveragePooling2D',"pool"]})
-    def AveragePooling2D(Input=(DataTypes.Layer, Layer(0)),pool_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "same"),LayerName=(DataTypes.String, "")):
+    def AveragePooling2D(Input=(DataTypes.Layer, Layer(0)),pool_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "valid"),LayerName=(DataTypes.String, "")):
         '''Sum of two ints.'''
         # if(LayerName==""):
         #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
@@ -93,7 +102,7 @@ class KerasLib(FunctionLibraryBase):
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['SeparableConv2D',"Conv"]})
-    def SeparableConv2D(Input=(DataTypes.Layer, Layer(0)),filters=(DataTypes.Int, 128),kernel_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "same"),LayerName=(DataTypes.String, "")):
+    def SeparableConv2D(Input=(DataTypes.Layer, Layer(0)),filters=(DataTypes.Int, 128),kernel_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "valid"),LayerName=(DataTypes.String, "")):
         '''Sum of two ints.'''
         # if(LayerName==""):
         #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
@@ -135,6 +144,18 @@ class KerasLib(FunctionLibraryBase):
         #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
 
         return layers.Input(shape=(input_size, input_size, input_channel),name=LayerName)
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Layer, None), nodeType=NodeTypes.Callable,
+                    meta={'Category': 'Keras|Layers', 'Keywords': ['Dropout']})
+    def Dropout(Input=(DataTypes.Layer, Layer(0)),rate=(DataTypes.Float, 0), LayerName=(DataTypes.String, "")):
+        '''Sum of two ints.'''
+        # if(LayerName==""):
+        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
+
+        return layers.Dropout(rate=rate, name=LayerName)(Input)
+
+
     # endregion
 
 
@@ -151,15 +172,8 @@ class KerasLib(FunctionLibraryBase):
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),nodeType=NodeTypes.Pure, meta={'Category': 'Keras|callbacks', 'Keywords': ['stop', 'early']})
-    def EarlyStopping(patience=(DataTypes.Int, 1),min_delta=(DataTypes.Int, 0),verbose=(DataTypes.Int, 0), monitor=(DataTypes.String, "val_loss")):
+    def EarlyStopping(patience=(DataTypes.Int, 1),min_delta=(DataTypes.Float, 0),verbose=(DataTypes.Int, 0), monitor=(DataTypes.String, "val_loss")):
 
-        def serialize(self):
-            template = Node.serialize(self)
-            template['meta']['var'] = self.var.serialize()
-            return template
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
         return callbacks.EarlyStopping(monitor=monitor, min_delta=min_delta, patience=patience, verbose=verbose, mode='auto', baseline=None)
 
     @staticmethod
@@ -174,7 +188,7 @@ class KerasLib(FunctionLibraryBase):
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None), nodeType=NodeTypes.Pure,
                     meta={'Category': 'Keras|callbacks', 'Keywords': ['LR', 'learning', 'reduce', 'plateau']})
-    def ReduceLROnPlateau(min_lr=(DataTypes.Int, 1e-7), factor=(DataTypes.Int, 0.10), patience=(DataTypes.Int, 10),monitor=(DataTypes.String, "val_loss")):
+    def ReduceLROnPlateau(min_lr=(DataTypes.Float, 1e-7), factor=(DataTypes.Float, 0.10), patience=(DataTypes.Int, 10),monitor=(DataTypes.String, "val_loss")):
         '''Sum of two ints.'''
         # if(LayerName==""):
         #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))

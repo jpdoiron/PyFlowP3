@@ -18,7 +18,6 @@ class ExecPin(PinWidgetBase):
         super(ExecPin, self).call()
         # pass execution flow forward
         for p in [pin for pin in self.affects if pin.dataType == DataTypes.Exec]:
-            print("call",p.name)
             p.call()
         # highlight wire
         for e in self.edge_list:

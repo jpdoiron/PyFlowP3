@@ -202,7 +202,8 @@ class Node(QGraphicsItem, NodeBase):
         meta = foo.__annotations__['meta']
         returnType = returnDefaultValue = None
         if foo.__annotations__['return'] is not None:
-            returnType, returnDefaultValue = foo.__annotations__['return']
+            #TODO JPD check what to do with constraint
+            returnType, returnDefaultValu = foo.__annotations__['return']
         nodeType = foo.__annotations__['nodeType']
         fooArgNames = getfullargspec(foo).args
 

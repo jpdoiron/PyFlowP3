@@ -4,12 +4,11 @@ from multiprocessing.dummy import Pool as ThreadPool
 import cv2
 import numpy as np
 from tensorflow.python.keras.applications.imagenet_utils import preprocess_input
-from tensorflow.python.keras.backend import set_session, get_session
 from tensorflow.python.keras.callbacks import LambdaCallback
 
 from PyFlow.Loss.Yolo1 import label_to_tensor
-from augmentation import augment_image
-from image_utils import image_resize2, transform_box
+from Utils.augmentation import augment_image
+from Utils.image_utils import image_resize2, transform_box
 from ..Core import Node
 from ..Core.AbstractGraph import *
 
@@ -220,13 +219,6 @@ class FitGenerator(Node):
             if compiled_model != None:
                 try:
 
-                    import tensorflow as tf
-                    tfconfig = tf.ConfigProto()
-                    tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
-                    sess = tf.Session(config=tfconfig)
-                    set_session(sess)  # set this TensorFlow session as the default session for Keras
-
-                    self.sess = get_session()
 
 
                     history = compiled_model.fit_generator( generator=self.generatorThread(lbl_train,batch_size),
