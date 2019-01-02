@@ -646,7 +646,7 @@ class GraphWidget(QGraphicsView, Graph):
         if not self._current_file_name == '':
             with open(self._current_file_name, 'w') as f:
                 graphData = self.getGraphSaveData()
-                json.dump(graphData, f)
+                json.dump(graphData, f,sort_keys=True,indent=4, separators=(',', ': '))
 
             self._file_name_label.setPlainText(self._current_file_name)
             print((str("// saved: '{0}'".format(self._current_file_name))))

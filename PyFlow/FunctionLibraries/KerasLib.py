@@ -134,9 +134,6 @@ class KerasLib(FunctionLibraryBase):
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None), nodeType=NodeTypes.Pure,
                     meta={'Category': 'Keras|callbacks', 'Keywords': ['LR', 'learning', 'reduce', 'plateau']})
     def ReduceLROnPlateau(min_lr=(DataTypes.Float, 1e-7), factor=(DataTypes.Float, 0.10), patience=(DataTypes.Int, 10),monitor=(DataTypes.String, "val_loss")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
         return callbacks.ReduceLROnPlateau(monitor=monitor, factor=factor, patience=patience, min_lr=min_lr)
 
 
