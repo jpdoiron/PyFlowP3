@@ -1027,8 +1027,9 @@ class GraphWidget(QGraphicsView, Graph):
         if not self.pressed_item:
             if event.button() == QtCore.Qt.LeftButton:
                 self._is_rubber_band_selection = True
-            if event.button() == QtCore.Qt.RightButton and modifiers == QtCore.Qt.NoModifier:
+            if (event.button() == QtCore.Qt.RightButton or event.button() == QtCore.Qt.MiddleButton ) and modifiers == QtCore.Qt.NoModifier:
                 self.bPanMode = True
+
             self.initialScrollBarsPos = QtGui.QVector2D(self.horizontalScrollBar().value(), self.verticalScrollBar().value())
 
         selectedNodes = self.selectedNodes()

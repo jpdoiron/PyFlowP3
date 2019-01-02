@@ -17,6 +17,7 @@ def _getFunctions():
             try:
                 fname = "PyFlow.FunctionLibraries.{}".format(libName)
                 module = importlib.import_module(fname)
+                module = importlib.reload(module)
                 class_ = getattr(module, libName)
                 libInstance = class_()
                 foos = libInstance.getFunctions()

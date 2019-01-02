@@ -16,6 +16,7 @@ def _getClasses():
                 import importlib
                 fname= "PyFlow.Nodes.{}".format(nodeName)
                 module = importlib.import_module("PyFlow.Nodes.{}".format(nodeName))
+                module = importlib.reload(module)
                 class_ = getattr(module, nodeName)
                 if nodeName not in _nodeClasses:
                     _nodeClasses[nodeName] = class_
