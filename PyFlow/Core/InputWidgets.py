@@ -170,7 +170,7 @@ class FilesInputWidget(InputWidgetSingle):
         self.setWidget(self.bt)
         self.le.textChanged.connect(lambda val: self.dataSetCallback(val))
 
-        self.bt.clicked.connect(lambda val:self.LoadFile())
+        self.bt.clicked.connect(lambda :self.LoadFile())
 
     #
     #

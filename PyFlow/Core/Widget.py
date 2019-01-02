@@ -815,6 +815,10 @@ class GraphWidget(QGraphicsView, Graph):
         if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier]):
             self.duplicateNodes()
 
+        if all([event.key() == QtCore.Qt.Key_R, modifiers == QtCore.Qt.ControlModifier]):
+            from PyFlow.App import PyFlow
+            PyFlow.hotReload()
+
         if all([event.key() == QtCore.Qt.Key_C, modifiers == QtCore.Qt.ControlModifier]):
             self.copyNodes()
         if all([event.key() == QtCore.Qt.Key_V, modifiers == QtCore.Qt.ControlModifier]):

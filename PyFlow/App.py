@@ -2,6 +2,7 @@ import imp
 import os
 import subprocess
 import sys
+from importlib import reload
 from time import clock
 
 from PySide2 import QtCore
@@ -322,7 +323,7 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
 
     def shortcuts_info(self):
 
-        data = "Ctrl+Shift+N - togle node box\n"
+        data = "Ctrl+Shift+N - toggle node box\n"
         data += "Ctrl+N - new file\n"
         data += "Ctrl+S - save\n"
         data += "Ctrl+Shift+S - save as\n"
@@ -331,6 +332,7 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         data += "Ctrl+C - copy\n"
         data += "Ctrl+P - paste\n"
         data += "Ctrl+D - duplicate\n"
+        data += "Ctrl+R - Hot-Reload\n"
         data += "L - Link\n"
         data += "C - comment selected nodes\n"
         data += "Delete - kill selected nodes\n"
@@ -354,9 +356,9 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
 
     @staticmethod
     def hotReload():
-        imp.reload(Pins)
-        imp.reload(FunctionLibraries)
-        imp.reload(Nodes)
+        reload(Pins)
+        reload(FunctionLibraries)
+        reload(Nodes)
         Nodes._getClasses()
         FunctionLibraries._getFunctions()
 

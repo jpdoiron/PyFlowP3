@@ -32,12 +32,12 @@ class KerasLib(FunctionLibraryBase):
 
 
     @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['input']})
-    def Input(input_size=(DataTypes.Int, 224),input_channel=(DataTypes.Int, 3), LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
+    @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),
+                    nodeType=NodeTypes.Callable,
+                    meta={'Category': 'Keras|Layers', 'Keywords': ['input']})
+    def Input(input_size=(DataTypes.Int, 224),
+              input_channel=(DataTypes.Int, 3),
+              LayerName=(DataTypes.String, "")):
         return layers.Input(shape=(input_size, input_size, input_channel),name=LayerName)
 
 
@@ -56,103 +56,61 @@ class KerasLib(FunctionLibraryBase):
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['+', 'merge', 'concate']})
     def Merge(Layer_1=(DataTypes.Layer, Layer(0)), Layer_2=(DataTypes.Layer, Layer(0)),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.Concatenate(name=LayerName)([Layer_1, Layer_2])
 
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['Normalization',"batch"]})
     def BatchNormalization(Input=(DataTypes.Layer, Layer(0)),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.BatchNormalization(name=LayerName)(Input)
+
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['Activation']})
     def Activation(Input=(DataTypes.Layer, Layer(0)), Type=(DataTypes.String, "relu"),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.Activation(activation=Type,name=LayerName)(Input)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['AveragePooling2D',"pool"]})
     def MaxPooling2D(Input=(DataTypes.Layer, Layer(0)),pool_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "valid"),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.MaxPooling2D(pool_size=pool_size,strides=strides,padding=padding, name=LayerName)(Input)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['AveragePooling2D',"pool"]})
     def AveragePooling2D(Input=(DataTypes.Layer, Layer(0)),pool_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "valid"),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.AveragePooling2D(pool_size=pool_size,strides=strides,padding=padding, name=LayerName)(Input)
 
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['SeparableConv2D',"Conv"]})
     def SeparableConv2D(Input=(DataTypes.Layer, Layer(0)),filters=(DataTypes.Int, 128),kernel_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "valid"),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-        #
         return layers.SeparableConv2D(filters=filters, kernel_size=kernel_size, strides=strides, padding=padding, name=LayerName)(Input)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['SeparableConv2D',"Conv"]})
     def Conv2D(Input=(DataTypes.Layer, Layer(0)),filters=(DataTypes.Int, 128),kernel_size=(DataTypes.Int, 32),strides=(DataTypes.Int, 1),padding=(DataTypes.String, "same"),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-        #
         return layers.Conv2D(filters=filters, kernel_size=kernel_size, strides=strides, padding=padding, name=LayerName)(Input)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['Dense']})
     def Dense(Input=(DataTypes.Layer, Layer(0)), units=(DataTypes.Int, 1024),Type=(DataTypes.String, "relu"),LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
 
         return layers.Dense(units=units, activation=Type,name=LayerName)(Input)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['Flatten']})
     def Flatten(Input=(DataTypes.Layer, Layer(0)), LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.Flatten(name=LayerName)(Input)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['input']})
     def Input(input_size=(DataTypes.Int, 224),input_channel=(DataTypes.Int, 3), LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.Input(shape=(input_size, input_size, input_channel),name=LayerName)
 
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None), nodeType=NodeTypes.Callable,
                     meta={'Category': 'Keras|Layers', 'Keywords': ['Dropout']})
     def Dropout(Input=(DataTypes.Layer, Layer(0)),rate=(DataTypes.Float, 0), LayerName=(DataTypes.String, "")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
-
         return layers.Dropout(rate=rate, name=LayerName)(Input)
 
 
@@ -164,9 +122,6 @@ class KerasLib(FunctionLibraryBase):
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),nodeType=NodeTypes.Pure, meta={'Category': 'Keras|callbacks', 'Keywords': ['checkpoint']})
     def Checkpoint(period=(DataTypes.Int, 1),save_weights_only=(DataTypes.Bool, True),verbose=(DataTypes.Int, 1), filepath=(DataTypes.String, "logs"), monitor=(DataTypes.String, "val_loss")):
-        '''Sum of two ints.'''
-        # if(LayerName==""):
-        #     LayerName = "{}{}".format(sys._getframe().f_code.co_name,random.randint(0,1000))
         return callbacks.ModelCheckpoint(filepath=filepath,monitor=monitor, save_best_only=True, mode='auto', save_weights_only=save_weights_only, period=period, verbose=verbose)
 
 
