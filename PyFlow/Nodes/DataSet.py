@@ -91,6 +91,7 @@ class DataSet(Node):
             4) call output execs
         '''
         try:
+            self.ReloadData()
 
             if self.filename != self.filename_pin.getData() or not self.InitialInit:
                 self.ReloadData()

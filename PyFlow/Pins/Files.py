@@ -28,5 +28,4 @@ class Files(PinWidgetBase):
         except:
             self._data = self.defaultValue()
 
-        self.parent().ReloadData()
         PinWidgetBase.setData(self, self._data)
