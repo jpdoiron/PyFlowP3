@@ -1,14 +1,4 @@
-import os
-from multiprocessing.dummy import Pool as ThreadPool
-
-import cv2
-import numpy as np
-from tensorflow.python.keras.applications.imagenet_utils import preprocess_input
-from tensorflow.python.keras.callbacks import LambdaCallback
-
-from PyFlow.Loss.Yolo1 import label_to_tensor
 from Utils.augmentation import augment_image
-from Utils.image_utils import image_resize2, transform_box
 from ..Core import Node
 from ..Core.AbstractGraph import *
 
@@ -17,14 +7,12 @@ class augmentData(Node):
     def __init__(self, name, graph):
         super(augmentData, self).__init__(name, graph)
 
-        self.in0 = self.addInputPin('in0', DataTypes.Exec, self.compute)
         self.image_pin = self.addInputPin('image', DataTypes.Any, defaultValue=None)
         self.annotation_pin = self.addInputPin('annotation', DataTypes.Array,defaultValue=[])
 
         self.augmenter_pin = self.addOutputPin('Augmenter', DataTypes.Any)
-        self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 
-        self.threadpool = ThreadPool(32)
+
 
 
         #pinAffects(self.in0, self.completed_pin)
@@ -74,7 +62,6 @@ class augmentData(Node):
 
     def compute(self):
 
-        print("fit gen")
         try:
 
             image = self.image_pin.getData()
@@ -84,8 +71,6 @@ class augmentData(Node):
                 img, frame = augment_image(image, annotation[:4], self.log_path if self.debug_Augmentation > 0 else "")
                 print("augmentation:" , img,frame)
             self.augmenter_pin.setData(augment_image)
-
-            self.completed_pin.call()
 
         except Exception as e:
             import traceback

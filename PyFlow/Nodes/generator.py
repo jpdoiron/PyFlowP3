@@ -26,7 +26,7 @@ class generator(Node):
         self.generator_pin = self.addOutputPin('Generator 1', DataTypes.Any)
         self.valGenerator_pin = self.addOutputPin('Generator 2', DataTypes.Any)
 
-        self.threadpool = ThreadPool(32)
+        self.threadpool = None
 
 
         #pinAffects(self.in0, self.completed_pin)
@@ -220,7 +220,9 @@ class generator(Node):
 
     def compute(self):
 
-        print("fit gen")
+        if self.threadpool == None:
+            self.threadpool = ThreadPool(16)
+
         try:
             dataset = self.dataset_pin.getData()
             valDataset = self.valDataset_pin.getData()

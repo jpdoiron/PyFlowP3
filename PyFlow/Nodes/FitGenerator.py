@@ -92,7 +92,7 @@ class FitGenerator(Node):
         try:
             compiled_model = self.compiled_model_pin.getData()
             trainingGenerator = self.training_pin.getData()
-            validationGenerator = self.training_pin.getData()
+            validationGenerator = self.validation_pin.getData()
             steps_per_epoch = self.steps_per_epoch_pin.getData()
             validation_steps_pin = self.steps_per_epoch_pin.getData()
             callbacks = self.callbacks_pin.getData()

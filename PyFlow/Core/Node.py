@@ -5,6 +5,7 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
+from datetime import time
 from inspect import getfullargspec
 from types import MethodType
 
@@ -264,6 +265,8 @@ class Node(QGraphicsItem, NodeBase):
         # generate compute method from function
         def compute(self):
             # arguments will be taken from inputs
+            QApplication.instance().processEvents()
+            time.sleep(0.01)
             kwargs = {}
             for i in list(self.inputs.values()):
                 if i.dataType is not DataTypes.Exec:

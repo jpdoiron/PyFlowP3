@@ -4,6 +4,8 @@ import weakref
 from collections import OrderedDict
 from copy import deepcopy
 
+from PySide2.QtCore import QObject
+
 from .AGraphCommon import *
 
 
