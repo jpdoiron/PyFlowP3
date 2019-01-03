@@ -16,7 +16,7 @@ class Yolo1Loss(Node):
 
     @staticmethod
     def category():
-        return 'Keras | function'
+        return 'Keras|function'
 
     def compute(self):
 

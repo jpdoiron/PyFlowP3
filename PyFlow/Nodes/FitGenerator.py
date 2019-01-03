@@ -51,7 +51,7 @@ class FitGenerator(Node):
             used by nodebox to place in tree
             to make nested one - use '|' like this ( 'CatName|SubCatName' )
         '''
-        return 'Keras | function'
+        return 'Keras|function'
 
     @staticmethod
     def keywords():
