@@ -1,5 +1,6 @@
 from tensorflow.python.keras import layers, callbacks
 from tensorflow.python.keras import optimizers
+from tensorflow.python.keras import applications
 from tensorflow.python.keras.engine.training import Model
 from tensorflow.python.layers.base import Layer
 
@@ -28,17 +29,47 @@ class KerasLib(FunctionLibraryBase):
     def Input(input_size=(DataTypes.Int, 224),
               input_channel=(DataTypes.Int, 3),
               LayerName=(DataTypes.String, "")):
+        '''Input definition of the model'''
         return layers.Input(shape=(input_size, input_size, input_channel),name=LayerName)
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Any, None),
+                    nodeType=NodeTypes.Callable,
+                    meta={'Category': 'Keras|function', 'Keywords': ['save']})
+    def Compile(model=(DataTypes.Any, None),
+                optimizer=(DataTypes.Any, None),
+                metrics=(DataTypes.Array, []),
+                loss=(DataTypes.Any, None)):
+        '''Compile Model'''
+        model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
+        print("compile")
+        return model
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.Any, None),
+                    nodeType=NodeTypes.Pure,
+                    meta={'Category': 'Keras|function', 'Keywords': ['load_model']})
+    def LoadModel(model_file=(DataTypes.Files, "")):
+        '''load model from the path.'''
+        model = applications.models.load_model(model_file)
+        model.summary()
+
+        return model
 
 
     @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.Any, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|function', 'Keywords': ['compile']})
-    def Compile(model=(DataTypes.Any, None), optimizer=(DataTypes.Any, None), metrics=(DataTypes.Array, []), loss=(DataTypes.Any, None)):
-        '''Sum of two ints.'''
-
-        model.compile(optimizer=optimizer,loss=loss,metrics=metrics)
-        print("compile")
-        return model
+    @IMPLEMENT_NODE(returns=None,
+                    nodeType=NodeTypes.Callable,
+                    meta={'Category': 'Keras|function', 'Keywords': ['save_model']})
+    def SaveModel(model=(DataTypes.Any, None),
+             out_filename=(DataTypes.String, "model_body"),
+             overwrite=(DataTypes.Bool, True)):
+        '''save model to the output file. outfile doesn`t need to contain the file extension'''
+        if out_filename.endswith(("hdf5", ".h5")):
+            file_with_extension = out_filename
+        else:
+            file_with_extension = out_filename + ".h5"
+        model.save(file_with_extension, overwrite)
 
 
     # region Layers
