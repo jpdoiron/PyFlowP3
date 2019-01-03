@@ -106,8 +106,6 @@ class KerasLib(FunctionLibraryBase):
 
     # endregion
 
-
-
     # region Callback
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),nodeType=NodeTypes.Pure, meta={'Category': 'Keras|callbacks', 'Keywords': ['checkpoint']})

@@ -813,12 +813,12 @@ class GraphWidget(QGraphicsView, Graph):
             self.frame()
         if all([event.key() == QtCore.Qt.Key_N, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.ShiftModifier]):
             self.showNodeBox()
-        if all([event.key() == QtCore.Qt.Key_M, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.AltModifier]):
-            self.parent.toggle_multithreaded()
-        if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.AltModifier]):
-            self.parent.toggle_debug()
-        if all([event.key() == QtCore.Qt.Key_P, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.ShiftModifier]):
-            self.parent.toggle_property_view()
+        # if all([event.key() == QtCore.Qt.Key_M, modifiers == QtCore.Qt.ControlModifier ]):
+        #     self.parent.toggle_multithreaded()
+        # if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.ShiftModifier]):
+        #     self.parent.toggle_debug()
+        # if all([event.key() == QtCore.Qt.Key_P, modifiers == QtCore.Qt.ControlModifier | QtCore.Qt.ShiftModifier]):
+        #     self.parent.toggle_property_view()
         if event.key() == QtCore.Qt.Key_Delete:
             self.killSelectedNodes()
         if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier]):

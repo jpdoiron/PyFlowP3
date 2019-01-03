@@ -1,14 +1,8 @@
-import os
 from multiprocessing.dummy import Pool as ThreadPool
 
-import cv2
-import numpy as np
-from tensorflow.python.keras.applications.imagenet_utils import preprocess_input
+from PySide2.QtWidgets import QApplication
 from tensorflow.python.keras.callbacks import LambdaCallback
 
-from PyFlow.Loss.Yolo1 import label_to_tensor
-from Utils.augmentation import augment_image
-from Utils.image_utils import image_resize2, transform_box
 from ..Core import Node
 from ..Core.AbstractGraph import *
 
@@ -84,6 +78,7 @@ class FitGenerator(Node):
         return template
 
     def UpdateBatch(self,batch, e_logs):
+        QApplication.instance().processEvents()
         self.batch_pin.call()
         pass
 
@@ -105,27 +100,28 @@ class FitGenerator(Node):
             initial_epoch = self.initial_epoch_pin.getData()
             num_epoch = self.num_epoch_pin.getData()
 
-            MyUpdateCB = LambdaCallback(on_batch_begin=self.UpdateBatch, on_epoch_end=self.UpdateEpoch)
+            MyUpdateCB = LambdaCallback( on_batch_end=self.UpdateBatch,on_epoch_end=self.UpdateEpoch)
             callbacks.append(MyUpdateCB)
             if compiled_model != None:
                 try:
 
+                    print("keras memory")
                     from tensorflow.python.keras.backend import set_session
                     import tensorflow as tf
                     tf.logging.set_verbosity('DEBUG')
                     tfconfig = tf.ConfigProto()
                     tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
-                    sess = tf.Session(config=tfconfig)
-                    set_session(sess)  # set this TensorFlow session as the default session for Keras
+                    self.sess = tf.Session(config=tfconfig)
+                    set_session(self.sess)  # set this TensorFlow session as the default session for Keras
 
-
+                    print("fit_generator")
                     history = compiled_model.fit_generator( generator=trainingGenerator,
                                                             validation_data=validationGenerator,
                                                             steps_per_epoch=steps_per_epoch, #len(trainingGenerator) // batch_size,
                                                             epochs=initial_epoch + num_epoch,
                                                             validation_steps=validation_steps_pin, #len(validationGenerator) // batch_size,
                                                             initial_epoch=initial_epoch,
-                                                            callbacks=callbacks)
+                                                            callbacks=callbacks,use_multiprocessing=False)
 
                     self.history_pin.setData(history)
 
@@ -136,12 +132,17 @@ class FitGenerator(Node):
                     import sys
                     traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
 
+                finally:
+                    self.sess.close()
+
 
         except Exception as e:
             import traceback
             import sys
             traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
 
+        finally:
+            self.sess.close()
 
 
 

@@ -4,10 +4,8 @@ from multiprocessing.dummy import Pool as ThreadPool
 import cv2
 import numpy as np
 from tensorflow.python.keras.applications.imagenet_utils import preprocess_input
-from tensorflow.python.keras.callbacks import LambdaCallback
 
 from PyFlow.Loss.Yolo1 import label_to_tensor
-from Utils.augmentation import augment_image
 from Utils.image_utils import image_resize2, transform_box
 from ..Core import Node
 from ..Core.AbstractGraph import *
@@ -17,16 +15,16 @@ class generator(Node):
     def __init__(self, name, graph):
         super(generator, self).__init__(name, graph)
 
-        self.dataset_pin = self.addInputPin('Annotations', DataTypes.Array, defaultValue=[])
-        self.valDataset_pin = self.addInputPin('Val annotations', DataTypes.Array, defaultValue=[])
+        self.dataset_pin = self.addInputPin('Annotation 1', DataTypes.Array, defaultValue=[])
+        self.valDataset_pin = self.addInputPin('Annotation 2', DataTypes.Array, defaultValue=[])
         self.dataPath_pin = self.addInputPin('data path', DataTypes.String, defaultValue=None)
 
         self.augmenter_pin = self.addInputPin('Augmenter', DataTypes.Any,defaultValue=None)
         self.batchSize_pin = self.addInputPin('batch size', DataTypes.Int,defaultValue=0)
         self.logPath_pin = self.addInputPin('log path', DataTypes.String, defaultValue=None)
 
-        self.generator_pin = self.addOutputPin('generator', DataTypes.Any)
-        self.valGenerator_pin = self.addOutputPin('val generator', DataTypes.Any)
+        self.generator_pin = self.addOutputPin('Generator 1', DataTypes.Any)
+        self.valGenerator_pin = self.addOutputPin('Generator 2', DataTypes.Any)
 
         self.threadpool = ThreadPool(32)
 
@@ -137,6 +135,37 @@ class generator(Node):
         return image
 
 
+    def generator(self,labels, batch_size=64):
+        """
+        Generator function
+        # Arguments
+        label_keys: image names, that are keys of the label_frames Arguments
+        label_frames: array of frames (rows corresponding to a single image in the labels.csv)
+        batch_size: batch size
+        """
+        num_samples = len(labels)
+        indx = labels
+
+        while 1:
+            #shuffle(indx)
+            for offset in range(0, num_samples, batch_size):
+                batch_samples = indx[offset:offset + batch_size]
+
+                images = []
+                gt = []
+                for batch_sample in batch_samples:
+                    im, frame = self.processFiles(batch_sample)
+                    #im = self.ProcessInput(im)
+
+                    if len(frame)>0:
+                        images.append(im)
+                        gt.append(frame)
+
+                X_train = np.array(images)
+                y_train = np.array(gt)
+                yield (X_train, y_train)
+
+
     def generatorThread(self,labels, batch_size):
         """
         Generator function
@@ -147,7 +176,6 @@ class generator(Node):
         """
         n = len(labels)
         i=0
-
         while 1:
 
             if i + batch_size > n:
