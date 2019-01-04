@@ -29,9 +29,15 @@ class ArrayLib(FunctionLibraryBase):
         return len(arr)
 
     @staticmethod
-    @IMPLEMENT_NODE(returns=(DataTypes.Int, 0), meta={'Category': 'Array', 'Keywords': []})
+    @IMPLEMENT_NODE(returns=(DataTypes.Array, 0), meta={'Category': 'Array', 'Keywords': []})
     def splitString(str=(DataTypes.String, ""), delimiter=(DataTypes.String, ",")):
         return str.split(delimiter)
+
+
+    @staticmethod
+    @IMPLEMENT_NODE(returns=(DataTypes.String, ""), meta={'Category': 'Array', 'Keywords': []})
+    def splitStringAndGetIndex(str=(DataTypes.String, ""), delimiter=(DataTypes.String, ","), index=(DataTypes.Int, 0)):
+        return str.split(delimiter)[index]
 
 
     @staticmethod

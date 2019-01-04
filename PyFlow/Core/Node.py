@@ -140,21 +140,34 @@ class Node(QGraphicsItem, NodeBase):
         # set node layouts
         self.nodeMainGWidget.setParentItem(self)
         # main
-        self.portsMainLayout = QGraphicsLinearLayout(QtCore.Qt.Horizontal)
+        self.portsMainLayout = QGraphicsLinearLayout(QtCore.Qt.Vertical)
         self.portsMainLayout.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
         self.portsMainLayout.setContentsMargins(1, 1, 1, 1)
         self.nodeMainGWidget.setLayout(self.portsMainLayout)
         self.nodeMainGWidget.setX(self.nodeMainGWidget.x())
+
+        # All inputs layout Horizontal
+        self.allInputsLayout = QGraphicsLinearLayout(QtCore.Qt.Horizontal)
+        self.allInputsLayout.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        self.allInputsLayout.setContentsMargins(1, 1, 1, 1)
+        self.portsMainLayout.addItem(self.allInputsLayout)
+
+
         # inputs layout
         self.inputsLayout = QGraphicsLinearLayout(QtCore.Qt.Vertical)
         self.inputsLayout.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         self.inputsLayout.setContentsMargins(1, 1, 1, 1)
-        self.portsMainLayout.addItem(self.inputsLayout)
+        self.allInputsLayout.addItem(self.inputsLayout)
         # outputs layout
         self.outputsLayout = QGraphicsLinearLayout(QtCore.Qt.Vertical)
         self.outputsLayout.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         self.outputsLayout.setContentsMargins(1, 1, 1, 1)
-        self.portsMainLayout.addItem(self.outputsLayout)
+        self.allInputsLayout.addItem(self.outputsLayout)
+
+        self.imageLayout = QGraphicsLinearLayout(QtCore.Qt.Vertical)
+        self.imageLayout.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        self.imageLayout.setContentsMargins(1, 1, 1, 1)
+        self.portsMainLayout.addItem(self.imageLayout)
 
         self.setZValue(1)
         self.setCursor(QtCore.Qt.OpenHandCursor)
@@ -685,3 +698,40 @@ class Node(QGraphicsItem, NodeBase):
         if not hasattr(self, name):
             setattr(self, name, p)
         return p
+
+
+    def addImage(self, name=''):
+        # check if pins with this name already exists and get uniq name
+        name = self.getUniqPinName(name)
+
+        connector_name = QGraphicsProxyWidget()
+        connector_name.setObjectName('{0}ImageViewer'.format(name))
+        connector_name.setContentsMargins(1,1,1,1)
+
+        lblName = name
+        lbl = QLabel(lblName)
+        from PySide2.QtGui import QPixmap
+        pixmap = QPixmap('d:/2019-01-04.png')
+        lbl.setPixmap(pixmap)
+        connector_name.setWidget(lbl)
+
+
+        lbl.setAlignment(QtCore.Qt.AlignCenter)
+        #container.layout().addItem(connector_name)
+        self.imageLayout.addItem(connector_name)
+        #container.adjustSize()
+
+        return lbl
+
+
+    def changeImage(self, imageLabel:QLabel, image):
+        from Utils.image_utils import image_resize2
+        from Utils.image_utils import ResizeMode
+        image, _ = image_resize2(image, dim=imageLabel.size().toTuple(),mode=ResizeMode.SQUASH)
+        height, width, channel = image.shape
+        bytesPerLine = 3 * width
+        qImg = QtGui.QImage(image.data, width, height, bytesPerLine, QtGui.QImage.Format_RGB888).rgbSwapped()
+        pix = QtGui.QPixmap(qImg)
+
+        imageLabel.setPixmap(pix)
+
