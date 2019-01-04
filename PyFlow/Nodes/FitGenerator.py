@@ -1,5 +1,3 @@
-from multiprocessing.dummy import Pool as ThreadPool
-
 from PySide2.QtWidgets import QApplication
 from tensorflow.python.keras.callbacks import LambdaCallback
 
@@ -29,8 +27,6 @@ class FitGenerator(Node):
         self.batch_pin = self.addOutputPin('on_end_Batch', DataTypes.Exec)
         self.epoch_pin = self.addOutputPin('on_end_Epoch', DataTypes.Exec)
         self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
-
-        self.threadpool = ThreadPool(32)
 
 
         #pinAffects(self.in0, self.completed_pin)
@@ -131,7 +127,6 @@ class FitGenerator(Node):
                     import traceback
                     import sys
                     traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
-
                 finally:
                     self.sess.close()
 
@@ -142,7 +137,8 @@ class FitGenerator(Node):
             traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
 
         finally:
-            self.sess.close()
+            from tensorflow.python.keras.backend import get_session
+            get_session().close()
 
 
 

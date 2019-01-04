@@ -174,6 +174,9 @@ class generator(Node):
         label_frames: array of frames (rows corresponding to a single image in the labels.csv)
         batch_size: batch size
         """
+
+        threadpool = ThreadPool(16)
+
         n = len(labels)
         i=0
         while 1:
@@ -182,7 +185,7 @@ class generator(Node):
                 np.random.shuffle(labels)
                 i=0
 
-            output = self.threadpool.starmap(self.processFiles, zip(labels[i:i + batch_size]))
+            output = threadpool.starmap(self.processFiles, zip(labels[i:i + batch_size]))
 
             image_data , box_data = list(zip(*output))
 
@@ -219,9 +222,6 @@ class generator(Node):
 
 
     def compute(self):
-
-        if self.threadpool == None:
-            self.threadpool = ThreadPool(16)
 
         try:
             dataset = self.dataset_pin.getData()

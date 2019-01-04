@@ -569,7 +569,9 @@ class GraphWidget(QGraphicsView, Graph):
                     self.updatePropertyView(self.pressed_item.parentItem())
 
     def __del__(self):
-        self.tick_timer.stop()
+        #this crashes
+        #self.tick_timer.stop()
+        pass
 
     def findPin(self, uid):
         if uid in self.pins:
@@ -823,6 +825,10 @@ class GraphWidget(QGraphicsView, Graph):
             self.killSelectedNodes()
         if all([event.key() == QtCore.Qt.Key_D, modifiers == QtCore.Qt.ControlModifier]):
             self.duplicateNodes()
+
+        if all([event.key() == QtCore.Qt.Key_K, modifiers == QtCore.Qt.ControlModifier]):
+            if StaticVar.instance().currentProcessThread is not None:
+                StaticVar.instance().currentProcessThread.terminate()
 
         if all([event.key() == QtCore.Qt.Key_R, modifiers == QtCore.Qt.ControlModifier]):
             from PyFlow.App import PyFlow

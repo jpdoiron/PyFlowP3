@@ -5,7 +5,7 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
-from datetime import time
+import time
 from inspect import getfullargspec
 from types import MethodType
 
@@ -27,7 +27,7 @@ from .Enums import ENone
 from .InputWidgets import getInputWidget
 from .NodePainter import NodePainter
 from ..Pins import CreatePin, pinName
-
+import threading
 
 class NodeName(QGraphicsTextItem):
     def __init__(self, parent, bUseTextureBg=True, color=Colors.Green):
@@ -265,8 +265,24 @@ class Node(QGraphicsItem, NodeBase):
         # generate compute method from function
         def compute(self):
             # arguments will be taken from inputs
+
+            if threading.current_thread().name == 'MainThread':
+                StaticVar.instance().currentProcessThread = Thread(target=self.compute_core)
+                time.sleep(0.1)
+                StaticVar.instance().currentProcessThread.start()
+                StaticVar.instance().currentProcessThread.join(0.3)
+                # t1 = threading.Thread(target=self.compute_core)
+                while StaticVar.instance().currentProcessThread.isAlive():
+                    print("wait")
+                    QApplication.instance().processEvents()
+                    StaticVar.instance().currentProcessThread.join(0.3)
+            else:
+                self.compute_core()
+
+        def compute_core(self):
+            print(self.name,threading.current_thread().name)
             QApplication.instance().processEvents()
-            time.sleep(0.01)
+
             kwargs = {}
             for i in list(self.inputs.values()):
                 if i.dataType is not DataTypes.Exec:
@@ -281,6 +297,7 @@ class Node(QGraphicsItem, NodeBase):
                 outExec.call()
 
         inst.compute = MethodType(compute, inst)
+        inst.compute_core = MethodType(compute_core, inst)
 
         # create execs if callable
         if nodeType == NodeTypes.Callable:

@@ -373,13 +373,6 @@
                 "uuid": "cac03db7-4244-45c6-a2fa-4266f8399fa5"
             },
             {
-                "destinationName": "FitGenerator.in0",
-                "destinationUUID": "348805b2-095b-4a5e-8538-381d84959848",
-                "sourceName": "Compile.outExec",
-                "sourceUUID": "9c15ce99-0526-41e5-8fea-4facbd6afc12",
-                "uuid": "fd62f377-b5d8-43cb-8a28-7fd248289f08"
-            },
-            {
                 "destinationName": "FitGenerator.compiled_model",
                 "destinationUUID": "e38e2c90-8e34-47ee-b7d1-5973300d3f5e",
                 "sourceName": "Compile.out",
@@ -674,20 +667,6 @@
                 "uuid": "a5fd96a4-6462-466b-8b1e-d40bf0d306a6"
             },
             {
-                "destinationName": "generator.Annotations",
-                "destinationUUID": "3ff4cb01-ad71-493e-9deb-ee318907ee77",
-                "sourceName": "DataSet1.Training",
-                "sourceUUID": "0643fff8-12a5-4156-ba85-7e2539ea895b",
-                "uuid": "2e22d387-119a-4b36-8ea9-8ebdbe51d4c3"
-            },
-            {
-                "destinationName": "generator.Val_annotations",
-                "destinationUUID": "8857f46d-43c6-4711-9e2a-17fb16d3ac23",
-                "sourceName": "DataSet1.Testing",
-                "sourceUUID": "8a1dcd3b-c364-4293-9e17-781070d5ddf9",
-                "uuid": "99f20da2-4fd0-493d-97eb-1eb9cb4aaf73"
-            },
-            {
                 "destinationName": "generator.data_path",
                 "destinationUUID": "fc9a9e7b-4a4c-49e3-9f72-5469593221f2",
                 "sourceName": "data_path.val",
@@ -707,20 +686,6 @@
                 "sourceName": "Batch_Size.val",
                 "sourceUUID": "256fec9b-c54a-4c00-ba20-c03fd1b4374d",
                 "uuid": "6c6efd99-1013-4add-bb21-00d78edea0c5"
-            },
-            {
-                "destinationName": "FitGenerator.Training_generator",
-                "destinationUUID": "323ccca3-a646-423b-b495-76c92ae4d300",
-                "sourceName": "generator.generator",
-                "sourceUUID": "39a62ee7-cfd4-4958-a2c8-5136154f85b9",
-                "uuid": "85a26264-1be4-4c11-bac8-20c4a6abe7f5"
-            },
-            {
-                "destinationName": "FitGenerator.Validation_generator",
-                "destinationUUID": "816f11db-ac73-482f-add9-5b0ccf47af98",
-                "sourceName": "generator.val_generator",
-                "sourceUUID": "714136da-093f-4b79-814e-bded2bae876d",
-                "uuid": "8ca83ae3-0a9a-4282-b44c-f49bc48a5600"
             },
             {
                 "destinationName": "arrayLen1.arr",
@@ -777,6 +742,48 @@
                 "sourceName": "Batch_Size.val",
                 "sourceUUID": "337a8f41-d0b0-4a81-bed9-67e9d0f9f8d7",
                 "uuid": "753d3f5e-49a6-4a1a-9110-fda04af8ad4f"
+            },
+            {
+                "destinationName": "generator.Augmenter",
+                "destinationUUID": "83fdca8e-e126-4ef8-ad4b-d97ce4e861b1",
+                "sourceName": "augmentData.Augmenter",
+                "sourceUUID": "61dc3899-47c1-4ee2-8219-4282cb8d6638",
+                "uuid": "b7e35efd-71b9-4e8c-948b-f2a3fe77613d"
+            },
+            {
+                "destinationName": "FitGenerator.in0",
+                "destinationUUID": "348805b2-095b-4a5e-8538-381d84959848",
+                "sourceName": "Compile.outExec",
+                "sourceUUID": "9c15ce99-0526-41e5-8fea-4facbd6afc12",
+                "uuid": "b66ebbf4-031a-4974-8252-c21a22b61f07"
+            },
+            {
+                "destinationName": "FitGenerator.Training_generator",
+                "destinationUUID": "323ccca3-a646-423b-b495-76c92ae4d300",
+                "sourceName": "generator.Generator_1",
+                "sourceUUID": "12ccc8ea-2315-4d35-afe5-aa3845deadd0",
+                "uuid": "56994203-6caa-4e34-bc02-dd35d078b748"
+            },
+            {
+                "destinationName": "FitGenerator.Validation_generator",
+                "destinationUUID": "816f11db-ac73-482f-add9-5b0ccf47af98",
+                "sourceName": "generator.Generator_2",
+                "sourceUUID": "e8fd9617-12cb-45cc-9bd9-c58e457d2cff",
+                "uuid": "b4ba36a5-1cd1-4b51-a968-0686b516b167"
+            },
+            {
+                "destinationName": "generator.Annotation_1",
+                "destinationUUID": "b056f6f3-cf2a-4d5d-a676-660a1e03c6ac",
+                "sourceName": "DataSet1.Training",
+                "sourceUUID": "0643fff8-12a5-4156-ba85-7e2539ea895b",
+                "uuid": "33e8c093-484b-4ddd-927f-dfb368351788"
+            },
+            {
+                "destinationName": "generator.Annotation_2",
+                "destinationUUID": "a0026269-7b87-4ce9-b085-182ce06ba557",
+                "sourceName": "DataSet1.Testing",
+                "sourceUUID": "8a1dcd3b-c364-4293-9e17-781070d5ddf9",
+                "uuid": "fa6e9375-cc99-4fd5-ae70-d1d86a04299e"
             }
         ],
         "nodes": [
@@ -1443,7 +1450,7 @@
                         "direction": 0,
                         "name": "factor",
                         "uuid": "649a4c04-6a69-41c0-b7ff-eb4ae1868aa5",
-                        "value": 0.1
+                        "value": 0.8
                     },
                     {
                         "bDirty": false,
@@ -1495,7 +1502,7 @@
                         "direction": 0,
                         "name": "patience",
                         "uuid": "4a77fcc6-7815-4054-92fb-a4849d8c9956",
-                        "value": 10
+                        "value": 1000
                     },
                     {
                         "bDirty": false,
@@ -3281,8 +3288,8 @@
                 ],
                 "type": "DataSet",
                 "uuid": "9cca0ae9-97ae-4c6a-84b8-e76a421c7b91",
-                "x": 4650.0,
-                "y": 4808.0
+                "x": 4640.0,
+                "y": 4818.0
             },
             {
                 "computeCode": "",
@@ -4013,7 +4020,7 @@
                         "name": "Batch_Size",
                         "type": 2,
                         "uuid": "2e1ca480-3e13-434a-aa9e-eee93bd5a96f",
-                        "value": 100
+                        "value": 8
                     }
                 },
                 "name": "Batch_Size",
@@ -4043,7 +4050,7 @@
                         "name": "num_epoch",
                         "type": 2,
                         "uuid": "801955fb-5cee-4cad-a591-d997d45475f8",
-                        "value": 2
+                        "value": 1
                     }
                 },
                 "name": "num_epoch",
@@ -4933,7 +4940,7 @@
                         "name": "Batch_Size",
                         "type": 2,
                         "uuid": "2e1ca480-3e13-434a-aa9e-eee93bd5a96f",
-                        "value": 100
+                        "value": 8
                     }
                 },
                 "name": "Batch_Size",
@@ -4985,44 +4992,14 @@
             },
             {
                 "computeCode": "",
-                "inputs": [],
-                "meta": {
-                    "label": "done",
-                    "var": {
-                        "accessLevel": 0,
-                        "name": "done",
-                        "type": 3,
-                        "uuid": "29eb2f34-ca49-481c-b22a-b897af184f69",
-                        "value": "done"
-                    }
-                },
-                "name": "done",
-                "outputs": [
-                    {
-                        "bDirty": true,
-                        "bLabelHidden": true,
-                        "dataType": 3,
-                        "direction": 1,
-                        "name": "val",
-                        "uuid": "12c47f29-1a65-44db-9516-62ae1392b8e8",
-                        "value": ""
-                    }
-                ],
-                "type": "GetVarNode",
-                "uuid": "0ab2a09a-be5c-4333-86b2-bc628efd84bc",
-                "x": 4120.0,
-                "y": 5678.0
-            },
-            {
-                "computeCode": "",
                 "inputs": [
                     {
                         "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
-                        "name": "Annotations",
-                        "uuid": "3ff4cb01-ad71-493e-9deb-ee318907ee77",
+                        "name": "Annotation_1",
+                        "uuid": "b056f6f3-cf2a-4d5d-a676-660a1e03c6ac",
                         "value": null
                     },
                     {
@@ -5030,8 +5007,8 @@
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
-                        "name": "Val_annotations",
-                        "uuid": "8857f46d-43c6-4711-9e2a-17fb16d3ac23",
+                        "name": "Annotation_2",
+                        "uuid": "a0026269-7b87-4ce9-b085-182ce06ba557",
                         "value": null
                     },
                     {
@@ -5082,8 +5059,8 @@
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
-                        "name": "generator",
-                        "uuid": "39a62ee7-cfd4-4958-a2c8-5136154f85b9",
+                        "name": "Generator_1",
+                        "uuid": "12ccc8ea-2315-4d35-afe5-aa3845deadd0",
                         "value": null
                     },
                     {
@@ -5091,15 +5068,15 @@
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
-                        "name": "val_generator",
-                        "uuid": "714136da-093f-4b79-814e-bded2bae876d",
+                        "name": "Generator_2",
+                        "uuid": "e8fd9617-12cb-45cc-9bd9-c58e457d2cff",
                         "value": null
                     }
                 ],
                 "type": "generator",
                 "uuid": "387558d0-d671-4375-8fc5-b6c4e8c2f7ec",
-                "x": 4890.0,
-                "y": 4828.0
+                "x": 4920.0,
+                "y": 4778.0
             },
             {
                 "computeCode": "",
@@ -5111,7 +5088,7 @@
                         "name": "Batch_Size",
                         "type": 2,
                         "uuid": "2e1ca480-3e13-434a-aa9e-eee93bd5a96f",
-                        "value": 100
+                        "value": 8
                     }
                 },
                 "name": "Batch_Size",
@@ -5362,6 +5339,49 @@
                 "uuid": "a03bde2f-888b-4fe3-b294-e6f494a8c1b9",
                 "x": 4950.0,
                 "y": 5208.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 0,
+                        "name": "image",
+                        "uuid": "c899215f-7153-442b-92e8-897b7f6364c7",
+                        "value": null
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 5,
+                        "direction": 0,
+                        "name": "annotation",
+                        "uuid": "ca663172-ae25-4af9-80a8-c102ccbc8531",
+                        "value": null
+                    }
+                ],
+                "meta": {
+                    "label": "augmentData",
+                    "var": {}
+                },
+                "name": "augmentData",
+                "outputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 1,
+                        "name": "Augmenter",
+                        "uuid": "61dc3899-47c1-4ee2-8219-4282cb8d6638",
+                        "value": null
+                    }
+                ],
+                "type": "augmentData",
+                "uuid": "b841a383-478e-4935-96bd-818d9db5408a",
+                "x": 4640.0,
+                "y": 4658.0
             }
         ],
         "variables": [
@@ -5405,14 +5425,14 @@
                 "name": "Batch_Size",
                 "type": 2,
                 "uuid": "2e1ca480-3e13-434a-aa9e-eee93bd5a96f",
-                "value": 100
+                "value": 8
             },
             {
                 "accessLevel": 0,
                 "name": "num_epoch",
                 "type": 2,
                 "uuid": "801955fb-5cee-4cad-a591-d997d45475f8",
-                "value": 2
+                "value": 1
             },
             {
                 "accessLevel": 0,
