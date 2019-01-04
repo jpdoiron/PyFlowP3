@@ -162,12 +162,17 @@ class FilesInputWidget(InputWidgetSingle):
             filename = "files"
             file_extension = ".*"
 
-
         name_filter = "{} (*{})".format(filename, file_extension)
         fpath = QFileDialog.getOpenFileName(filter=name_filter)
         if not fpath[0] == '':
-            print(fpath[0])
-            self.dataSetCallback(fpath[0])
+            pref = os.path.commonprefix([fpath[0], os.getcwd()])
+            if len(pref) > 0:
+                file_path = os.path.relpath(fpath[0])
+            else:
+                file_path = fpath[0]
+            print(file_path)
+
+            self.dataSetCallback(file_path)
 
             # with open(fpath[0], 'r') as f:
             #     data = f.read()
