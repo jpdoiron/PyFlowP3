@@ -15,7 +15,8 @@ def relu6(x):
 class ConvertH5ToPb(Node):
     def __init__(self, name, graph):
         super(ConvertH5ToPb, self).__init__(name, graph)
-        self.in0 = self.addInputPin('in0', DataTypes.Exec, self.compute)
+        self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
+        self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 
         self.output_model_file_pin = self.addInputPin('output_model', DataTypes.String, self.compute, defaultValue="model_output.pb")
         self.output_folder_pin = self.addInputPin('output_folder', DataTypes.String, self.compute, defaultValue="")
@@ -70,15 +71,6 @@ class ConvertH5ToPb(Node):
             Path(output_fld).mkdir(parents=True, exist_ok=True)
         else:
             output_fld = os.getcwd()
-        #if self.output_model_file == '':
-        #    self.output_model_file = str(Path(self.inputModel).name) + '.pb'
-
-        #weight_file_path = str(Path(self.inputField) / self.inputModel)
-
-        # Load keras model and rename output
-
-
-        # In[ ]:
 
         with CustomObjectScope({'relu6': relu6}):
             K.set_learning_phase(0)

@@ -7,7 +7,8 @@ from ..Core import Node
 class ConvertH5ToTfLite(Node):
     def __init__(self, name, graph):
         super(ConvertH5ToTfLite, self).__init__(name, graph)
-        self.in0 = self.addInputPin('in0', DataTypes.Exec, self.compute)
+        self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
+        self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 
         self.output_model_pin = self.addInputPin('output_model', DataTypes.String, self.compute)
         self.input_model_pin = self.addInputPin('input_model', DataTypes.String, self.compute)
@@ -47,15 +48,6 @@ class ConvertH5ToTfLite(Node):
             used by property view and node box widgets
         '''
         return 'waka waka'
-
-    def serialize(self):
-        template = Node.serialize(self)
-        # if hasattr(template["value"], '__class__'):
-        #     template['value'] = None
-        for i in list(template["outputs"]) + template["inputs"]:
-            i["value"] = None
-
-        return template
 
     def compute(self):
         command = "tflite_convert \
