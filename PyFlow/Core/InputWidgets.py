@@ -1,3 +1,5 @@
+import os
+
 import pyrr
 from PySide2 import QtCore
 from PySide2 import QtGui
@@ -153,12 +155,24 @@ class FilesInputWidget(InputWidgetSingle):
     """
     String data input widget
     """
-    def LoadFile(self):
-        name_filter = "Annotations files (*.txt)"
-        fpath = QFileDialog.getOpenFileName(filter=name_filter, dir="./annotations")
+    def LoadFile(self, defaultValuew):
+        if len(defaultValuew) > 0:
+            filename, file_extension = os.path.splitext(defaultValuew)
+        else:
+            filename = "files"
+            file_extension = ".*"
+
+        name_filter = "{} (*{})".format(filename, file_extension)
+        fpath = QFileDialog.getOpenFileName(filter=name_filter)
         if not fpath[0] == '':
-            print(fpath[0])
-            self.dataSetCallback(fpath[0])
+            pref = os.path.commonprefix([fpath[0], os.getcwd()])
+            if len(pref) > 0:
+                file_path = os.path.relpath(fpath[0])
+            else:
+                file_path = fpath[0]
+            print(file_path)
+
+            self.dataSetCallback(file_path)
 
             # with open(fpath[0], 'r') as f:
             #     data = f.read()
@@ -173,7 +187,7 @@ class FilesInputWidget(InputWidgetSingle):
         self.setWidget(self.bt)
         self.le.textChanged.connect(lambda val: self.dataSetCallback(val))
 
-        self.bt.clicked.connect(lambda :self.LoadFile())
+        self.bt.clicked.connect(lambda :self.LoadFile(kwds["defaultValue"]))
 
     #
     #

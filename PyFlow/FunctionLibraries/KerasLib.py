@@ -53,7 +53,7 @@ class KerasLib(FunctionLibraryBase):
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),
                     nodeType=NodeTypes.Pure,
                     meta={'Category': 'Keras|function', 'Keywords': ['load_model']})
-    def LoadModel(model_file=(DataTypes.Files, "")):
+    def LoadModel(model_file=(DataTypes.Files, "files.*")):
         '''load model from the path.'''
         model = applications.models.load_model(model_file)
         model.summary()
