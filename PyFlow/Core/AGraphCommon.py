@@ -181,6 +181,22 @@ def _async_raise(tid, excobj):
 
 
 class Thread(threading.Thread):
+
+    def __init__(self,**kwargs):
+        super(Thread, self).__init__(**kwargs)
+        print("keras memory")
+        from tensorflow.python.keras.backend import set_session,get_session,clear_session
+        import tensorflow as tf
+        tf.logging.set_verbosity('DEBUG')
+        tfconfig = tf.ConfigProto()
+        tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
+        self.sess = tf.Session(config=tfconfig)
+        set_session(self.sess)  # set this TensorFlow session as the default session for Keras
+        clear_session()
+        print("init keras memory")
+
+
+
     def raise_exc(self, excobj):
         assert self.isAlive(), "thread must be started"
         for tid, tobj in threading._active.items():
@@ -191,6 +207,27 @@ class Thread(threading.Thread):
         # the thread was alive when we entered the loop, but was not found
         # in the dict, hence it must have been already terminated. should we raise
         # an exception here? silently ignore?
+
+    def run(self):
+        try:
+            if self._target:
+                self._target(*self._args, **self._kwargs)
+        except Exception as e:
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
+
+        finally:
+            # Avoid a refcycle if the thread is running a function with
+            # an argument that has a member that points to the thread.
+            del self._target, self._args, self._kwargs
+
+            #if(self.sess is not None):
+                # from tensorflow.python.keras.backend import clear_session
+                # clear_session()  # get a new session
+             #   print("memory cleared")
+
+        print("function done")
 
     def terminate(self):
         # must raise the SystemExit type, instead of a SystemExit() instance
@@ -243,7 +280,6 @@ class StaticVar:
     currentProcessThread: Thread = None
     def __init__(self):
         print ('StaticVar created')
-
 
 
 

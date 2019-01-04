@@ -101,14 +101,6 @@ class FitGenerator(Node):
             if compiled_model != None:
                 try:
 
-                    print("keras memory")
-                    from tensorflow.python.keras.backend import set_session
-                    import tensorflow as tf
-                    tf.logging.set_verbosity('DEBUG')
-                    tfconfig = tf.ConfigProto()
-                    tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
-                    self.sess = tf.Session(config=tfconfig)
-                    set_session(self.sess)  # set this TensorFlow session as the default session for Keras
 
                     print("fit_generator")
                     history = compiled_model.fit_generator( generator=trainingGenerator,
