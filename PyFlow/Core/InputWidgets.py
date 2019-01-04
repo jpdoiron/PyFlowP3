@@ -160,10 +160,10 @@ class FilesInputWidget(InputWidgetSingle):
             filename, file_extension = os.path.splitext(defaultValuew)
         else:
             filename = "files"
-            file_extension = "*"
+            file_extension = ".*"
 
 
-        name_filter = "{} (*.{})".format(filename, file_extension)
+        name_filter = "{} (*{})".format(filename, file_extension)
         fpath = QFileDialog.getOpenFileName(filter=name_filter)
         if not fpath[0] == '':
             print(fpath[0])
