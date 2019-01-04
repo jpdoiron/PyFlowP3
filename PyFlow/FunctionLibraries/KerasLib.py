@@ -53,13 +53,19 @@ class KerasLib(FunctionLibraryBase):
     @IMPLEMENT_NODE(returns=(DataTypes.Any, None),
                     nodeType=NodeTypes.Pure,
                     meta={'Category': 'Keras|function', 'Keywords': ['load_model']})
-    def LoadModel(model_file=(DataTypes.Files, "files.*")):
+    def LoadModel(model_file=(DataTypes.Files, "model.h5"),
+                  yaml_file=(DataTypes.Files, "yaml.yaml")):
         '''load model from the path.'''
-        model = applications.models.load_model(model_file)
+
+        yaml_file = open(yaml_file, 'r')
+        loaded_model_yaml = yaml_file.read()
+        yaml_file.close()
+
+        model = applications.models.model_from_yaml(loaded_model_yaml)
+        model.load_weights(model_file)
         model.summary()
 
         return model
-
 
     @staticmethod
     @IMPLEMENT_NODE(returns=None,
@@ -68,16 +74,14 @@ class KerasLib(FunctionLibraryBase):
     def SaveModel(model=(DataTypes.Any, None),
              out_filename=(DataTypes.String, "model_body"),
              overwrite=(DataTypes.Bool, True)):
-        '''save model to the output file. outfile doesn`t need to contain the file extension'''
-        if out_filename.endswith(("hdf5", ".h5")):
-            file_with_extension = out_filename
-        else:
-            file_with_extension = out_filename + ".h5"
-        model.save(file_with_extension, overwrite)
+        '''save model to the output file. the name must not include extension since it will be used for yaml and weights'''
+        yaml_model = model.to_yaml()
+        with open(out_filename + ".yaml", "w") as json_file:
+            json_file.write(yaml_model)
 
+        model.save(out_filename + ".h5", overwrite)
 
     # region Layers
-
     @staticmethod
     @IMPLEMENT_NODE(returns=(DataTypes.Layer, None),nodeType=NodeTypes.Callable, meta={'Category': 'Keras|Layers', 'Keywords': ['+', 'merge', 'concate']})
     def Merge(Layer_1=(DataTypes.Layer, Layer(0)), Layer_2=(DataTypes.Layer, Layer(0)),LayerName=(DataTypes.String, "")):
