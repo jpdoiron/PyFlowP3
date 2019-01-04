@@ -81,14 +81,8 @@ class ConvertH5ToPb(Node):
                     K.set_image_data_format('channels_last')
 
                 try:
-                    # fixme add parameter for this or automatic
-                    num_classes = 22
-                    num_anchors = 6
-
                     #model
                     net_model = self.input_model_pin.getData()
-                    #net_model = tiny_yolo_body(Input(shape=(None, None, 3)), num_anchors // 2, num_classes, self.mobilenet_pin.getData())
-                   # net_model.load_weights(weight_file_path)
                 except ValueError as err:
                     raise err
                 num_output = self.num_output_pin.getData()
