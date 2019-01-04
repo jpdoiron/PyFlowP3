@@ -173,7 +173,7 @@ class FilesInputWidget(InputWidgetSingle):
             print(file_path)
 
             self.dataSetCallback(file_path)
-
+            self.le.setText(file_path)
             # with open(fpath[0], 'r') as f:
             #     data = f.read()
 
