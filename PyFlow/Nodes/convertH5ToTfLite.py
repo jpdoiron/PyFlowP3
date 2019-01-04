@@ -50,20 +50,27 @@ class ConvertH5ToTfLite(Node):
         return 'waka waka'
 
     def compute(self):
-        command = "tflite_convert \
-        --output_file={output_file} \
-        --graph_def_file={graph_def_file} \
-        --input_arrays={input_arrays} \
-        --output_arrays={output_arrays} \
-        --mean_values={mean_values} \
-        --input_shape={input_shape} \
-        --std_dev_values={std_dev_values}".format(output_file=self.output_model_pin.getData(),
-                                                  graph_def_file=self.input_model_pin.getData(),
-                                                  input_arrays=self.input_field_pin.getData(),
-                                                  output_arrays=self.output_field_pin.getData(),
-                                                  mean_values=self.mean_pin.getData(),
-                                                  std_dev_values=self.std_dev_pin.getData(),
-                                                  input_shape=self.input_shape_pin.getData())
 
-        print(command)
-        os.system(command, )
+        try:
+            command = "tflite_convert \
+            --output_file={output_file} \
+            --graph_def_file={graph_def_file} \
+            --input_arrays={input_arrays} \
+            --output_arrays={output_arrays} \
+            --mean_values={mean_values} \
+            --input_shape={input_shape} \
+            --std_dev_values={std_dev_values}".format(output_file=self.output_model_pin.getData(),
+                                                      graph_def_file=self.input_model_pin.getData(),
+                                                      input_arrays=self.input_field_pin.getData(),
+                                                      output_arrays=self.output_field_pin.getData(),
+                                                      mean_values=self.mean_pin.getData(),
+                                                      std_dev_values=self.std_dev_pin.getData(),
+                                                      input_shape=self.input_shape_pin.getData())
+
+            print(command)
+            os.system(command, )
+
+        except Exception as e:
+            import traceback
+            import sys
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
