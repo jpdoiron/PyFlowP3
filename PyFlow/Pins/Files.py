@@ -22,7 +22,6 @@ class Files(PinWidgetBase):
         return DataTypes.Files, ""
 
     def setData(self, data):
-        print("setdata files")
         try:
             self._data = str(data)
         except:

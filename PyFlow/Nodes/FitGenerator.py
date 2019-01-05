@@ -1,3 +1,5 @@
+import pickle
+
 from PySide2.QtWidgets import QApplication
 from tensorflow.python.keras.callbacks import LambdaCallback
 
@@ -111,7 +113,11 @@ class FitGenerator(Node):
                                                             initial_epoch=initial_epoch,
                                                             callbacks=callbacks,use_multiprocessing=False)
 
-                    self.history_pin.setData(history)
+                    import codecs
+
+                    pickled = codecs.encode(pickle.dumps(history.history), "base64").decode()
+
+                    self.history_pin.setData(pickled)
 
                     self.completed_pin.call()
 
@@ -120,8 +126,7 @@ class FitGenerator(Node):
                     import sys
                     traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
                 finally:
-                    self.sess.close()
-
+                    pass
 
         except Exception as e:
             import traceback
@@ -129,9 +134,7 @@ class FitGenerator(Node):
             traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
 
         finally:
-            from tensorflow.python.keras.backend import get_session
-            get_session().close()
-
+            pass
 
 
 

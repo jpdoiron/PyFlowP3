@@ -422,13 +422,6 @@
                 "uuid": "af0a7cde-f232-406e-8978-77241ea7b737"
             },
             {
-                "destinationName": "pyprint3.inExec",
-                "destinationUUID": "7bdf4500-22bf-4135-a096-b3744dd16605",
-                "sourceName": "FitGenerator.Completed",
-                "sourceUUID": "6f119f0b-bc78-4148-ad2b-2c36b6b27944",
-                "uuid": "02320f4c-9a65-4929-a330-5e436c77caa3"
-            },
-            {
                 "destinationName": "pyprint3.entity",
                 "destinationUUID": "f15ad4e4-17d8-4d45-aabf-66804327fd33",
                 "sourceName": "done.val",
@@ -784,6 +777,20 @@
                 "sourceName": "DataSet1.Testing",
                 "sourceUUID": "8a1dcd3b-c364-4293-9e17-781070d5ddf9",
                 "uuid": "fa6e9375-cc99-4fd5-ae70-d1d86a04299e"
+            },
+            {
+                "destinationName": "history.inp",
+                "destinationUUID": "0ab4e435-d171-44f4-9754-758cf8f4baca",
+                "sourceName": "FitGenerator.history",
+                "sourceUUID": "ead423ea-20a2-40ff-b179-742c5a8d23bb",
+                "uuid": "945e596e-b0be-44a7-824b-7d8c63308961"
+            },
+            {
+                "destinationName": "history.in0",
+                "destinationUUID": "371c0b4c-b011-450b-bbb4-6f89ef2a33ed",
+                "sourceName": "FitGenerator.Completed",
+                "sourceUUID": "6f119f0b-bc78-4148-ad2b-2c36b6b27944",
+                "uuid": "f56e2201-561a-429d-955e-fe76d548751e"
             }
         ],
         "nodes": [
@@ -1060,7 +1067,7 @@
                         ],
                         "expanded": true,
                         "h": 320.0,
-                        "labelHeight": 21.0,
+                        "labelHeight": 23.0,
                         "nodesToMove": [
                             "1eeec2a5-bec0-4dab-9add-cf82924820f7",
                             "569ba798-ad52-4fdb-8448-36f5e917f17b",
@@ -1128,7 +1135,7 @@
                 "name": "Input",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1155,7 +1162,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1207,7 +1214,7 @@
                 "name": "Dense",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1234,7 +1241,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1286,7 +1293,7 @@
                 "name": "Dense1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1313,7 +1320,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1347,7 +1354,7 @@
                 "name": "Flatten",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1374,7 +1381,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1383,7 +1390,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1408,7 +1415,7 @@
                 "name": "Build",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -1478,7 +1485,7 @@
                 "name": "ReduceLROnPlateau",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -1539,7 +1546,7 @@
                 "name": "EarlyStopping",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -1609,7 +1616,7 @@
                 "name": "Checkpoint",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -1627,7 +1634,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "deletable": true,
@@ -1637,7 +1644,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "deletable": true,
@@ -1647,7 +1654,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "deletable": true,
@@ -1657,7 +1664,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "deletable": true,
@@ -1667,7 +1674,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "deletable": true,
@@ -1684,7 +1691,7 @@
                 "name": "makeArray",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 1,
@@ -1711,7 +1718,7 @@
                         ],
                         "expanded": true,
                         "h": 401.0,
-                        "labelHeight": 21.0,
+                        "labelHeight": 23.0,
                         "nodesToMove": [
                             "9bad59b2-bb4a-42ed-a5bf-9612535cb9bc",
                             "fcd7d9bc-716a-46e2-b5b5-00306f2fe1a4",
@@ -1735,7 +1742,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1805,7 +1812,7 @@
                 "name": "SeparableConv2D",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1832,7 +1839,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1893,7 +1900,7 @@
                 "name": "MaxPooling2D",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1920,7 +1927,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -1954,7 +1961,7 @@
                 "name": "BatchNormalization",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -1981,7 +1988,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2024,7 +2031,7 @@
                 "name": "Activation",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2051,7 +2058,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2121,7 +2128,7 @@
                 "name": "SeparableConv2D1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2148,7 +2155,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2209,7 +2216,7 @@
                 "name": "MaxPooling2D1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2236,7 +2243,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2270,7 +2277,7 @@
                 "name": "BatchNormalization1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2297,7 +2304,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2340,7 +2347,7 @@
                 "name": "Activation1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2367,7 +2374,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2437,7 +2444,7 @@
                 "name": "SeparableConv2D2",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2464,7 +2471,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2525,7 +2532,7 @@
                 "name": "MaxPooling2D2",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2552,7 +2559,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2586,7 +2593,7 @@
                 "name": "BatchNormalization2",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2613,7 +2620,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2656,7 +2663,7 @@
                 "name": "Activation2",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2683,7 +2690,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2753,7 +2760,7 @@
                 "name": "SeparableConv2D3",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2780,7 +2787,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2841,7 +2848,7 @@
                 "name": "MaxPooling2D3",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2868,7 +2875,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2902,7 +2909,7 @@
                 "name": "BatchNormalization3",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -2929,7 +2936,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -2972,7 +2979,7 @@
                 "name": "Activation3",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -3008,7 +3015,7 @@
                         ],
                         "expanded": true,
                         "h": 181.0,
-                        "labelHeight": 21.0,
+                        "labelHeight": 23.0,
                         "nodesToMove": [
                             "a6fa7851-881f-4101-8a72-16a878baa551",
                             "9bb4535f-4b5c-4b39-8a53-7977c4897ada",
@@ -3040,7 +3047,7 @@
                         ],
                         "expanded": true,
                         "h": 1562.0,
-                        "labelHeight": 21.0,
+                        "labelHeight": 23.0,
                         "nodesToMove": [
                             "7caa8460-aed2-4dc7-bb2f-9b034adc06c3",
                             "95eb7ca5-e175-4fd1-8a82-23c315a2d9da",
@@ -3085,7 +3092,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -3116,7 +3123,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -3146,7 +3153,7 @@
                 "name": "inputlayer",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 14,
                         "direction": 1,
@@ -3164,7 +3171,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 0,
@@ -3173,7 +3180,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 0,
@@ -3182,7 +3189,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
@@ -3191,7 +3198,7 @@
                         "value": []
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 0,
@@ -3216,7 +3223,7 @@
                 "name": "Compile",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -3249,7 +3256,7 @@
                         "direction": 0,
                         "name": "Filename",
                         "uuid": "5e27166c-1459-4e02-ac98-5e8a90269f8d",
-                        "value": "C:/dev/keras-yolo3/annotations/2carsAnnotation.txt"
+                        "value": "annotations\\2carsAnnotation.txt"
                     },
                     {
                         "bDirty": false,
@@ -3268,7 +3275,7 @@
                 "name": "DataSet1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 1,
@@ -3277,7 +3284,7 @@
                         "value": []
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 1,
@@ -3301,7 +3308,7 @@
                 "name": "Yolo1Loss",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -3380,7 +3387,7 @@
                 "name": "Adam",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -3398,7 +3405,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 3,
                         "direction": 0,
@@ -3414,7 +3421,7 @@
                 "name": "makeStringArray",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 1,
@@ -3444,7 +3451,7 @@
                 "name": "accuracy",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 3,
                         "direction": 1,
@@ -3471,7 +3478,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 0,
@@ -3480,7 +3487,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 0,
@@ -3489,7 +3496,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 0,
@@ -3498,7 +3505,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 2,
                         "direction": 0,
@@ -3516,7 +3523,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
@@ -3525,7 +3532,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 2,
                         "direction": 0,
@@ -3543,7 +3550,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 2,
                         "direction": 0,
@@ -3559,7 +3566,7 @@
                 "name": "FitGenerator",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -3604,7 +3611,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 2,
                         "direction": 0,
@@ -3622,7 +3629,7 @@
                         "value": 0
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 3,
                         "direction": 0,
@@ -3665,7 +3672,7 @@
                 "name": "TensorBoard",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -3689,7 +3696,7 @@
                 "name": "TerminateOnNaN",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -3780,7 +3787,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 3,
                         "direction": 0,
@@ -3835,7 +3842,7 @@
                 "name": "epoch",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 3,
                         "direction": 1,
@@ -3853,7 +3860,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 3,
                         "direction": 0,
@@ -3908,7 +3915,7 @@
                 "name": "done",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 3,
                         "direction": 1,
@@ -3926,7 +3933,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -3987,7 +3994,7 @@
                 "name": "AveragePooling2D",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4026,7 +4033,7 @@
                 "name": "Batch_Size",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 2,
                         "direction": 1,
@@ -4056,7 +4063,7 @@
                 "name": "num_epoch",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 2,
                         "direction": 1,
@@ -4074,7 +4081,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4144,7 +4151,7 @@
                 "name": "SeparableConv2D4",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4171,7 +4178,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4232,7 +4239,7 @@
                 "name": "MaxPooling2D4",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4259,7 +4266,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4293,7 +4300,7 @@
                 "name": "BatchNormalization4",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4320,7 +4327,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4363,7 +4370,7 @@
                 "name": "Activation4",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4390,7 +4397,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4460,7 +4467,7 @@
                 "name": "SeparableConv2D5",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4487,7 +4494,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4548,7 +4555,7 @@
                 "name": "MaxPooling2D5",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4575,7 +4582,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4609,7 +4616,7 @@
                 "name": "BatchNormalization5",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4636,7 +4643,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4679,7 +4686,7 @@
                 "name": "Activation5",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4706,7 +4713,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4776,7 +4783,7 @@
                 "name": "SeparableConv2D6",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4803,7 +4810,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4837,7 +4844,7 @@
                 "name": "BatchNormalization6",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4864,7 +4871,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 0,
@@ -4907,7 +4914,7 @@
                 "name": "Activation6",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 14,
                         "direction": 1,
@@ -4946,7 +4953,7 @@
                 "name": "Batch_Size",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 2,
                         "direction": 1,
@@ -4976,7 +4983,7 @@
                 "name": "LogDir",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 3,
                         "direction": 1,
@@ -4994,7 +5001,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
@@ -5003,7 +5010,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
@@ -5012,7 +5019,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 3,
                         "direction": 0,
@@ -5030,7 +5037,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 2,
                         "direction": 0,
@@ -5039,7 +5046,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 3,
                         "direction": 0,
@@ -5055,7 +5062,7 @@
                 "name": "generator",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -5064,7 +5071,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 0,
                         "direction": 1,
@@ -5094,7 +5101,7 @@
                 "name": "Batch_Size",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 2,
                         "direction": 1,
@@ -5124,7 +5131,7 @@
                 "name": "LogDir",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 3,
                         "direction": 1,
@@ -5148,13 +5155,13 @@
                         "name": "data_path",
                         "type": 3,
                         "uuid": "0e5c6591-83a3-463d-a0ad-b1b31f4235b9",
-                        "value": "C:\\dev\\data\\MattelCars\\2cars"
+                        "value": "D:\\dev\\data\\MattelCars\\2cars"
                     }
                 },
                 "name": "data_path",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": true,
                         "dataType": 3,
                         "direction": 1,
@@ -5172,7 +5179,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
@@ -5188,7 +5195,7 @@
                 "name": "arrayLen1",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 2,
                         "direction": 1,
@@ -5206,7 +5213,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 5,
                         "direction": 0,
@@ -5240,7 +5247,7 @@
                 "computeCode": "",
                 "inputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 1,
                         "direction": 0,
@@ -5249,7 +5256,7 @@
                         "value": 0.0
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 1,
                         "direction": 0,
@@ -5265,7 +5272,7 @@
                 "name": "dividef",
                 "outputs": [
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 1,
                         "direction": 1,
@@ -5274,7 +5281,7 @@
                         "value": null
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 4,
                         "direction": 1,
@@ -5301,7 +5308,7 @@
                         "value": 0.0
                     },
                     {
-                        "bDirty": false,
+                        "bDirty": true,
                         "bLabelHidden": false,
                         "dataType": 1,
                         "direction": 0,
@@ -5382,6 +5389,64 @@
                 "uuid": "b841a383-478e-4935-96bd-818d9db5408a",
                 "x": 4640.0,
                 "y": 4658.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "in0",
+                        "uuid": "371c0b4c-b011-450b-bbb4-6f89ef2a33ed",
+                        "value": null
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 0,
+                        "name": "inp",
+                        "uuid": "0ab4e435-d171-44f4-9754-758cf8f4baca",
+                        "value": null
+                    }
+                ],
+                "meta": {
+                    "label": "Set history",
+                    "var": {
+                        "accessLevel": 0,
+                        "name": "history",
+                        "type": 0,
+                        "uuid": "e3ff9229-aa84-4ce0-bcc1-34ac96e5f3e2",
+                        "value": ""
+                    }
+                },
+                "name": "history",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "out0",
+                        "uuid": "8be5add4-3dc5-4f39-b4f3-42930644b76e",
+                        "value": null
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 1,
+                        "name": "out",
+                        "uuid": "b8ab33ad-7f2b-4eba-a984-c36d167b829a",
+                        "value": null
+                    }
+                ],
+                "type": "SetVarNode",
+                "uuid": "8102046b-8b07-4fbf-8116-2fdc0cd1a6e7",
+                "x": 5490.0,
+                "y": 4858.0
             }
         ],
         "variables": [
@@ -5446,7 +5511,14 @@
                 "name": "data_path",
                 "type": 3,
                 "uuid": "0e5c6591-83a3-463d-a0ad-b1b31f4235b9",
-                "value": "C:\\dev\\data\\MattelCars\\2cars"
+                "value": "D:\\dev\\data\\MattelCars\\2cars"
+            },
+            {
+                "accessLevel": 0,
+                "name": "history",
+                "type": 0,
+                "uuid": "e3ff9229-aa84-4ce0-bcc1-34ac96e5f3e2",
+                "value": ""
             }
         ]
     }

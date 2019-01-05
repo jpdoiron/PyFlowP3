@@ -1,20 +1,20 @@
+import os
 from pathlib import Path
 
-import os
 import tensorflow as tf
-
-from PyFlow.Core.AGraphCommon import DataTypes
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras.utils.generic_utils import CustomObjectScope
+
+from PyFlow.Core.AGraphCommon import DataTypes
 from ..Core import Node
 
 
 def relu6(x):
     return K.relu(x, max_value=6)
 
-class ConvertH5ToPb(Node):
+class convertH5ToPb(Node):
     def __init__(self, name, graph):
-        super(ConvertH5ToPb, self).__init__(name, graph)
+        super(convertH5ToPb, self).__init__(name, graph)
         self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
         self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 

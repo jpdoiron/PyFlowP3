@@ -4,7 +4,7 @@ import random
 from os import listdir, path
 from time import ctime
 
-from PySide2 import QtCore, QtGui
+from PySide2 import QtGui
 from PySide2.QtWidgets import QAbstractItemView
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QFileDialog
@@ -827,8 +827,8 @@ class GraphWidget(QGraphicsView, Graph):
             self.duplicateNodes()
 
         if all([event.key() == QtCore.Qt.Key_K, modifiers == QtCore.Qt.ControlModifier]):
-            if StaticVar.instance().currentProcessThread is not None:
-                StaticVar.instance().currentProcessThread.terminate()
+            if Thread.getInstance() is not None:
+                Thread.getInstance().terminate()
 
         if all([event.key() == QtCore.Qt.Key_R, modifiers == QtCore.Qt.ControlModifier]):
             from PyFlow.App import PyFlow
@@ -844,6 +844,7 @@ class GraphWidget(QGraphicsView, Graph):
             self.unLinkNodes()
 
         QGraphicsView.keyPressEvent(self, event)
+
 
     def duplicateNodes(self):
         selectedNodes = [i for i in self.getNodes() if i.isSelected()]

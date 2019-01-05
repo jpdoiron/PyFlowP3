@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>resources/play.png</file>
+    <file>resources/stop.png</file>
     <file>resources/LogoBpApp.png</file>
     <file>resources/alignbottom.png</file>
     <file>resources/alignleft.png</file>

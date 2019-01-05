@@ -10,8 +10,12 @@ import math
 import threading
 from enum import IntEnum
 from functools import wraps
+from logging import Handler
 from queue import Queue
 from threading import Thread
+
+from PySide2 import QtCore
+from PySide2.QtCore import QThread, Signal, QObject
 
 from . import Enums
 
@@ -180,14 +184,101 @@ def _async_raise(tid, excobj):
         raise SystemError("PyThreadState_SetAsyncExc failed")
 
 
-class Thread(threading.Thread):
 
-    def __init__(self,**kwargs):
-        super(Thread, self).__init__(**kwargs)
+
+class ConsoleHandler(Handler):
+    """
+    A handler class which writes logging records, appropriately formatted,
+    to a stream. Note that this class does not close the stream, as
+    sys.stdout or sys.stderr may be used.
+    """
+
+    terminator = '\n'
+    printString = QtCore.Signal(str)
+    def __init__(self, signal=None):
+        """
+        Initialize the handler.
+
+        If stream is not specified, sys.stderr is used.
+        """
+        self.signal : MySignal = signal
+        Handler.__init__(self)
+        # if stream is None:
+        #     stream = sys.stderr
+        # self.stream = stream
+
+    def flush(self):
+        """
+        Flushes the stream.
+        """
+        # self.acquire()
+        # try:
+        #     if self.stream and hasattr(self.stream, "flush"):
+        #         self.stream.flush()
+        # finally:
+        #     self.release()
+
+    def emit(self, record):
+        """
+        Emit a record.
+
+        If a formatter is specified, it is used to format the record.
+        The record is then written to the stream with a trailing newline.  If
+        exception information is present, it is formatted using
+        traceback.print_exception and appended to the stream.  If the stream
+        has an 'encoding' attribute, it is used to determine how to do the
+        output to the stream.
+        """
+        try:
+            msg = self.format(record)
+            self.signal.sig.emit(msg)
+            # stream = self.stream
+            # stream.write(msg)
+            # stream.write(self.terminator)
+            # self.flush()
+        except Exception:
+            self.handleError(record)
+
+class MySignal(QObject):
+    sig = Signal(str)
+
+class Thread(QThread):
+
+    __instance = None
+
+    @staticmethod
+    def getInstance():
+        """ Static access method. """
+        return Thread.__instance
+
+    def __init__(self,parent,target):
+        super(Thread, self).__init__()
+
+        Thread.__instance = self
+
+        self.instance = self
+        self.parent=parent
+        self.target=target
+        self.signal = MySignal()
+
+
         print("keras memory")
-        from tensorflow.python.keras.backend import set_session,get_session,clear_session
+
+
+        from tensorflow.python.keras.backend import set_session, clear_session
         import tensorflow as tf
+        import logging
+
         tf.logging.set_verbosity('DEBUG')
+        log = logging.getLogger('tensorflow')
+
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        fh = ConsoleHandler(self.signal)
+        fh.setLevel(logging.DEBUG)
+        fh.setFormatter(formatter)
+        log.addHandler(fh)
+
+
         tfconfig = tf.ConfigProto()
         tfconfig.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
         self.sess = tf.Session(config=tfconfig)
@@ -196,22 +287,25 @@ class Thread(threading.Thread):
         print("init keras memory")
 
 
-
     def raise_exc(self, excobj):
-        assert self.isAlive(), "thread must be started"
+        assert self.isRunning(), "thread must be started"
         for tid, tobj in threading._active.items():
-            if tobj is self:
+            if tobj is threading.current_thread():
                 _async_raise(tid, excobj)
+                print("Closed thread RAISIN")
                 return
 
+        print("the thread was alive when we entered the loop, but was not found")
         # the thread was alive when we entered the loop, but was not found
         # in the dict, hence it must have been already terminated. should we raise
         # an exception here? silently ignore?
 
     def run(self):
         try:
-            if self._target:
-                self._target(*self._args, **self._kwargs)
+            from types import MethodType
+            m=MethodType(self.target,self.parent)
+            m()
+
         except Exception as e:
             import traceback
             import sys
@@ -220,7 +314,8 @@ class Thread(threading.Thread):
         finally:
             # Avoid a refcycle if the thread is running a function with
             # an argument that has a member that points to the thread.
-            del self._target, self._args, self._kwargs
+            del self.target, self.parent
+            self.finished.emit()
 
             #if(self.sess is not None):
                 # from tensorflow.python.keras.backend import clear_session
@@ -229,11 +324,11 @@ class Thread(threading.Thread):
 
         print("function done")
 
-    def terminate(self):
-        # must raise the SystemExit type, instead of a SystemExit() instance
-        # due to a bug in PyThreadState_SetAsyncExc
-        print("RAISIN")
-        self.raise_exc(SystemExit)
+    # def terminate(self):
+    #
+    #     # must raise the SystemExit type, instead of a SystemExit() instance
+    #     # due to a bug in PyThreadState_SetAsyncExc
+    #     self.raise_exc(SystemExit)
 
 
 class Singleton:

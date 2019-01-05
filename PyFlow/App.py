@@ -1,4 +1,3 @@
-import imp
 import os
 import subprocess
 import sys
@@ -7,6 +6,7 @@ from time import clock
 
 from PySide2 import QtCore
 from PySide2 import QtGui
+from PySide2.QtCore import Signal, QObject
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QInputDialog
 from PySide2.QtWidgets import QMainWindow
@@ -230,11 +230,70 @@ class {0}(PinWidgetBase):
         print(("[INFO] Pin {0} been created.\n Restart application.".format(name)))
         open_file(filePath)
 
+    class SMSHandler(logging.Handler):  # Inherit from logging.Handler
+        def __init__(self, phonenumber):
+            # run the regular Handler __init__
+            logging.Handler.__init__(self)
+            # Our custom argument
+            self.phonenumber = phonenumber
+
+        def emit(self, record):
+            # record.message is the log message
+            #sendsms.send(self.phonenumber, record.message)
+            print("message")
+
+
+from PySide2.QtGui import QTextCursor
+
+class MySignal(QObject):
+    sig = Signal(str)
+
+class ConsoleLogger(object):
+
+    signal = None
+
+    def __init__(self, error=False):
+        if(error):
+            self.terminal = sys.stderr
+        else:
+            self.terminal = sys.stdout
+
+        self.signal = MySignal()
+        self.error = error
+        #self.consoleEdit : QTextEdit = consoleEdit
+        #self.log = open(filename, "a")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.signal.sig.emit(message)
+        #self.updateText.emit(message)
+
+
+    def flush(self):
+        pass
+
+class HiddenPrints:
+    def __enter__(self):
+        self._original_stdout = sys.stdout
+        self._original_stderr = sys.stderr
+        sys.stdout = open(os.devnull, 'w')
+        sys.stderr= open(os.devnull, 'w')
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout.close()
+        sys.stderr.close()
+        sys.stdout = self._original_stdout
+        sys.stderr = self._original_stderr
+
 
 ## App itself
 class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
+
+    _instance = None
+
     def __init__(self, parent=None):
         super(PyFlow, self).__init__(parent=parent)
+        PyFlow._instance = self
         self.setupUi(self)
         self.listViewUndoStack = QUndoView(self.dockWidgetContents_3)
         self.listViewUndoStack.setObjectName("listViewUndoStack")
@@ -273,6 +332,32 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         self.fps = EDITOR_TARGET_FPS
         self.tick_timer = QtCore.QTimer()
         self.tick_timer.timeout.connect(self.mainLoop)
+
+
+
+        sys.stdout = ConsoleLogger()
+        sys.stderr = ConsoleLogger(True)
+
+        sys.stdout.signal.sig.connect(self._handleTextUpdate)
+        sys.stderr.signal.sig.connect(self._handleTextUpdate)
+
+
+    def _handleTextUpdate(self, txt):
+
+        self.error = False
+        if self.error:
+            self.ConsoleEdit.setStyleSheet("QTextEdit { color: red;}")
+            self.ConsoleEdit.moveCursor(QTextCursor.End)
+            self.ConsoleEdit.insertPlainText(txt)
+            self.ConsoleEdit.moveCursor(QTextCursor.End)
+
+        else:
+            self.ConsoleEdit.setStyleSheet("QTextEdit { color: white;}")
+            self.ConsoleEdit.moveCursor(QTextCursor.End)
+            self.ConsoleEdit.insertPlainText(txt)
+            self.ConsoleEdit.moveCursor(QTextCursor.End)
+
+
 
     def startMainLoop(self):
         self.tick_timer.start(1000 / EDITOR_TARGET_FPS)
@@ -349,6 +434,10 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
     def on_delete(self):
         self.G.killSelectedNodes()
 
+
+
+
+
     @staticmethod
     def instance(parent=None):
         settings = QtCore.QSettings(SETTINGS_PATH, QtCore.QSettings.IniFormat)
@@ -364,6 +453,11 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         reload(Nodes)
         Nodes._getClasses()
         FunctionLibraries._getFunctions()
+
+
+import logging
+
+
 
 
 if __name__ == '__main__':
@@ -403,6 +497,8 @@ if __name__ == '__main__':
 
     app.setActiveWindow(instance)
     instance.show()
+
+
 
     try:
         sys.exit(app.exec_())

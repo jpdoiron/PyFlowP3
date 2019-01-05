@@ -4,9 +4,9 @@ from PyFlow.Core.AGraphCommon import DataTypes
 from ..Core import Node
 
 
-class ConvertH5ToTfLite(Node):
+class convertH5ToTfLite(Node):
     def __init__(self, name, graph):
-        super(ConvertH5ToTfLite, self).__init__(name, graph)
+        super(convertH5ToTfLite, self).__init__(name, graph)
         self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
         self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 

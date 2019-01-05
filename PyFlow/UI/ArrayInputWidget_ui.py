@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:/Workspace/PyFlowP3/PyFlow/UI/ArrayInputWidget_ui.ui'
+# Form implementation generated from reading ui file 'D:/dev/PyFlow/PyFlow/UI/ArrayInputWidget_ui.ui'
 #
-# Created: Wed Jan  2 15:03:21 2019
+# Created: Fri Jan  4 22:34:06 2019
 #      by: pyside2-uic 2.0.0 running on PySide2 5.6.0~a1
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):

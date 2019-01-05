@@ -68,6 +68,7 @@ class DataSet(Node):
 
         except Exception as e:
             print("{}\nError loading file: {}".format(self.filename, e))
+            Thread.getInstance().terminate()
 
     @staticmethod
     def description():
@@ -79,7 +80,6 @@ class DataSet(Node):
     def postCreate(self, jsonTemplate):
         Node.postCreate(self, jsonTemplate)
 
-        print("post",self.filename )
 
     def compute(self):
 
@@ -100,6 +100,8 @@ class DataSet(Node):
                 self.InitialInit = True
 
         except Exception as e:
-            print("{}\nError setting data: {}".format(self.filename,e))
-
+            import traceback
+            import sys
+            self.filename_pin.setDirty()
+            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
 

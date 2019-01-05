@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1154</width>
-    <height>633</height>
+    <width>1239</width>
+    <height>937</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,8 +86,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1154</width>
-     <height>21</height>
+     <width>1239</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuEdit">
@@ -105,6 +105,7 @@
     <addaction name="actionVariables"/>
     <addaction name="actionHistory"/>
     <addaction name="actionPropertyView"/>
+    <addaction name="actionConsole"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -159,6 +160,8 @@
    <addaction name="actionAlignBottom"/>
    <addaction name="actionAlignRight"/>
    <addaction name="separator"/>
+   <addaction name="ActionRun"/>
+   <addaction name="ActionStop"/>
   </widget>
   <widget class="QDockWidget" name="dockWidgetVariables">
    <property name="minimumSize">
@@ -204,7 +207,7 @@
           <x>0</x>
           <y>0</y>
           <width>148</width>
-          <height>554</height>
+          <height>618</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -239,8 +242,8 @@
   <widget class="QDockWidget" name="dockWidgetNodeView">
    <property name="minimumSize">
     <size>
-     <width>80</width>
-     <height>93</height>
+     <width>91</width>
+     <height>113</height>
     </size>
    </property>
    <property name="allowedAreas">
@@ -279,8 +282,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>78</width>
-          <height>383</height>
+          <width>89</width>
+          <height>439</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
@@ -343,6 +346,42 @@
      <property name="spacing">
       <number>1</number>
      </property>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidgetConsole">
+   <property name="windowTitle">
+    <string>Console</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_6">
+     <property name="leftMargin">
+      <number>1</number>
+     </property>
+     <property name="topMargin">
+      <number>1</number>
+     </property>
+     <property name="rightMargin">
+      <number>1</number>
+     </property>
+     <property name="bottomMargin">
+      <number>1</number>
+     </property>
+     <property name="spacing">
+      <number>1</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QTextEdit" name="ConsoleEdit"/>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -463,6 +502,25 @@
     <string>alignRight</string>
    </property>
   </action>
+  <action name="ActionRun">
+   <property name="icon">
+    <iconset resource="nodes_res.qrc">
+     <normaloff>:/icons/resources/play.png</normaloff>
+     <normalon>:/icons/resources/stop.png</normalon>:/icons/resources/play.png</iconset>
+   </property>
+   <property name="text">
+    <string>alignRight</string>
+   </property>
+  </action>
+  <action name="ActionStop">
+   <property name="icon">
+    <iconset resource="nodes_res.qrc">
+     <normaloff>:/icons/resources/alignright.png</normaloff>:/icons/resources/alignright.png</iconset>
+   </property>
+   <property name="text">
+    <string>alignRight</string>
+   </property>
+  </action>
   <action name="actionNew_Node">
    <property name="icon">
     <iconset resource="nodes_res.qrc">
@@ -542,6 +600,11 @@
    </property>
    <property name="text">
     <string>New</string>
+   </property>
+  </action>
+  <action name="actionConsole">
+   <property name="text">
+    <string>Console</string>
    </property>
   </action>
  </widget>

@@ -90,6 +90,11 @@ QMenu::indicator {
 }
 
 
+QTextEdit
+{
+    color: white;
+}
+
 QTextBrowser
 {
     color: #e4e4e4;

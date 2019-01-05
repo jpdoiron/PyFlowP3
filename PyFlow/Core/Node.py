@@ -5,11 +5,11 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
+import threading
 import time
 from inspect import getfullargspec
 from types import MethodType
 
-from PySide2 import QtCore
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QGraphicsItem
 from PySide2.QtWidgets import QGraphicsLinearLayout
@@ -27,7 +27,7 @@ from .Enums import ENone
 from .InputWidgets import getInputWidget
 from .NodePainter import NodePainter
 from ..Pins import CreatePin, pinName
-import threading
+
 
 class NodeName(QGraphicsTextItem):
     def __init__(self, parent, bUseTextureBg=True, color=Colors.Green):
@@ -275,22 +275,43 @@ class Node(QGraphicsItem, NodeBase):
             for o in list(inst.outputs.values()):
                 pinAffects(i, o)
 
+
+
+
         # generate compute method from function
         def compute(self):
             # arguments will be taken from inputs
 
             if threading.current_thread().name == 'MainThread':
-                StaticVar.instance().currentProcessThread = Thread(target=self.compute_core)
+
+                self.running = True
+
+                def isFinish():
+                    self.running = False
+                    print("fihish")
+
+                def reprint(msg):
+                    print(msg)
+
+                newThread = Thread(parent=self,target=compute_core)
+
+                newThread.signal.sig.connect(reprint)
+                newThread.finished.connect(isFinish)
+
                 time.sleep(0.1)
-                StaticVar.instance().currentProcessThread.start()
-                StaticVar.instance().currentProcessThread.join(0.3)
+                newThread.start()
+                #StaticVar.instance().currentProcessThread.join(0.3)
+
                 # t1 = threading.Thread(target=self.compute_core)
-                while StaticVar.instance().currentProcessThread.isAlive():
-                    print("wait")
+                while self.running:
+                    #print("wait")
                     QApplication.instance().processEvents()
-                    StaticVar.instance().currentProcessThread.join(0.3)
+                    QThread.sleep(0.01)
+                    #StaticVar.instance().currentProcessThread.join(0.3)
             else:
                 self.compute_core()
+
+
 
         def compute_core(self):
             print(self.name,threading.current_thread().name)
