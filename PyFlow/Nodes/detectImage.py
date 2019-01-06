@@ -1,15 +1,17 @@
 
-from Utils.yolo1 import utils
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from Utils.image_utils import image_resize2, transform_box, draw_detection_on_image
-from ..Core import Node
-import numpy as np
 from timeit import default_timer as timer
 
-class detect_image(Node):
+import numpy as np
+
+from Utils.image_utils import image_resize2, transform_box, draw_detection_on_image
+from Utils.yolo1 import utils
+from ..Core import Node
+from ..Core.AbstractGraph import *
+
+
+class detectImage(Node):
     def __init__(self, name, graph):
-        super(detect_image, self).__init__(name, graph)
+        super(detectImage, self).__init__(name, graph)
         self.inp0 = self.addInputPin('in0', DataTypes.Exec,self.compute)
 
         self.image_pin = self.addInputPin('image', DataTypes.Any)

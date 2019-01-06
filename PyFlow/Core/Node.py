@@ -5,7 +5,6 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
-import threading
 import time
 from inspect import getfullargspec
 from types import MethodType
@@ -167,6 +166,9 @@ class Node(QGraphicsItem, NodeBase):
         self.imageLayout = QGraphicsLinearLayout(QtCore.Qt.Vertical)
         self.imageLayout.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         self.imageLayout.setContentsMargins(1, 1, 1, 1)
+        self.imageLayout.setPreferredHeight(100)
+        self.imageLayout.setMaximumHeight(100)
+        self.imageLayout.setMinimumHeight(100)
         self.portsMainLayout.addItem(self.imageLayout)
 
         self.setZValue(1)
@@ -732,7 +734,7 @@ class Node(QGraphicsItem, NodeBase):
         lblName = name
         lbl = QLabel(lblName)
         from PySide2.QtGui import QPixmap
-        pixmap = QPixmap('d:/2019-01-04.png')
+        pixmap = QPixmap('UI/resources/empty.png')
         lbl.setPixmap(pixmap)
         connector_name.setWidget(lbl)
 
@@ -745,14 +747,17 @@ class Node(QGraphicsItem, NodeBase):
         return lbl
 
 
-    def changeImage(self, imageLabel:QLabel, image):
+    def changeImage(self, imageLabel:QLabel, image,default=False):
         from Utils.image_utils import image_resize2
         from Utils.image_utils import ResizeMode
-        image, _ = image_resize2(image, dim=imageLabel.size().toTuple(),mode=ResizeMode.SQUASH)
-        height, width, channel = image.shape
-        bytesPerLine = 3 * width
-        qImg = QtGui.QImage(image.data, width, height, bytesPerLine, QtGui.QImage.Format_RGB888).rgbSwapped()
-        pix = QtGui.QPixmap(qImg)
+        if default:
+            pix = QtGui.QPixmap('UI/resources/empty.png')
+        else:
+            image, _ = image_resize2(image, dim=imageLabel.size().toTuple(), mode=ResizeMode.SQUASH)
+            height, width, channel = image.shape
+            bytesPerLine = 3 * width
+            qImg = QtGui.QImage(image.data, width, height, bytesPerLine, QtGui.QImage.Format_RGB888).rgbSwapped()
+            pix = QtGui.QPixmap(qImg)
 
         imageLabel.setPixmap(pix)
 

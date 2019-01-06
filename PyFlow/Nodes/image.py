@@ -1,14 +1,10 @@
 import cv2
-from PySide2.QtWidgets import QGraphicsWidget
+from PySide2.QtWidgets import QGraphicsItem
 
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
-from PySide2.QtWidgets import QLabel
-from PySide2.QtGui import QPixmap
-from PySide2 import QtWidgets
-from PySide2.QtWidgets import QGraphicsLinearLayout
+
 class image(Node):
     def __init__(self, name, graph):
         super(image, self).__init__(name, graph)
@@ -18,6 +14,32 @@ class image(Node):
 
         self.imageBox = self.addImage()
 
+
+    def itemChange(self, change, value):
+        if change == self.ItemSelectedHasChanged:
+            try:
+                self.refreshImage()
+            except:
+                pass
+            finally:
+                return QGraphicsItem.itemChange(self, change, value)
+        return QGraphicsItem.itemChange(self, change, value)
+
+    def refreshImage(self):
+        try:
+            dataPath = self.dataPath_pin.getData()
+            imageName = self.imageName_pin.getData()
+            image = cv2.imread(dataPath + '/' + imageName)
+            self.image_pin.setData(image)
+            # a = self.imageBox.size()
+            self.changeImage(self.imageBox, image, default = True if image is None else False)
+        except:
+            print("error loading image")
+            pass
+
+    def postCreate(self, jsonTemplate):
+        Node.postCreate(self, jsonTemplate)
+        self.refreshImage()
 
     @staticmethod
     def pinTypeHints():
@@ -57,17 +79,9 @@ class image(Node):
             4) call output execs
         '''
 
-        dataPath = self.dataPath_pin.getData()
-        imageName = self.imageName_pin.getData()
-
         try:
 
-            image = cv2.imread(dataPath + '/' + imageName)
-            self.image_pin.setData(image)
-
-            #a = self.imageBox.size()
-            self.changeImage(self.imageBox,image)
-
+            self.refreshImage()
 
         except Exception as e:
             import traceback
