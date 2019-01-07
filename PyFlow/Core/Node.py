@@ -166,9 +166,9 @@ class Node(QGraphicsItem, NodeBase):
         self.imageLayout = QGraphicsLinearLayout(QtCore.Qt.Vertical)
         self.imageLayout.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
         self.imageLayout.setContentsMargins(1, 1, 1, 1)
-        self.imageLayout.setPreferredHeight(100)
+        self.imageLayout.setPreferredHeight(1)
         self.imageLayout.setMaximumHeight(100)
-        self.imageLayout.setMinimumHeight(100)
+        self.imageLayout.setMinimumHeight(1)
         self.portsMainLayout.addItem(self.imageLayout)
 
         self.setZValue(1)
@@ -724,6 +724,8 @@ class Node(QGraphicsItem, NodeBase):
 
 
     def addImage(self, name=''):
+
+        self.imageLayout.setMinimumHeight(100)
         # check if pins with this name already exists and get uniq name
         name = self.getUniqPinName(name)
 
