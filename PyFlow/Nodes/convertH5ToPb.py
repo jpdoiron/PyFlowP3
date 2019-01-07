@@ -125,6 +125,7 @@ class convertH5ToPb(Node):
                 self._model_out_pin.setData(self.output_model_file_pin.getData())
                 print('saved the freezed graph (ready for inference) at: ', str(Path(output_fld) / self.output_model_file_pin.getData()))
 
+                self.completed_pin.call()
         except Exception as e:
             import traceback
             import sys

@@ -17,7 +17,7 @@ class convertPbToTfLite(Node):
         self.mean_pin = self.addInputPin('mean', DataTypes.Int, self.compute, defaultValue=128)
         self.std_dev_pin = self.addInputPin('std_dev', DataTypes.Int, self.compute, defaultValue=127)
         self.input_shape_pin = self.addInputPin('input_shape', DataTypes.String, self.compute, defaultValue="")
-
+complete
 
     @staticmethod
     def pinTypeHints():
@@ -69,6 +69,8 @@ class convertPbToTfLite(Node):
 
             print(command)
             os.system(command, )
+
+            self.completed_pin.call()
 
         except Exception as e:
             import traceback
