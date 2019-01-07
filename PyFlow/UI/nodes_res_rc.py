@@ -8985,6 +8985,3 @@ def qCleanupResources():
 
 qInitResources()
 
-# noinspection PyUnresolvedReferences
-from PyFlow.UI import nodes_res_rc
-
