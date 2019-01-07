@@ -18,7 +18,7 @@ class convertH5ToPb(Node):
         self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
         self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 
-        self.output_model_file_pin = self.addInputPin('output_model', DataTypes.String, self.compute, defaultValue="model_output.pb")
+        self.output_model_file_pin = self.addInputPin('output_model', DataTypes.String, self.compute, defaultValue="model.pb")
         self.output_folder_pin = self.addInputPin('output_folder', DataTypes.String, self.compute, defaultValue="")
         self.input_model_pin = self.addInputPin('input_model', DataTypes.Any, self.compute, defaultValue=None)
 
@@ -30,6 +30,8 @@ class convertH5ToPb(Node):
         self.output_node_prefix_pin = self.addInputPin('output_node_prefix', DataTypes.String, self.compute, defaultValue="output_node")
 
         self.quantize_pin = self.addInputPin('quantize', DataTypes.Bool, self.compute, defaultValue=False)
+
+        self._model_out_pin = self.addOutputPin('model_out', DataTypes.String, self.compute, defaultValue="")
 
     @staticmethod
     def pinTypeHints():
@@ -119,6 +121,8 @@ class convertH5ToPb(Node):
                     constant_graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(),
                                                                                pred_node_names)
                 graph_io.write_graph(constant_graph, output_fld, self.output_model_file_pin.getData(), as_text=False)
+
+                self._model_out_pin.setData(self.output_model_file_pin.getData())
                 print('saved the freezed graph (ready for inference) at: ', str(Path(output_fld) / self.output_model_file_pin.getData()))
 
         except Exception as e:

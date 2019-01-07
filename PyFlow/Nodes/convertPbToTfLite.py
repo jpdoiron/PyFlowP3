@@ -4,19 +4,19 @@ from PyFlow.Core.AGraphCommon import DataTypes
 from ..Core import Node
 
 
-class convertH5ToTfLite(Node):
+class convertPbToTfLite(Node):
     def __init__(self, name, graph):
-        super(convertH5ToTfLite, self).__init__(name, graph)
+        super(convertPbToTfLite, self).__init__(name, graph)
         self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
         self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 
-        self.output_model_pin = self.addInputPin('output_model', DataTypes.String, self.compute)
-        self.input_model_pin = self.addInputPin('input_model', DataTypes.String, self.compute)
+        self.output_model_pin = self.addInputPin('output_model', DataTypes.String, self.compute, defaultValue="model.tflite")
+        self.input_model_pin = self.addInputPin('input_model', DataTypes.String, self.compute, defaultValue="model.pb")
         self.input_field_pin = self.addInputPin('input_field', DataTypes.String, self.compute)
         self.output_field_pin = self.addInputPin('output_field', DataTypes.String, self.compute)
-        self.mean_pin = self.addInputPin('mean', DataTypes.String, self.compute)
-        self.std_dev_pin = self.addInputPin('std_dev', DataTypes.String, self.compute)
-        self.input_shape_pin = self.addInputPin('input_shape', DataTypes.String, self.compute)
+        self.mean_pin = self.addInputPin('mean', DataTypes.Int, self.compute, defaultValue=128)
+        self.std_dev_pin = self.addInputPin('std_dev', DataTypes.Int, self.compute, defaultValue=127)
+        self.input_shape_pin = self.addInputPin('input_shape', DataTypes.String, self.compute, defaultValue="")
 
 
     @staticmethod

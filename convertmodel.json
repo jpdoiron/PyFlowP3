@@ -1,0 +1,457 @@
+{
+    "root": {
+        "edges": [
+            {
+                "destinationName": "SaveModel.model",
+                "destinationUUID": "0f4c8751-609d-4ce1-964a-9a5eef2359ef",
+                "sourceName": "LoadModel.out",
+                "sourceUUID": "bb3676d0-c709-4339-ae78-8da2620ab10e",
+                "uuid": "94670c6b-0d16-4044-828d-acfc9b3878b4"
+            },
+            {
+                "destinationName": "pyprint.entity",
+                "destinationUUID": "42d1575b-5341-418c-83f9-46cdd1c0df04",
+                "sourceName": "NewVar.val",
+                "sourceUUID": "08bc9002-648e-4c85-a89e-e9bcace5b005",
+                "uuid": "232aa1ad-01f5-4eaa-96f6-ee5ce6d7c7fc"
+            },
+            {
+                "destinationName": "convertH5ToPb.In",
+                "destinationUUID": "d62061d9-3e25-4288-a4ad-bdd66913ed3b",
+                "sourceName": "pyprint.outExec",
+                "sourceUUID": "7a23c251-b7cc-4a87-93bd-712d7efead41",
+                "uuid": "17737c74-1b8b-4ff7-8119-87ee6585955b"
+            },
+            {
+                "destinationName": "convertH5ToPb.input_model",
+                "destinationUUID": "975c329f-23d0-4177-8c59-360b13fd1236",
+                "sourceName": "LoadModel.out",
+                "sourceUUID": "bb3676d0-c709-4339-ae78-8da2620ab10e",
+                "uuid": "cd40befd-dcc5-45d0-8cc9-96c386c518f9"
+            },
+            {
+                "destinationName": "convertPbToTfLite.input_model",
+                "destinationUUID": "3d708b11-ff3f-4de7-8ed4-4835c040b8bd",
+                "sourceName": "convertH5ToPb.model_out",
+                "sourceUUID": "24d12788-1b6d-4250-8fbc-454f8bcce175",
+                "uuid": "142e68ae-87e4-4ad7-b3df-24250cef2ea0"
+            },
+            {
+                "destinationName": "convertPbToTfLite.In",
+                "destinationUUID": "1998b045-68d2-4a73-af0e-9b2073ad428b",
+                "sourceName": "convertH5ToPb.Completed",
+                "sourceUUID": "b7f4348d-524c-4ede-9f17-0014f7be2ef1",
+                "uuid": "c96a6587-ac14-4bd0-af85-ce631ee326ce"
+            }
+        ],
+        "nodes": [
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 15,
+                        "direction": 0,
+                        "name": "model_file",
+                        "uuid": "3b8cb9f9-53b8-40d2-b254-f9f8d929fc9c",
+                        "value": "model_body.h5"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 15,
+                        "direction": 0,
+                        "name": "yaml_file",
+                        "uuid": "ce12f3af-131b-4998-9f92-39f4d7125cda",
+                        "value": "model_body.yaml"
+                    }
+                ],
+                "meta": {
+                    "label": "LoadModel",
+                    "var": {}
+                },
+                "name": "LoadModel",
+                "outputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 1,
+                        "name": "out",
+                        "uuid": "bb3676d0-c709-4339-ae78-8da2620ab10e",
+                        "value": null
+                    }
+                ],
+                "type": "LoadModel",
+                "uuid": "e08567f9-babe-4bf3-be76-451dacb757db",
+                "x": 4440.0,
+                "y": 4738.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 0,
+                        "name": "model",
+                        "uuid": "0f4c8751-609d-4ce1-964a-9a5eef2359ef",
+                        "value": null
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "out_filename",
+                        "uuid": "2c7de8d4-f122-4947-be9f-420909cb547d",
+                        "value": "E:/Britney/model.h5"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 4,
+                        "direction": 0,
+                        "name": "overwrite",
+                        "uuid": "a0ec61b6-6cb0-4646-8437-1de6d8cbb192",
+                        "value": true
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "inExec",
+                        "uuid": "8e382219-1f82-4483-9aff-8414e31184a0",
+                        "value": null
+                    }
+                ],
+                "meta": {
+                    "label": "SaveModel",
+                    "var": {}
+                },
+                "name": "SaveModel",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "outExec",
+                        "uuid": "ad1a19ca-1283-449d-9af7-b84d6fc9fabe",
+                        "value": null
+                    }
+                ],
+                "type": "SaveModel",
+                "uuid": "5187406c-b915-4033-bc58-35b4e89d1870",
+                "x": 4750.0,
+                "y": 4718.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "In",
+                        "uuid": "d62061d9-3e25-4288-a4ad-bdd66913ed3b",
+                        "value": null
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "output_model",
+                        "uuid": "61ec351a-7c0a-43a7-b3e3-dd391420e1ce",
+                        "value": "model_output.pb"
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "output_folder",
+                        "uuid": "cc91b444-5828-456f-9a6a-f8e518ca996a",
+                        "value": ""
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 0,
+                        "name": "input_model",
+                        "uuid": "975c329f-23d0-4177-8c59-360b13fd1236",
+                        "value": null
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 4,
+                        "direction": 0,
+                        "name": "theano",
+                        "uuid": "5ac27696-107e-42f3-aadd-df5f658c7a8f",
+                        "value": false
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 4,
+                        "direction": 0,
+                        "name": "graph_def",
+                        "uuid": "bad351e1-e4fe-43de-b6c8-0575d8222618",
+                        "value": false
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "graph_def_file",
+                        "uuid": "52872b0e-e2ad-405d-970b-e627d92d3daf",
+                        "value": ""
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 2,
+                        "direction": 0,
+                        "name": "num_output",
+                        "uuid": "b74827e9-a0ab-49bd-aa98-bd78f1d65d9d",
+                        "value": 1
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "output_node_prefix",
+                        "uuid": "f677720a-50dd-42c5-a16f-38ca4e9396ae",
+                        "value": "output_node"
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 4,
+                        "direction": 0,
+                        "name": "quantize",
+                        "uuid": "80c31496-cce7-4506-909b-b5fe9b7b4bfe",
+                        "value": false
+                    }
+                ],
+                "meta": {
+                    "label": "convertH5ToPb",
+                    "var": {}
+                },
+                "name": "convertH5ToPb",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "Completed",
+                        "uuid": "b7f4348d-524c-4ede-9f17-0014f7be2ef1",
+                        "value": null
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 1,
+                        "name": "model_out",
+                        "uuid": "24d12788-1b6d-4250-8fbc-454f8bcce175",
+                        "value": ""
+                    }
+                ],
+                "type": "convertH5ToPb",
+                "uuid": "e6cfd7ae-16de-47b5-a2e1-d3cf873cff5d",
+                "x": 4740.0,
+                "y": 4888.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "entity",
+                        "uuid": "42d1575b-5341-418c-83f9-46cdd1c0df04",
+                        "value": null
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "inExec",
+                        "uuid": "3397f366-947a-4550-9b70-702087df3f67",
+                        "value": null
+                    }
+                ],
+                "meta": {
+                    "label": "pyprint",
+                    "var": {}
+                },
+                "name": "pyprint",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "outExec",
+                        "uuid": "7a23c251-b7cc-4a87-93bd-712d7efead41",
+                        "value": null
+                    }
+                ],
+                "type": "pyprint",
+                "uuid": "028c3aa1-1985-45f3-bf34-f56f17633f5e",
+                "x": 4330.0,
+                "y": 4928.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [],
+                "meta": {
+                    "label": "NewVar",
+                    "var": {
+                        "accessLevel": 0,
+                        "name": "NewVar",
+                        "type": 3,
+                        "uuid": "9f356c0b-e274-4b6e-a6a3-07bb52df5cc9",
+                        "value": "Starting..."
+                    }
+                },
+                "name": "NewVar",
+                "outputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": true,
+                        "dataType": 3,
+                        "direction": 1,
+                        "name": "val",
+                        "uuid": "08bc9002-648e-4c85-a89e-e9bcace5b005",
+                        "value": ""
+                    }
+                ],
+                "type": "GetVarNode",
+                "uuid": "64b2e2d4-a32a-4bad-ab96-eea3741835cd",
+                "x": 4240.0,
+                "y": 4988.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "In",
+                        "uuid": "1998b045-68d2-4a73-af0e-9b2073ad428b",
+                        "value": null
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "output_model",
+                        "uuid": "d87f903d-034d-4653-adca-35d92fc5366c",
+                        "value": "model.tflite"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "input_model",
+                        "uuid": "3d708b11-ff3f-4de7-8ed4-4835c040b8bd",
+                        "value": "model.pb"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "input_field",
+                        "uuid": "40bde294-9492-4e7d-960b-77f174f8c21c",
+                        "value": "input_1"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "output_field",
+                        "uuid": "1d631970-3fce-4fa8-8783-419f67d0bf09",
+                        "value": "output_node0"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 2,
+                        "direction": 0,
+                        "name": "mean",
+                        "uuid": "2098eb2e-4212-471c-95de-1d3b77e4ee60",
+                        "value": 128
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 2,
+                        "direction": 0,
+                        "name": "std_dev",
+                        "uuid": "18af44d7-d4c0-4302-b1a8-14cbc53d4913",
+                        "value": 127
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "input_shape",
+                        "uuid": "153dfc4d-c81d-4acc-86af-8764467f36b4",
+                        "value": ""
+                    }
+                ],
+                "meta": {
+                    "label": "convertPbToTfLite",
+                    "var": {}
+                },
+                "name": "convertPbToTfLite",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "Completed",
+                        "uuid": "130ca3a1-9e54-435e-8e5d-47bc2c7f5cc3",
+                        "value": null
+                    }
+                ],
+                "type": "convertPbToTfLite",
+                "uuid": "6c6c6226-4c3c-41ad-9fd1-133596b188a9",
+                "x": 5120.0,
+                "y": 4858.0
+            }
+        ],
+        "variables": [
+            {
+                "accessLevel": 0,
+                "name": "NewVar",
+                "type": 3,
+                "uuid": "9f356c0b-e274-4b6e-a6a3-07bb52df5cc9",
+                "value": "Starting..."
+            }
+        ]
+    }
+}
