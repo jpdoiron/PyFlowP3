@@ -61,3 +61,6 @@ class Ui_Form(object):
         self.cbHideLabel.setToolTip(QtWidgets.QApplication.translate("Form", "should hide label", None, -1))
         self.cbHideLabel.setText(QtWidgets.QApplication.translate("Form", "hide label", None, -1))
 
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc
+

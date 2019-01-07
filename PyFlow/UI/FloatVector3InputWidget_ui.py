@@ -90,3 +90,5 @@ class Ui_Form(object):
         self.label_3.setText(QtWidgets.QApplication.translate("Form", "z", None, -1))
         self.pbReset.setToolTip(QtWidgets.QApplication.translate("Form", "Reset to defaults", None, -1))
 
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc

@@ -35,3 +35,7 @@ class Ui_Form(object):
         Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
         self.pushButton.setText(QtWidgets.QApplication.translate("Form", "+", None, -1))
 
+
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc
+

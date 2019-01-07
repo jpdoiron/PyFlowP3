@@ -323,6 +323,11 @@ class PyFlow(QMainWindow, GraphEditor_ui.Ui_MainWindow):
         self.actionNew.triggered.connect(self.G.new_file)
         self.dockWidgetUndoStack.setVisible(False)
 
+        self.ActionRun.triggered.connect(self.G.runGraph)
+        self.ActionStop.triggered.connect(self.G.stopGraph)
+
+
+
         self.setMouseTracking(True)
 
         self.variablesWidget = VariablesWidget(self, self.G)
