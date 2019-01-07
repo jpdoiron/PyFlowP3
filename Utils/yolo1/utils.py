@@ -1,8 +1,11 @@
 import numpy as np
 import cv2
 from scipy.special import expit as sigmoid
+from timeit import default_timer as timer
 
 from imgaug import augmenters as iaa
+
+from Utils.image_utils import image_resize2, transform_box
 
 seq = iaa.Sometimes(0.5, iaa.SomeOf((0, None), [
     iaa.GaussianBlur(sigma=(0.0, 1.0)),
@@ -21,7 +24,6 @@ seq = iaa.Sometimes(0.5, iaa.SomeOf((0, None), [
     iaa.PiecewiseAffine(scale=(0.01, 0.02))
 
 ]))
-
 
 
 def draw_boxes(img, bboxes_w_conf, color=(0, 0, 255), thick=2, draw_dot=False, radius=7):
@@ -118,6 +120,7 @@ def get_boxes(nn_output, cutoff=0.2,label=False):
 
     return bboxes
 
+
 def nonmax_suppression(bboxes, iou_cutoff = 0.05):
     '''
     Suppress any overlapping boxes with IOU greater than 'iou_cutoff', keeping only
@@ -168,3 +171,42 @@ def iou_value(box1, box2):
     area_combined = abs((x12-x11)*(y12-y11) + (x22-x21)*(y22-y21) + 1e-3)
 
     return area_intersection/area_combined
+
+
+def detect_image(image_in, model, center=(0, 0)):
+    image, transform = image_resize2(image_in,(224,224), center=center)
+
+    image = ProcessInput(image)
+
+    image_data = np.expand_dims(image, axis=0)  # Add batch dimension.
+
+
+    start = timer()
+    pred = model.predict(image_data)
+    end = timer()
+    time = (end - start)
+
+    bboxes1 = get_boxes(pred[0], cutoff=0.3)
+    bboxes = nonmax_suppression(bboxes1, iou_cutoff=0.05)
+
+    out_boxes = []
+    out_scores = []
+    out_classes = []
+
+    for bbox in bboxes:
+        (x, y), (x1, y1), conf, cl = bbox
+        box = transform_box((x,y,x1,y1),transform, inverse=True)
+        out_boxes.append(box)
+        out_scores.append(conf)
+        out_classes.append(cl)
+
+    return out_classes, out_boxes, out_scores, transform, time, image
+
+
+def ProcessInput(image):
+    from tensorflow.python.keras.applications.imagenet_utils import preprocess_input
+    '''image channel transformation for training / inferencing'''
+    # b, g, r = cv2.split(image)  # get b,g,r
+    # image = cv2.merge([r, g, b])  # switch it to rgb
+    image = preprocess_input(image, mode='tf')
+    return image

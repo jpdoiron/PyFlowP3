@@ -14,7 +14,6 @@ class image(Node):
 
         self.imageBox = self.addImage()
 
-
     def itemChange(self, change, value):
         if change == self.ItemSelectedHasChanged:
             try:
