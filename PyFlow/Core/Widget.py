@@ -653,6 +653,14 @@ class GraphWidget(QGraphicsView, Graph):
             self._file_name_label.setPlainText(self._current_file_name)
             print((str("// saved: '{0}'".format(self._current_file_name))))
 
+    def runGraph(self):
+        print("run graph here")
+        pass
+
+    def stopGraph(self):
+        if Thread.getInstance() is not None:
+            Thread.getInstance().terminate()
+
     def save_as(self):
         self.save(True)
 

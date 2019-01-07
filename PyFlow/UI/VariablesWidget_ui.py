@@ -62,3 +62,5 @@ class Ui_Form(object):
         self.pbNewVar.setText(QtWidgets.QApplication.translate("Form", "+", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("Form", "Kill selected var", None, -1))
 
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc

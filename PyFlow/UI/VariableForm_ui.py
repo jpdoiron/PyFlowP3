@@ -41,3 +41,7 @@ class Ui_Form(object):
         Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
         self.labelName.setText(QtWidgets.QApplication.translate("Form", "var name", None, -1))
 
+
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc
+

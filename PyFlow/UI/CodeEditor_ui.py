@@ -144,3 +144,5 @@ class Ui_CodeEditorWidget(object):
         self.pbReset.setText(QtWidgets.QApplication.translate("CodeEditorWidget", "reset", None, -1))
         self.pbSave.setText(QtWidgets.QApplication.translate("CodeEditorWidget", "save", None, -1))
 
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc

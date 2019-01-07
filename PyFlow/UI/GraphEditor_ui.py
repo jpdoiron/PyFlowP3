@@ -213,16 +213,19 @@ class Ui_MainWindow(object):
         icon13.addPixmap(QtGui.QPixmap(":/icons/resources/alignright.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionAlignRight.setIcon(icon13)
         self.actionAlignRight.setObjectName("actionAlignRight")
+
         self.ActionRun = QtWidgets.QAction(MainWindow)
         icon14 = QtGui.QIcon()
         icon14.addPixmap(QtGui.QPixmap(":/icons/resources/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon14.addPixmap(QtGui.QPixmap(":/icons/resources/stop.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.ActionRun.setIcon(icon14)
         self.ActionRun.setObjectName("ActionRun")
+
         self.ActionStop = QtWidgets.QAction(MainWindow)
         self.ActionStop.setIcon(icon13)
         self.ActionStop.setObjectName("ActionStop")
         self.actionNew_Node = QtWidgets.QAction(MainWindow)
+
         icon15 = QtGui.QIcon()
         icon15.addPixmap(QtGui.QPixmap(":/icons/resources/brick.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionNew_Node.setIcon(icon15)
@@ -344,3 +347,5 @@ class Ui_MainWindow(object):
         self.actionNew.setText(QtWidgets.QApplication.translate("MainWindow", "New", None, -1))
         self.actionConsole.setText(QtWidgets.QApplication.translate("MainWindow", "Console", None, -1))
 
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc

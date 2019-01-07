@@ -1,7 +1,7 @@
 import os
-import pyside2uic
 import subprocess
 
+import pyside2uic
 
 CURRENT_DIR = os.path.dirname(__file__).replace('\\', '/') + '/'
 INTERPRETER_PATH = 'python.exe'
@@ -47,3 +47,6 @@ def compile():
 
 
 compile()
+
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc

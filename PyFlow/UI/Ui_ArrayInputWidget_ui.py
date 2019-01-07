@@ -7,7 +7,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -34,4 +34,8 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
         self.pushButton.setText(QtWidgets.QApplication.translate("Form", "+", None, -1))
+
+
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc
 

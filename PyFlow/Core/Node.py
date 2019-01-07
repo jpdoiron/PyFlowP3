@@ -295,6 +295,7 @@ class Node(QGraphicsItem, NodeBase):
                 def reprint(msg):
                     print(msg)
 
+                #fixme first node callde from the main
                 newThread = Thread(parent=self,target=compute_core)
 
                 newThread.signal.sig.connect(reprint)

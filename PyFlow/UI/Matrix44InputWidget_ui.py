@@ -116,3 +116,5 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
 
+# noinspection PyUnresolvedReferences
+from PyFlow.UI import nodes_res_rc
