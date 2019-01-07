@@ -59,7 +59,7 @@ class convertH5ToPb(Node):
         '''
             used by property view and node box widgets
         '''
-        return 'waka waka'
+        return 'convert h5 to Pb'
 
     def compute(self):
         """

@@ -47,7 +47,7 @@ class convertH5ToTfLite(Node):
         '''
             used by property view and node box widgets
         '''
-        return 'waka waka'
+        return 'convert H5 model to tflite'
 
     def compute(self):
 
