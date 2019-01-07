@@ -90,7 +90,7 @@ class benchmark(Node):
 
         self.input_model_pin = self.addInputPin('input_model', DataTypes.Any, self.compute, defaultValue=None)
         self.image_location_pin = self.addInputPin('image_location', DataTypes.String, self.compute, defaultValue="")
-        self.annotation_file_pin = self.addInputPin('anotation_file', DataTypes.String, self.compute, defaultValue="")
+        self.annotation_file_pin = self.addInputPin('annotation_file', DataTypes.String, self.compute, defaultValue="")
         self.class_offset_pin = self.addInputPin('class_offset', DataTypes.Int, self.compute, defaultValue=0)
         self.log_folder_pin = self.addInputPin('log folder', DataTypes.String, self.compute, defaultValue="Logs")
 
@@ -124,6 +124,7 @@ class benchmark(Node):
         '''
         return 'benchmark model'
 
+    # TODO should be more generic than detect image. For the moment it will do but it should work with more than images
     def compute(self):
         try:
             debug_benchmark = False
