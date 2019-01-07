@@ -290,7 +290,7 @@ class Node(QGraphicsItem, NodeBase):
 
                 def isFinish():
                     self.running = False
-                    print("fihish")
+                    print("finish")
 
                 def reprint(msg):
                     print(msg)
@@ -340,6 +340,8 @@ class Node(QGraphicsItem, NodeBase):
         if nodeType == NodeTypes.Callable:
             inst.addInputPin('inExec', DataTypes.Exec, inst.compute, True, index=0)
             outExec = inst.addOutputPin('outExec', DataTypes.Exec, inst.compute, True, index=0)
+
+
         return inst
 
     @staticmethod
