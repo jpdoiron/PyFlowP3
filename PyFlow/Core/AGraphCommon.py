@@ -239,6 +239,9 @@ class ConsoleHandler(Handler):
         except Exception:
             self.handleError(record)
 
+
+
+
 class MySignal(QObject):
     sig = Signal(str)
 
@@ -251,19 +254,21 @@ class Thread(QThread):
         """ Static access method. """
         return Thread.__instance
 
-    def __init__(self,parent,target):
+    def __init__(self, parent=None, target=None):
         super(Thread, self).__init__()
 
         Thread.__instance = self
-
-        self.instance = self
+        #
+        # self.instance = self
         self.parent=parent
         self.target=target
-        self.signal = MySignal()
 
+        self.signal = MySignal()
+        self.target =target
+        # self.args = args
+        # self.kwargs = kwargs
 
         print("keras memory")
-
 
         from tensorflow.python.keras.backend import set_session, clear_session
         import tensorflow as tf
@@ -284,7 +289,7 @@ class Thread(QThread):
         self.sess = tf.Session(config=tfconfig)
         set_session(self.sess)  # set this TensorFlow session as the default session for Keras
         clear_session()
-        print("init keras memory")
+        # print("init keras memory")
 
 
     def raise_exc(self, excobj):
@@ -301,27 +306,16 @@ class Thread(QThread):
         # an exception here? silently ignore?
 
     def run(self):
-        try:
-            from types import MethodType
-            m=MethodType(self.target,self.parent)
-            m()
+        # try:
+        print("function start")
+        from types import MethodType
+        m= MethodType(self.target,self.parent)
+        m()
 
-        except Exception as e:
-            import traceback
-            import sys
-            traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
-
-        finally:
-            # Avoid a refcycle if the thread is running a function with
-            # an argument that has a member that points to the thread.
-            del self.target, self.parent
-            self.finished.emit()
-
-            #if(self.sess is not None):
-                # from tensorflow.python.keras.backend import clear_session
-                # clear_session()  # get a new session
-             #   print("memory cleared")
-
+        # except Exception as e:
+        #     import traceback
+        #     import sys
+        #     traceback.print_exception(type(e), e, sys.exc_info()[2], limit=1, file=sys.stdout)
         print("function done")
 
     # def terminate(self):
@@ -329,6 +323,42 @@ class Thread(QThread):
     #     # must raise the SystemExit type, instead of a SystemExit() instance
     #     # due to a bug in PyThreadState_SetAsyncExc
     #     self.raise_exc(SystemExit)
+
+
+# Threaded function snippet
+def threaded(fn):
+    """To use as decorator to make a function call threaded.
+    Needs import
+    from threading import Thread"""
+
+    def wrapper(*args, **kwargs):
+
+        #thread = Thread(target=fn, args=args, kwargs=kwargs)
+        #newThread = Thread(parent=self, target=compute_core)
+        if threading.currentThread().name == "MainThread":
+            args[0].running = True
+            def isFinish():
+                args[0].running = False
+                print("done and done")
+
+
+            newThread = Thread(target=fn, parent=args[0])
+            newThread.finished.connect(isFinish)
+            newThread.start()
+
+            while args[0].running:
+                # print("wait")
+                from PySide2.QtWidgets import QApplication
+                QApplication.instance().processEvents()
+                QThread.sleep(0.01)
+                #print("waiting")
+            return newThread
+        else:
+            return (fn(args[0]))
+
+
+    return wrapper
+
 
 
 class Singleton:

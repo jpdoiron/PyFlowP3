@@ -1,7 +1,7 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from ..Core import Node
 from PySide2.QtCore import QTimer
+
+from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class delay(Node, NodeBase):
@@ -33,6 +33,7 @@ class delay(Node, NodeBase):
         self.out0.call()
         self.process = False
 
+    @threaded
     def compute(self):
         if not self.process:
             self.process = True

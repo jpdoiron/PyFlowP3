@@ -1,7 +1,7 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from ..Core import Node
 from PySide2.QtWidgets import QMenu
+
+from ..Core import Node
+from ..Core.AbstractGraph import *
 from ..Core.Pin import PinWidgetBase
 
 
@@ -44,5 +44,6 @@ class makeVector3Array(Node):
             p = PinWidgetBase.deserialize(self, inp)
             pinAffects(p, self.out0)
 
+    @threaded
     def compute(self):
         self.out0.setData(list([i.getData() for i in list(self.inputs.values())]))

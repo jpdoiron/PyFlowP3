@@ -1,6 +1,6 @@
 import os
 
-from PyFlow.Core.AGraphCommon import DataTypes
+from PyFlow.Core.AGraphCommon import DataTypes, threaded
 from ..Core import Node
 
 
@@ -48,6 +48,7 @@ class convertPbToTfLite(Node):
         '''
         return 'convert H5 model to tflite'
 
+    @threaded
     def compute(self):
 
         try:

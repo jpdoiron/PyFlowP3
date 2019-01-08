@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 
 from Utils.image_utils import draw_detection_on_image
+from Utils.yolo1.utils import detect_image
 from ..Core import Node
 from ..Core.AbstractGraph import *
 
@@ -52,8 +53,8 @@ class detectVideo(Node):
         return 'default description'
 
 
-    def detect_video(self, video_path):
-        vid = cv2.VideoCapture(0)
+    def detect_video(self, video_path,model):
+        vid = cv2.VideoCapture(video_path)
         if not vid.isOpened():
             raise IOError("Couldn't open webcam or video")
 
@@ -65,12 +66,13 @@ class detectVideo(Node):
         fps = "FPS: ??"
         prev_time = timer()
         while True:
-            return_value, frame = vid.read()
+
+            _, image = vid.read()
             height, width, _ = image.shape
 
             #todo detect image is model type specific
-            out_classes, out_boxes, out_scores, transform, exec_time, _ = self.detect_image(image, center=(width // 2, height // 2))
-            image = draw_detection_on_image(self, frame, out_boxes, out_classes, out_scores)
+            out_classes, out_boxes, out_scores, transform, exec_time, _ = detect_image(image, model, center=(width // 2, height // 2))
+            image = draw_detection_on_image(self, image, out_boxes, out_classes, out_scores)
 
             result = np.asarray(image)
             accum_time = accum_time + exec_time
@@ -83,17 +85,20 @@ class detectVideo(Node):
                         fontScale=0.50, color=(255, 0, 0), thickness=2)
             cv2.namedWindow("result", cv2.WINDOW_NORMAL)
             cv2.imshow("result", result)
+
             #if isOutput:
             #    out.write(result)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            if cv2.waitKey(25) & 0xFF == ord('q'):
                 break
-            if cv2.getWindowProperty('result', 0) == 0:
+            if cv2.getWindowProperty('result', cv2.WND_PROP_VISIBLE) < 1:
                 break
 
 
-        self.close_session()
+        cv2.destroyWindow("result")
 
+        #self.close_session()
 
+    @threaded
     def compute(self):
         '''
             1) get data from inputs
@@ -107,8 +112,7 @@ class detectVideo(Node):
 
         try:
 
-            self.detect_video(videoPath)
-
+            self.detect_video(videoPath, model)
             self.out0.call()
 
 

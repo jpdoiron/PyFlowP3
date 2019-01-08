@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class forLoop(Node, NodeBase):
@@ -36,6 +35,7 @@ class forLoop(Node, NodeBase):
     def description():
         return 'For loop'
 
+    @threaded
     def compute(self):
         indexFrom = self.firstIndex.getData()
         indexTo = self.lastIndex.getData()

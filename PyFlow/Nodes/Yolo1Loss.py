@@ -18,6 +18,7 @@ class Yolo1Loss(Node):
     def category():
         return 'Keras|function'
 
+    @threaded
     def compute(self):
 
         self.Loss_pin.setData(custom_loss)

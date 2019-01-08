@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class deltaTime(Node):
@@ -28,5 +27,6 @@ class deltaTime(Node):
     def Tick(self, deltaTime):
         self._deltaTime = deltaTime
 
+    @threaded
     def compute(self):
         self._out0.setData(self._deltaTime)

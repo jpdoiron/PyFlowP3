@@ -70,6 +70,7 @@ class image(Node):
         '''
         return 'default description'
 
+    @threaded
     def compute(self):
         '''
             1) get data from inputs

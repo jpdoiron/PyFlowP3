@@ -59,7 +59,7 @@ class augmentData(Node):
 
         return template
 
-
+    @threaded
     def compute(self):
 
         try:

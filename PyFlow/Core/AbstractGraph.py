@@ -4,8 +4,6 @@ import weakref
 from collections import OrderedDict
 from copy import deepcopy
 
-from PySide2.QtCore import QObject
-
 from .AGraphCommon import *
 
 
@@ -443,7 +441,7 @@ class NodeBase(INode):
         self.name = name
 
     # INode interface
-
+    @threaded
     def compute(self):
         '''
         node calculations here

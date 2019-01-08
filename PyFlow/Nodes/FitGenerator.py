@@ -80,10 +80,12 @@ class FitGenerator(Node):
         self.batch_pin.call()
         pass
 
+
     def UpdateEpoch(self,Epoch, e_logs):
         self.epoch_pin.call()
         pass
 
+    @threaded
     def compute(self):
 
         print("fit gen")

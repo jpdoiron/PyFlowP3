@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 ## charge node
@@ -39,6 +38,7 @@ class charge(Node):
         When accumulated value reaches <b>"amount"</b> - completed pin called.\n\
         Useful when you need to wait some time inside some tick function.'
 
+    @threaded
     def compute(self):
         step = abs(self.step.getData())
         if (self._currentAmount + step) < abs(self.amount.getData()):
