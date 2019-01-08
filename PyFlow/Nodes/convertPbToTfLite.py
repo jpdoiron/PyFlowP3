@@ -69,7 +69,7 @@ class convertPbToTfLite(Node):
 
             print(command)
 
-            os.subprocess.run("os.system({}, )".format(command), shell=True, check=True)
+            os.subprocess.run("os.system({}, )".format(command), shell=True, check=True, capture_output=True)
 
             self.completed_pin.call()
 
