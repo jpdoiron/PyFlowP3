@@ -1,0 +1,233 @@
+{
+    "root": {
+        "edges": [
+            {
+                "destinationName": "benchmark.In",
+                "destinationUUID": "882e5e68-82a7-4cae-b9eb-4fcc451e3b74",
+                "sourceName": "pyprint.outExec",
+                "sourceUUID": "97c9a0a8-2362-491b-a52a-0640750b9e0c",
+                "uuid": "d8ae9079-19a6-40db-8d0d-a009dec7712e"
+            },
+            {
+                "destinationName": "pyprint.entity",
+                "destinationUUID": "02c9cb26-60f5-4565-9829-b3b31eb433bd",
+                "sourceName": "useless.val",
+                "sourceUUID": "daf7e85f-b3f9-4dad-b9df-f4df5da9e16d",
+                "uuid": "45f4f9c7-4c47-4a55-8cce-5c85c4527b23"
+            },
+            {
+                "destinationName": "benchmark.input_model",
+                "destinationUUID": "efd9d3a0-22e9-41a3-a14d-4fb5ea226cc5",
+                "sourceName": "LoadModel.out",
+                "sourceUUID": "aab284fc-b30a-445c-8e09-9f01e8be3222",
+                "uuid": "57687dcb-e59d-46ab-be43-909912ccd6b2"
+            }
+        ],
+        "nodes": [
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "In",
+                        "uuid": "882e5e68-82a7-4cae-b9eb-4fcc451e3b74",
+                        "value": null
+                    },
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 0,
+                        "name": "input_model",
+                        "uuid": "efd9d3a0-22e9-41a3-a14d-4fb5ea226cc5",
+                        "value": null
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "image_location",
+                        "uuid": "aa708931-e897-41f6-b339-dde344a5c2d3",
+                        "value": "C:\\dev\\data\\MattelCars\\2cars"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 15,
+                        "direction": 0,
+                        "name": "annotation_file",
+                        "uuid": "49ad692e-1417-4914-8839-5dc0ed9b1ac5",
+                        "value": "annotations\\2carsAnnotation.txt"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 2,
+                        "direction": 0,
+                        "name": "class_offset",
+                        "uuid": "8caa6d6e-2154-4133-8d3f-579144393b8a",
+                        "value": 19
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "log_folder",
+                        "uuid": "ee5e8f88-2f77-4391-8130-7052fb44880a",
+                        "value": "Logs"
+                    }
+                ],
+                "meta": {
+                    "label": "benchmark",
+                    "var": {}
+                },
+                "name": "benchmark",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "Completed",
+                        "uuid": "747d68be-c6f2-408e-92a7-34ce01f4cb1f",
+                        "value": null
+                    }
+                ],
+                "type": "benchmark",
+                "uuid": "caf304da-7eaa-475a-aeca-79088bda65d0",
+                "x": 5140.0,
+                "y": 4798.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 15,
+                        "direction": 0,
+                        "name": "model_file",
+                        "uuid": "ab977abe-d60a-4260-b2b4-486c6bd66e23",
+                        "value": "checkpoint.h5"
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": false,
+                        "dataType": 15,
+                        "direction": 0,
+                        "name": "yaml_file",
+                        "uuid": "00351a56-fd30-4b8e-a3c4-dc012c899b97",
+                        "value": "model_body.yaml"
+                    }
+                ],
+                "meta": {
+                    "label": "LoadModel",
+                    "var": {}
+                },
+                "name": "LoadModel",
+                "outputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 0,
+                        "direction": 1,
+                        "name": "out",
+                        "uuid": "aab284fc-b30a-445c-8e09-9f01e8be3222",
+                        "value": null
+                    }
+                ],
+                "type": "LoadModel",
+                "uuid": "fd3ea0a2-17e5-46f4-82ad-82407831b198",
+                "x": 4810.0,
+                "y": 4718.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": false,
+                        "dataType": 3,
+                        "direction": 0,
+                        "name": "entity",
+                        "uuid": "02c9cb26-60f5-4565-9829-b3b31eb433bd",
+                        "value": null
+                    },
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 0,
+                        "name": "inExec",
+                        "uuid": "1d8bc9c0-260a-4f34-8ed5-ffcef344300c",
+                        "value": null
+                    }
+                ],
+                "meta": {
+                    "label": "pyprint",
+                    "var": {}
+                },
+                "name": "pyprint",
+                "outputs": [
+                    {
+                        "bDirty": false,
+                        "bLabelHidden": true,
+                        "dataType": 6,
+                        "direction": 1,
+                        "name": "outExec",
+                        "uuid": "97c9a0a8-2362-491b-a52a-0640750b9e0c",
+                        "value": null
+                    }
+                ],
+                "type": "pyprint",
+                "uuid": "e7d26743-5352-4e5d-816f-213f1e7f9c7f",
+                "x": 4740.0,
+                "y": 4948.0
+            },
+            {
+                "computeCode": "",
+                "inputs": [],
+                "meta": {
+                    "label": "useless",
+                    "var": {
+                        "accessLevel": 0,
+                        "name": "useless",
+                        "type": 3,
+                        "uuid": "a587c245-a974-4e72-b184-293439c87727",
+                        "value": "TATA"
+                    }
+                },
+                "name": "useless",
+                "outputs": [
+                    {
+                        "bDirty": true,
+                        "bLabelHidden": true,
+                        "dataType": 3,
+                        "direction": 1,
+                        "name": "val",
+                        "uuid": "daf7e85f-b3f9-4dad-b9df-f4df5da9e16d",
+                        "value": ""
+                    }
+                ],
+                "type": "GetVarNode",
+                "uuid": "1b553fe8-c73d-4911-a958-420447631ffb",
+                "x": 4510.0,
+                "y": 4998.0
+            }
+        ],
+        "variables": [
+            {
+                "accessLevel": 0,
+                "name": "useless",
+                "type": 3,
+                "uuid": "a587c245-a974-4e72-b184-293439c87727",
+                "value": "TATA"
+            }
+        ]
+    }
+}

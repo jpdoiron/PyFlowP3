@@ -174,12 +174,11 @@ def iou_value(box1, box2):
 
 
 def detect_image(image_in, model, center=(0, 0)):
-    image, transform = image_resize2(image_in,(224,224), center=center)
+    out_image, transform = image_resize2(image_in,(224,224), center=center)
 
-    image = ProcessInput(image)
+    image = ProcessInput(out_image)
 
     image_data = np.expand_dims(image, axis=0)  # Add batch dimension.
-
 
     start = timer()
     pred = model.predict(image_data)
@@ -200,7 +199,7 @@ def detect_image(image_in, model, center=(0, 0)):
         out_scores.append(conf)
         out_classes.append(cl)
 
-    return out_classes, out_boxes, out_scores, transform, time, image
+    return out_classes, out_boxes, out_scores, transform, time, out_image
 
 
 def ProcessInput(image):

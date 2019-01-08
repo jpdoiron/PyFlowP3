@@ -72,8 +72,8 @@ def log_results(model, found, time_average, total_iou, total_boxes, labels, log_
     file.close()
 
 
-def log_image(model, image, image_name, box):
-    directory = os.path.join(model.log_path, "benchmark")
+def log_image(model, image, image_name, box, log_path):
+    directory = os.path.join(log_path, "benchmark")
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -92,7 +92,8 @@ class benchmark(Node):
         self.image_location_pin = self.addInputPin('image_location', DataTypes.String, self.compute, defaultValue="")
         self.annotation_file_pin = self.addInputPin('annotation_file', DataTypes.Files, self.compute, defaultValue="Annotation.txt")
         self.class_offset_pin = self.addInputPin('class_offset', DataTypes.Int, self.compute, defaultValue=0)
-        self.log_folder_pin = self.addInputPin('log folder', DataTypes.String, self.compute, defaultValue="Logs")
+        self.log_folder_pin = self.addInputPin('log_folder', DataTypes.String, self.compute, defaultValue="Logs")
+        self.enable_debug_pin = self.addInputPin('enable_debug', DataTypes.Bool, self.compute, defaultValue=False)
 
     @staticmethod
     def pinTypeHints():
@@ -127,7 +128,7 @@ class benchmark(Node):
     # TODO should be more generic than detect image. For the moment it will do but it should work with more than images
     def compute(self):
         try:
-            debug_benchmark = False
+            debug_benchmark = self.enable_debug_pin.getData()
 
             data_dir = self.image_location_pin.getData()
             class_offset = self.class_offset_pin.getData()
@@ -207,9 +208,10 @@ class benchmark(Node):
                         totalIOU.append(iou)
                     else:
                         if debug_benchmark:
-                            self.log_image(model, detection_image,
-                                           "{}_{}".format(os.path.splitext(val)[0], model.class_names[cl]),
-                                           transform_box([x1, y1, x2, y2], transform))
+                            #fixer le classname properly
+                            log_image(model, detection_image,
+                                           "{}_{}".format(os.path.splitext(val)[0], cl),
+                                           transform_box([x1, y1, x2, y2], transform), log_folder)
 
                     label[cl] = cnt, found
 
