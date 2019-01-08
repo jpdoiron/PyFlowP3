@@ -71,7 +71,7 @@ class convertPbToTfLite(Node):
 
             print(command)
 
-            command_pin.setData(command)
+            self.command_pin.setData(command)
             subprocess.run(command, shell=True, check=True)
 
             self.completed_pin.call()
