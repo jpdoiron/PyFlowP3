@@ -10,6 +10,8 @@ class convertPbToTfLite(Node):
         self.in0 = self.addInputPin('In', DataTypes.Exec, self.compute)
         self.completed_pin = self.addOutputPin('Completed', DataTypes.Exec)
 
+        self.command_pin = self.addOutputPin('command', DataTypes.String)
+
         self.output_model_pin = self.addInputPin('output_model', DataTypes.String, self.compute, defaultValue="model.tflite")
         self.input_model_pin = self.addInputPin('input_model', DataTypes.String, self.compute, defaultValue="model.pb")
         self.input_field_pin = self.addInputPin('input_field', DataTypes.String, self.compute)
@@ -69,7 +71,8 @@ class convertPbToTfLite(Node):
 
             print(command)
 
-            subprocess.run("os.system({}, )".format(command), shell=True, check=True)
+            command_pin.setData(command)
+            subprocess.run(command, shell=True, check=True)
 
             self.completed_pin.call()
 
