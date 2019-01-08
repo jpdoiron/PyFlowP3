@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class doN(Node):
@@ -37,6 +36,7 @@ class doN(Node):
         return 'The DoN node will fire off an execution pin N times. After the limit has been reached,\
         it will cease all outgoing execution until a pulse is sent into its Reset input.'
 
+    @threaded
     def compute(self):
         maxCalls = self._N.getData()
         if not self.bClosed and self._numCalls <= maxCalls:

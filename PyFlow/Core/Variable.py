@@ -4,7 +4,6 @@ Variable related classes.
 """
 from uuid import uuid4
 
-from PySide2 import QtCore
 from PySide2 import QtGui
 from PySide2.QtWidgets import QComboBox
 from PySide2.QtWidgets import QHBoxLayout
@@ -214,6 +213,7 @@ class VariableBase(QWidget):
         # current value
         def valSetter(x):
             self.value = x
+        #todo jpd do i need to call valsetter from a thread ?
         w = InputWidgets.getInputWidget(self.dataType, valSetter, Pins.getPinDefaultValueByType(self.dataType), None)
         if w:
             w.setWidgetValue(self.value)

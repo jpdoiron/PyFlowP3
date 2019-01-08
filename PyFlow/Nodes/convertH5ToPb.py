@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras.utils.generic_utils import CustomObjectScope
 
-from PyFlow.Core.AGraphCommon import DataTypes
+from PyFlow.Core.AGraphCommon import DataTypes, threaded
 from ..Core import Node
 
 
@@ -63,6 +63,7 @@ class convertH5ToPb(Node):
         '''
         return 'convert h5 to Pb'
 
+    @threaded
     def compute(self):
         """
         Convert H5 to PB

@@ -1,7 +1,7 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from ..Core import Node
 from PySide2.QtWidgets import QMenu
+
+from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class implicitPinCall(Node):
@@ -49,6 +49,7 @@ class implicitPinCall(Node):
 
             pass
 
+    @threaded
     def compute(self):
         uidStr = self.uidInp.getData()
         if len(uidStr) == 0:

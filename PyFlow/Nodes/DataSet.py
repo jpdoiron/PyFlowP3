@@ -80,7 +80,7 @@ class DataSet(Node):
     def postCreate(self, jsonTemplate):
         Node.postCreate(self, jsonTemplate)
 
-
+    @threaded
     def compute(self):
 
 

@@ -43,6 +43,7 @@ class SetVarNode(Node, NodeBase):
         formLayout.addRow("Type", leType)
 
         # input value
+        # todo jpd do i need to call valsetter from a thread ?
         w = getInputWidget(self.value.dataType, self.value.setData, self.var.value, None)
         if w:
             w.setWidgetValue(self.value.currentData())

@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 ## If else node
@@ -20,6 +19,7 @@ class branch(Node):
     def category():
         return 'FlowControl'
 
+    @threaded
     def compute(self):
         data = self.condition.getData()
         if data:

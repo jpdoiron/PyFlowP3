@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class doOnce(Node):
@@ -32,6 +31,7 @@ class doOnce(Node):
     def description():
         return 'Will fire off an execution pin just once. But can reset.'
 
+    @threaded
     def compute(self):
         bStartClosed = self.bStartClosed.getData()
 

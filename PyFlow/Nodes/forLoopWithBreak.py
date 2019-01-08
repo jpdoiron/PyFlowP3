@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class forLoopWithBreak(Node, NodeBase):
@@ -42,6 +41,7 @@ class forLoopWithBreak(Node, NodeBase):
     def description():
         return 'For loop with ability to break'
 
+    @threaded
     def compute(self):
         indexFrom = self.firstIndex.getData()
         indexTo = self.lastIndex.getData()

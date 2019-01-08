@@ -7,6 +7,7 @@ from time import clock
 from PySide2 import QtCore
 from PySide2 import QtGui
 from PySide2.QtCore import Signal, QObject
+from PySide2.QtGui import QTextCursor
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QInputDialog
 from PySide2.QtWidgets import QMainWindow
@@ -242,8 +243,6 @@ class {0}(PinWidgetBase):
             #sendsms.send(self.phonenumber, record.message)
             print("message")
 
-
-from PySide2.QtGui import QTextCursor
 
 class MySignal(QObject):
     sig = Signal(str)

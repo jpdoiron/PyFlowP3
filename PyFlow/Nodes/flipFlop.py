@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class flipFlop(Node, NodeBase):
@@ -28,6 +27,7 @@ class flipFlop(Node, NodeBase):
     def description():
         return 'Changes flow each time called'
 
+    @threaded
     def compute(self):
         if self.bState:
             self.bIsA.setData(self.bState)

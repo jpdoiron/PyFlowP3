@@ -63,5 +63,6 @@ class makeArray(Node):
             p = PinWidgetBase.deserialize(self, inp)
             pinAffects(p, self.out0)
 
+    @threaded
     def compute(self):
         self.out0.setData(list([i.getData() for i in list(self.inputs.values())]))

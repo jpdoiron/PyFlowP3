@@ -1,4 +1,5 @@
 from Utils.image_utils import draw_detection_on_image
+from Utils.yolo1.utils import detect_image
 from ..Core import Node
 from ..Core.AbstractGraph import *
 
@@ -54,6 +55,7 @@ class detectImage(Node):
         image = preprocess_input(image, mode='tf')
         return image
 
+    @threaded
     def compute(self):
         '''
             1) get data from inputs
@@ -65,15 +67,18 @@ class detectImage(Node):
             image = self.image_pin.getData()
             model = self.model_pin.getData()
 
-            out_classes, out_boxes, out_scores, transform, exec_time, _ = self.detect_image(image, model)
+            out_classes, out_boxes, out_scores, transform, exec_time, _ = detect_image(image, model)
             image = draw_detection_on_image(self, image, out_boxes, out_classes, out_scores)
 
             import matplotlib.pyplot as plt
 
             # pred = self.detect(image)
             # draw = self.GetBox(pred, img, dim=img.shape[:2])
-            plt.imshow(image[..., ::-1])
-            plt.show()
+
+            #fixme called from thread
+            #plt.imshow(image[..., ::-1])
+            #plt.show()
+
             print("RESULT de la mort", out_boxes)
 
             self.out0.call()

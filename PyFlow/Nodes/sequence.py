@@ -1,7 +1,7 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from ..Core import Node
 from PySide2.QtWidgets import QMenu
+
+from ..Core import Node
+from ..Core.AbstractGraph import *
 from ..Core.Pin import PinWidgetBase
 
 
@@ -47,6 +47,7 @@ class sequence(Node):
             for out in jsonTemplate['outputs']:
                 PinWidgetBase.deserialize(self, out)
 
+    @threaded
     def compute(self):
         for out in list(self.outputs.values()):
             out.call()

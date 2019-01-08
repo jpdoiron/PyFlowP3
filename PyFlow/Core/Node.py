@@ -5,7 +5,6 @@ Node is a base class for all ui nodes. This is actually a QGraphicsItem with all
 Also, it implements [initializeFromFunction](@ref PyFlow.Core.Node.initializeFromFunction) method which constructs node from given annotated function.
 @sa FunctionLibrary.py
 """
-import time
 from inspect import getfullargspec
 from types import MethodType
 
@@ -281,44 +280,11 @@ class Node(QGraphicsItem, NodeBase):
 
 
         # generate compute method from function
+        @threaded
         def compute(self):
             # arguments will be taken from inputs
-
-            if threading.current_thread().name == 'MainThread':
-
-                self.running = True
-
-                def isFinish():
-                    self.running = False
-                    print("finish")
-
-                def reprint(msg):
-                    print(msg)
-
-                #fixme first node callde from the main
-                newThread = Thread(parent=self,target=compute_core)
-
-                newThread.signal.sig.connect(reprint)
-                newThread.finished.connect(isFinish)
-
-                time.sleep(0.1)
-                newThread.start()
-                #StaticVar.instance().currentProcessThread.join(0.3)
-
-                # t1 = threading.Thread(target=self.compute_core)
-                while self.running:
-                    #print("wait")
-                    QApplication.instance().processEvents()
-                    QThread.sleep(0.01)
-                    #StaticVar.instance().currentProcessThread.join(0.3)
-            else:
-                self.compute_core()
-
-
-
-        def compute_core(self):
-            print(self.name,threading.current_thread().name)
             QApplication.instance().processEvents()
+            QThread.sleep(0.01)
 
             kwargs = {}
             for i in list(self.inputs.values()):
@@ -333,15 +299,13 @@ class Node(QGraphicsItem, NodeBase):
             if nodeType == NodeTypes.Callable:
                 outExec.call()
 
+
         inst.compute = MethodType(compute, inst)
-        inst.compute_core = MethodType(compute_core, inst)
 
         # create execs if callable
         if nodeType == NodeTypes.Callable:
             inst.addInputPin('inExec', DataTypes.Exec, inst.compute, True, index=0)
             outExec = inst.addOutputPin('outExec', DataTypes.Exec, inst.compute, True, index=0)
-
-
         return inst
 
     @staticmethod

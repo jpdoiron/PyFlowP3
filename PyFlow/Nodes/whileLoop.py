@@ -1,6 +1,5 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
 from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class whileLoop(Node):
@@ -12,6 +11,7 @@ class whileLoop(Node):
         self.completed = self.addOutputPin('Completed', DataTypes.Exec)
         self.bProcess = False
         self._dirty = False
+
 
     def begin(self):
         self.bProcess = True

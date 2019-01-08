@@ -219,8 +219,7 @@ class generator(Node):
             # show_box(a,[x,y,x1,y1])
             yield (X_train, y_train)
 
-
-
+    @threaded
     def compute(self):
 
         try:

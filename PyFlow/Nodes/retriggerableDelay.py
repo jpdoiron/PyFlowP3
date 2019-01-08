@@ -1,7 +1,7 @@
-from ..Core.AbstractGraph import *
-from ..Core.Settings import *
-from ..Core import Node
 from PySide2.QtCore import QTimer
+
+from ..Core import Node
+from ..Core.AbstractGraph import *
 
 
 class retriggerableDelay(Node, NodeBase):
@@ -36,6 +36,7 @@ class retriggerableDelay(Node, NodeBase):
     def description():
         return 'Delayed call. With ability to reset.'
 
+    #todo test avec le decorator threaded
     def callAndReset(self):
         self.out0.call()
         self.process = False

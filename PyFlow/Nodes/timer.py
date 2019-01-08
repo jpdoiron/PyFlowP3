@@ -1,5 +1,3 @@
-from PySide2 import QtCore
-
 from ..Core import Node
 from ..Core.AbstractGraph import *
 
@@ -41,5 +39,6 @@ class timer(Node, NodeBase):
     def category():
         return 'Utils'
 
+    @threaded
     def compute(self):
         self.out.call()
