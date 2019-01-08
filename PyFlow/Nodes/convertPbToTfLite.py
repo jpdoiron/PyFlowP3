@@ -1,4 +1,4 @@
-import os
+import subprocess
 
 from PyFlow.Core.AGraphCommon import DataTypes, threaded
 from ..Core import Node
@@ -69,7 +69,7 @@ class convertPbToTfLite(Node):
 
             print(command)
 
-            os.subprocess.run("os.system({}, )".format(command), shell=True, check=True, capture_output=True)
+            subprocess.run("os.system({}, )".format(command), shell=True, check=True)
 
             self.completed_pin.call()
 
