@@ -67,7 +67,8 @@ class convertPbToTfLite(Node):
                                                       input_shape=self.input_shape_pin.getData())
 
             print(command)
-            os.system(command, )
+
+            os.subprocess.run("os.system({}, )".format(command), shell=True, check=True)
 
             self.completed_pin.call()
 
